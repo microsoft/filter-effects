@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        "Nokia.InteropServices.WindowsRuntime.WinRT"
+    </assembly>
+    <members>
+        <member name="M:Nokia.InteropServices.WindowsRuntime.BufferFactory.CreateBuffer(Nokia.InteropServices.WindowsRuntime.IBufferPointer)">
+            <summary>Create an IBuffer from an IBufferPointer.</summary>
+            <param name="bufferPointer">A pointer to the data to wrap in an IBuffer.</param>
+            <returns>An IBuffer pointing to the same data as bufferPointer</returns>
+        </member>
+        <member name="T:Nokia.InteropServices.WindowsRuntime.BufferFactory">
+            <summary>Factory for creating an instance of IBuffer from an IBufferPointer.</summary>
+        </member>
+        <member name="P:Nokia.InteropServices.WindowsRuntime.IBufferPointer.Length">
+            <summary>The length of the buffer.</summary>
+        </member>
+        <member name="P:Nokia.InteropServices.WindowsRuntime.IBufferPointer.Ptr">
+            <summary>A pointer to the buffer, cast to an int.</summary>
+        </member>
+        <member name="T:Nokia.InteropServices.WindowsRuntime.IBufferPointer">
+            <summary>
+A buffer represented by a pointer to a memory location and a length.
+Implementations can be used to create IBuffer objects using a BufferFactory.
+</summary>
+        </member>
+    </members>
+</doc>

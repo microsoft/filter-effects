@@ -1,0 +1,102 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Nokia.Graphics.Imaging.Managed</name>
+    </assembly>
+    <members>
+        <member name="T:Nokia.Graphics.Imaging.EditingSessionExtensions">
+            <summary>
+            Provides extension methods that makes EditingSession more convenient to use from managed code.
+            </summary>
+        </member>
+        <member name="M:Nokia.Graphics.Imaging.EditingSessionExtensions.RenderToWriteableBitmapAsync(Nokia.Graphics.Imaging.IEditingSession,System.Windows.Media.Imaging.WriteableBitmap,Nokia.Graphics.Imaging.OutputOption)">
+            <summary>
+            Render the editing session to a WriteableBitmap.
+            </summary>
+            <param name="editingSession">This editing session</param>
+            <param name="writeableBitmap">The bitmap that will be rendered into</param>
+            <param name="outputOption">Specify how a difference in aspect ratio between the writeable bitmap and the image to output will be handled.</param>
+        </member>
+        <member name="M:Nokia.Graphics.Imaging.EditingSessionExtensions.RenderToImageAsync(Nokia.Graphics.Imaging.IEditingSession,System.Windows.Controls.Image,Nokia.Graphics.Imaging.OutputOption)">
+            <summary>
+            Render the editing session to an Image. The Source of the Image will be replaced.
+            </summary>
+            <param name="editingSession">This editing session</param>
+            <param name="image">The image that will be rendered to</param>
+            <param name="outputOption">Specify how a difference in aspect ratio between the Image the image to output will be handled.</param>
+        </member>
+        <member name="T:Nokia.Graphics.Imaging.EditingSessionFactory">
+            <summary>
+            Factory methods to create editing session instances.
+            </summary>
+        </member>
+        <member name="M:Nokia.Graphics.Imaging.EditingSessionFactory.CreateEditingSessionAsync(System.IO.Stream)">
+            <summary>
+            Create an EditingSession from a Stream.
+            </summary>
+            <param name="imageStream">The stream to read the imput image from.</param>
+            <returns>Asynchronously returns a new EditingSession</returns>
+        </member>
+        <member name="M:Nokia.Graphics.Imaging.EditingSessionFactory.CreateEditingSessionAsync(System.IO.Stream,Nokia.Graphics.Imaging.InputImageFormat)">
+            <summary>
+            Create an EditingSession from a Stream with a known image format.
+            </summary>
+            <param name="imageStream">The stream to read the imput image from.</param>
+            <param name="imageFormat">The image format in the stream</param>
+            <remarks>If the ImageFormat supplied does not match that of the data in the stream, an ArgumentException will be thrown.</remarks>
+            <returns>Asynchronously returns a new EditingSession</returns>
+        </member>
+        <member name="M:Nokia.Graphics.Imaging.EditingSessionFactory.CreateEditingSessionAsync(Windows.Storage.StorageFile)">
+            <summary>
+            Create an EditingSession from a StorageFile with a known image format.
+            </summary>
+            <param name="file">The storage file read the imput image from.</param>
+            <remarks>If the ImageFormat supplied does not match that of the data in the stream, an ArgumentException will be thrown.</remarks>
+            <returns>Asynchronously returns a new EditingSession</returns>
+        </member>
+        <member name="M:Nokia.Graphics.Imaging.EditingSessionFactory.CreateEditingSessionAsync(Windows.Storage.StorageFile,Nokia.Graphics.Imaging.InputImageFormat)">
+            <summary>
+            Create an EditingSession from a StorageFile with a known image format.
+            </summary>
+            <param name="file">The storage file read the imput image from.</param>
+            <param name="imageFormat">The image format in the stream</param>
+            <remarks>If the ImageFormat supplied does not match that of the data in the stream, an ArgumentException will be thrown.</remarks>
+            <returns>Asynchronously returns a new EditingSession</returns>
+        </member>
+        <member name="T:Nokia.InteropServices.WindowsRuntime.WriteableBitmapExtensions">
+            <summary>
+            Extension methods for <see cref="T:System.Windows.Media.Imaging.WriteableBitmap"/>
+            </summary>
+        </member>
+        <member name="M:Nokia.InteropServices.WindowsRuntime.WriteableBitmapExtensions.AsBitmap(System.Windows.Media.Imaging.WriteableBitmap)">
+            <summary>
+            Creates a <see cref="T:Nokia.Graphics.Imaging.Bitmap"/> wrapping the pixel data of a <see cref="T:System.Windows.Media.Imaging.WriteableBitmap"/>.
+            </summary>
+            <remarks>
+            The data in the WriteableBitmap is pinned by the garbage collector when calling this method. 
+            The pinned memory is released when the returned object is finalized.
+            </remarks>
+            <param name="writeableBitmap">The Writeable bitmap to wrap.</param>
+            <returns>A <see cref="T:Nokia.Graphics.Imaging.Bitmap"/> wrapping the pixel data of <paramref name="writeableBitmap"/>.</returns>
+        </member>
+        <member name="T:Nokia.InteropServices.WindowsRuntime.WindowsRuntimeBufferExtensions">
+            <summary>
+            Provides extension methods for operating on Windows Runtime buffers (Windows.Storage.Streams.IBuffer). 
+            </summary>
+        </member>
+        <member name="M:Nokia.InteropServices.WindowsRuntime.WindowsRuntimeBufferExtensions.AsBuffer(System.Int32[])">
+            <summary>
+            Wrap an array of System.Int32 in an IBuffer.
+            </summary>
+            <remarks>
+            The data in the array is pinned by the garbage collector when calling this method. 
+            The pinned memory is released when the returned object is finalized.
+            </remarks>
+            <param name="data">
+            The data to wrap.
+            </param>
+            <returns>
+            A buffer object wrapping the data data.</returns>
+        </member>
+    </members>
+</doc>

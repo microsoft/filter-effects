@@ -14,7 +14,7 @@ using Windows.Storage.Streams;
 
 using Nokia.Graphics;
 using Nokia.Graphics.Imaging;
-using Nokia.Graphics.Utilities;
+using Nokia.InteropServices.WindowsRuntime;
 
 namespace FilterEffects
 {
@@ -125,7 +125,7 @@ namespace FilterEffects
             }
 
             _previewBitmap = new WriteableBitmap(width, height);
-            _filteredBitmap = BitmapExtensionMethods.AsBitmap(_previewBitmap);
+            _filteredBitmap = _previewBitmap.AsBitmap();
             PreviewImage.Source = _previewBitmap; // Force a redraw
         }
     }
