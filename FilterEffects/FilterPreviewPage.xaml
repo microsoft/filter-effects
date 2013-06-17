@@ -1,0 +1,64 @@
+﻿<!--
+    Copyright (c) 2013 Nokia Corporation.
+-->
+
+<phone:PhoneApplicationPage
+    x:Class="FilterEffects.FilterPreviewPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
+    xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    FontFamily="{StaticResource PhoneFontFamilyNormal}"
+    FontSize="{StaticResource PhoneFontSizeNormal}"
+    Foreground="{StaticResource PhoneForegroundBrush}"
+    SupportedOrientations="Portrait" Orientation="Portrait"
+    shell:SystemTray.IsVisible="True">
+
+    <phone:PhoneApplicationPage.Resources>
+        <Storyboard x:Name="ShowControlsAnimationStoryBoard">
+            <DoubleAnimation 
+                x:Name="ShowControlsAnimation"
+                Storyboard.TargetProperty="(UIElement.Opacity)" 
+                To="1"
+                Duration="0:0:0.2"
+                />
+        </Storyboard>
+        <Storyboard x:Name="HideControlsAnimationStoryBoard">
+            <DoubleAnimation 
+                x:Name="HideControlsAnimation"
+                Storyboard.TargetProperty="(UIElement.Opacity)"
+                To="0"
+                Duration="0:0:0.3" 
+                />
+        </Storyboard>
+    </phone:PhoneApplicationPage.Resources>
+
+    <!--LayoutRoot is the root grid where all page content is placed-->
+    <Grid x:Name="LayoutRoot" Background="Transparent">        
+        <!--Pivot Control
+            The Pivot items are created dynamically in
+            FilterPreviewPage.xaml.cs,
+            see FilterPreviewPage::CreateComponents().
+        -->
+        <phone:Pivot x:Name="FilterPreviewPivot" Title="{Binding Path=LocalizedResources.FilterPreviewPivotTitle, Source={StaticResource LocalizedStrings}}" />
+
+        <Grid x:Name="HintText" Height="50" Margin="0,0,0,70" VerticalAlignment="Bottom" Background="Transparent" Visibility="Collapsed">
+            <Rectangle Fill="Black" Opacity="0.5" />
+            <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Text="{Binding Path=LocalizedResources.FilterSettingsHintText, Source={StaticResource LocalizedStrings}}" />
+        </Grid>
+    </Grid>
+
+    <phone:PhoneApplicationPage.ApplicationBar>
+        <shell:ApplicationBar Opacity="0.4">
+            <shell:ApplicationBarIconButton
+                x:Name="SaveButton"
+                Text="Save"
+                IconUri="Assets/Graphics/save-button-icon.png"
+                Click="SaveButton_Click"
+                IsEnabled="True" />
+        </shell:ApplicationBar>
+    </phone:PhoneApplicationPage.ApplicationBar>
+</phone:PhoneApplicationPage>
