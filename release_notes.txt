@@ -62,8 +62,7 @@ https://projects.developer.nokia.com/filtereffects/wiki
 - Nokia.Graphics.Imaging
 - Nokia.Graphics.Imaging.EditingSession
 - Nokia.Graphics.Imaging.FilterFactory
-- Nokia.Graphics.Utilities
-- Nokia.Graphics.Utilities.BitmapExtensionMethods
+- Nokia.InteropServices.WindowsRuntime
 
 
 3. Compatibility
