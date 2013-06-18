@@ -43,7 +43,7 @@
                     Text="Version" />
             </StackPanel>
             <TextBlock Margin="12,10,12,0" TextWrapping="Wrap">
-                <Run>A Nokia example demonstrating the use of the different filters of Nokia Image Editing SDK with camera photos. This example app uses the camera and displays the viewfinder for taking a picture. The taken photo is then processed with the predefined filters. The filter properties can be manipulated and the changes can be seen in the preview image immediately. The processed image can be saved in JPEG format into the camera roll album. You can also select an existing photo and apply an effect to it.</Run>
+                <Run>A Nokia example demonstrating the use of the different filters of Nokia Imaging SDK with camera photos. This example app uses the camera and displays the viewfinder for taking a picture. The taken photo is then processed with the predefined filters. The filter properties can be manipulated and the changes can be seen in the preview image immediately. The processed image can be saved in JPEG format into the camera roll album. You can also select an existing photo and apply an effect to it.</Run>
                 <LineBreak />
                 <LineBreak />
                 <Run>Learn more and get the latest version of this software at:</Run>

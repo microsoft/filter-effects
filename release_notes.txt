@@ -1,9 +1,9 @@
 Filter Effects
 ==============
 
-A Nokia example demonstrating the use of the different filters of Nokia Image
-Editing SDK with camera photos. This example app uses the camera and displays
-the viewfinder for taking a picture. The taken photo is then processed with the
+A Nokia example demonstrating the use of the different filters of Nokia Imaging
+SDK with camera photos. This example app uses the camera and displays the
+viewfinder for taking a picture. The taken photo is then processed with the
 predefined filters. The filter properties can be manipulated and the changes can
 be seen in the preview image immediately. The processed image can be saved in
 JPEG format into the camera roll album. You can also select an existing photo
@@ -55,8 +55,8 @@ https://projects.developer.nokia.com/filtereffects/wiki
     Implements the camera view finder and fetching saved images from the file
     system.
 
-2.2 Used Nokia Image Editing APIs
----------------------------------
+2.2 Used Nokia Imaging SDK APIs
+-------------------------------
 - Nokia.Graphics
 - Nokia.Graphics.Bitmap
 - Nokia.Graphics.Imaging
@@ -68,8 +68,8 @@ https://projects.developer.nokia.com/filtereffects/wiki
 3. Compatibility
 -------------------------------------------------------------------------------
 
-Compatible with Windows Phone 8 phones. The project is dependent on Nokia Image
-Editing SDK. The example has been tested with Nokia Lumia 920 and Nokia Lumia
+Compatible with Windows Phone 8 phones. The project is dependent on Nokia
+Imaging SDK. The example has been tested with Nokia Lumia 920 and Nokia Lumia
 620. Developed with Visual Studio 2012 Express for Windows Phone 8.
 
 4.1 Required capabilities
