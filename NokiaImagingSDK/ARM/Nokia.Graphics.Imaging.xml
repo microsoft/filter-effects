@@ -4,173 +4,15 @@
         "Nokia.Graphics.Imaging.WinRT"
     </assembly>
     <members>
-        <member name="M:Nokia.Graphics.Imaging.FilterGroup.Undo(Nokia.Graphics.Imaging.IEditingSession)">
-            <summary>Undo this filter on an editing session</summary>
-        </member>
-        <member name="M:Nokia.Graphics.Imaging.FilterGroup.Apply(Nokia.Graphics.Imaging.IEditingSession)">
-            <summary>Apply this filter to an editing session</summary>
-        </member>
-        <member name="M:Nokia.Graphics.Imaging.FilterGroup.#ctor(Nokia.Graphics.Imaging.IFilter[])">
-            <summary>
-Initializes a new instance of the <see cref="T:Nokia.Graphics.Imaging.FilterGroup" /> class.
-</summary>
-            <param name="filters">Filters to group thogether. Filters will be applied in the order they appear in this list.</param>
-        </member>
         
         
         
-        <member name="M:Nokia.Graphics.Imaging.JpegTools.AutoResizeAsync(Windows.Storage.Streams.IBuffer,Nokia.Graphics.Imaging.AutoResizeConfiguration)">
+        
+        <member name="P:Nokia.Graphics.Imaging.CurveGenerator.NumberOfPoints">
             <summary>
-Jpeg squeeze of an image into a new smaller jpeg  
-using configured auto resize parameters.
-</summary>
-            <param name="jpegSource">
-Source jpeg buffer to be squeezed.
-</param>
-            <param name="autoConfiguration">
-Resize configuration parameters.
-</param>
-            <returns> Asynchronously returns buffer with squeezed jpeg </returns>
-        </member>
-        <member name="M:Nokia.Graphics.Imaging.JpegTools.SqueezeAsync(Windows.Storage.Streams.IBuffer,System.UInt32)">
-            <summary>
-Jpeg squeeze of an image into a new smaller jpeg  
-with a desired maximum buffer size in bytes.
-</summary>
-            <param name="jpegSource">
-Source jpeg buffer to be squeezed.
-</param>
-            <param name="toSize">
-Desired maximum output jpeg size.
-</param>
-            <returns> Asynchronously returns buffer with squeezed jpeg </returns>
-        </member>
-        <member name="M:Nokia.Graphics.Imaging.JpegTools.BlendAsync(Windows.Storage.Streams.IBuffer,Nokia.Graphics.Imaging.Bitmap,Windows.Foundation.Point)">
-            <summary>
-Blends a jpeg image with another bitmap image into a new jpeg.
-The source jpeg image dimensions cannot be smaller than 
-the dimensions of the bitmap image to blend. 
-</summary>
-            <param name="jpegSource">
-Source jpeg to be blended.
-</param>
-            <param name="bitmapSource">
-Bitmap image to be blended with jpeg image. Image must be in ARGB8888 or AYUV4444 color mode.
-</param>
-            <param name="blendPosition">
-Blend start position in the jpeg image (upper left corner).
-</param>
-            <returns> Asynchroniously returns buffer with blended jpeg </returns>
-        </member>
-        <member name="M:Nokia.Graphics.Imaging.JpegTools.FlipAsync(Windows.Storage.Streams.IBuffer,System.Boolean,System.Boolean)">
-            <summary>
-Performs lossless flip, flips a jpeg into a new jpeg.
-</summary>
-            <param name="jpegSource">
-Source jpeg to be flipped.
-</param>
-            <param name="flipHorizontal">
-Specifies if jpeg should be horisontally flipped.
-</param>
-            <param name="flipVertical">
-Specifies if jpeg should be vertically flipped.
-</param>
-            <returns> Asynchroniously returns buffer with flipped jpeg </returns>
-        </member>
-        <member name="M:Nokia.Graphics.Imaging.JpegTools.Dispose">
-            <summary>
-JpegTools destructor.
+Returns the number of control points currently in the CurveGenerator. 
 </summary>
         </member>
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        <member name="M:Nokia.Graphics.Imaging.AutoResizeConfiguration.ToString">
-            <summary>
-Returns a string that represents the current object.
-</summary>
-            <returns>
-A string that represents the current object.
-</returns>
-        </member>
-        
-        
-        
-        
-        
-        
-        <member name="M:Nokia.Graphics.Imaging.AutoResizeConfiguration.#ctor(System.UInt32,Windows.Foundation.Size,Windows.Foundation.Size,Nokia.Graphics.Imaging.AutoResizeMode,System.Double,Nokia.Graphics.Imaging.ColorSpace)">
-            <summary>
-Creates a new resize configuration object for the JpegTools.
-</summary>
-            <param name="maxBufferSize">
-Maximum output buffer size in bytes.
-</param>
-            <param name="maxImageSize">
-                <para>
-Maximum image size to achieve. The rendered image will fit within this outer bounding box when
-allowing for rotation. The size must be larger than minImageSize.
-A maxImageSize of {640, 480} will, for the following different source
-image sizes, give this maximum size:
-</para>
-                <para>{1024, 1024} will be at most {480, 480}</para>
-                <para>{1280, 640}  will be at most {640, 320}</para>
-                <para>{640, 1280}  will be at most {320, 640}</para>
-            </param>
-            <param name="minImageSize">
-                <para>
-Minimum image size to achieve. The rendered image will be at least as large as this size in at least
-one dimension. The size must be smaller than maxImageSize.
-A minImageSize of {160, 120} will, for the following different source
-image sizes, give this minimum size:
-</para>
-                <para>{1024, 1024} will be at least {120, 120}</para>
-                <para>{1280, 640}  will be at least {160, 80}</para>
-                <para>{640, 1280}  will be at least {80, 160}</para>
-            </param>
-            <param name="resizeMode">
-One of the AutoResizeModes
-</param>
-            <param name="minEncodingQuality">
-The lowest desired encoding quality. Must be in the range [0.0, 1.0]
-</param>
-            <param name="colorSpacing">
-Color spacing will affect how the color channels are sub-sampled when encoding the
-JPEG file. Sub-sampling of the color channels will reduce the resulting file size.
-YUV 4:2:0 color spacing is recommended for achieving the lowest file size.
-</param>
-        </member>
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
         <member name="M:Nokia.Graphics.Imaging.CurveGenerator.Generate">
             <summary>
 Generates the curve defined by the control points in the selected range.
@@ -203,7 +45,17 @@ Control point.
 Clears all control points currently set in CurveGenerator
 </summary>
         </member>
-        
+        <member name="P:Nokia.Graphics.Imaging.CurveGenerator.Points">
+            <summary>
+Represents control points. 
+Control points can be set and current control points can be fetched.
+When setting control points all previously added points to CurveGenerator will be deleted. 
+The control points in the array must be strictly ascending with respect to x.
+</summary>
+            <value name="points">
+Array of control points.
+</value>
+        </member>
         <member name="M:Nokia.Graphics.Imaging.CurveGenerator.SetRange(Windows.Foundation.Point,Windows.Foundation.Point)">
             <summary>
 Sets range when rendering look-up table
@@ -215,7 +67,14 @@ Minimum x and y value.
 Maximum x and y value.
 </param>
         </member>
-        
+        <member name="P:Nokia.Graphics.Imaging.CurveGenerator.CurveType">
+            <summary>
+Sets the curve type defined in CurveType
+</summary>
+            <value name="curveType">
+Curve type
+</value>
+        </member>
         <member name="M:Nokia.Graphics.Imaging.CurveGenerator.#ctor(System.Int32,Nokia.Graphics.Imaging.CurveType,Windows.Foundation.Point,Windows.Foundation.Point,Windows.Foundation.Point,Windows.Foundation.Point)">
             <summary>
 Creates a CurveGenerator with two initial points. The initial points 
@@ -244,6 +103,26 @@ Initial first point on the curve.
 Initial second point on the curve.
 </param>
         </member>
+        <member name="T:Nokia.Graphics.Imaging.CurveGenerator">
+            <summary>
+This class handles look-up table generation for Curves filter.
+</summary>
+        </member>
+        <member name="T:Nokia.Graphics.Imaging.CurveType">
+            <summary>
+Curve types that are used to with the CurveGenerator to generate curve filter look-up tables for the curve filter.
+</summary>
+        </member>
+        <member name="F:Nokia.Graphics.Imaging.CurveType.NaturalCubicSpline">
+            <summary>
+Use natural cubic spline interpolation between the points.
+</summary>
+        </member>
+        <member name="F:Nokia.Graphics.Imaging.CurveType.Linear">
+            <summary>
+Use linear interpolation between the points.
+</summary>
+        </member>
         
         
         
@@ -268,6 +147,170 @@ Initial second point on the curve.
         
         
         
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        <member name="M:Nokia.Graphics.Imaging.FilterGroup.Undo(Nokia.Graphics.Imaging.IEditingSession)">
+            <summary>Undo this filter on an editing session</summary>
+        </member>
+        <member name="M:Nokia.Graphics.Imaging.FilterGroup.Apply(Nokia.Graphics.Imaging.IEditingSession)">
+            <summary>Apply this filter to an editing session</summary>
+        </member>
+        <member name="M:Nokia.Graphics.Imaging.FilterGroup.#ctor(Nokia.Graphics.Imaging.IFilter[])">
+            <summary>
+Initializes a new instance of the <see cref="T:Nokia.Graphics.Imaging.FilterGroup" /> class.
+</summary>
+            <param name="filters">Filters to group thogether. Filters will be applied in the order they appear in this list.</param>
+        </member>
+        <member name="T:Nokia.Graphics.Imaging.FilterGroup">
+            <summary>
+A Group of filters that can be added to an editing session in a single call to AddFilter(),
+and removed in a single call to Undo().
+</summary>
+        </member>
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        <member name="M:Nokia.Graphics.Imaging.EditingSession.UndoAll">
+            <summary>
+Removes all filters.
+</summary>
+        </member>
+        <member name="M:Nokia.Graphics.Imaging.EditingSession.Undo">
+            <summary>
+Removes the last added filters.
+</summary>
+        </member>
+        <member name="M:Nokia.Graphics.Imaging.EditingSession.CanUndo">
+            <summary>
+Checks if there are filters to remove.
+</summary>
+            <returns>true if there are filters to remove.</returns>
+        </member>
+        <member name="M:Nokia.Graphics.Imaging.EditingSession.AddFilter(Nokia.Graphics.Imaging.IFilter)">
+            <summary>
+Adds a filter that can be removed in one Undo() step.
+</summary>
+        </member>
+        <member name="P:Nokia.Graphics.Imaging.EditingSession.Dimensions">
+            <summary>
+The dimensions of the source in pixels.
+</summary>
+        </member>
+        <member name="M:Nokia.Graphics.Imaging.EditingSession.RenderToJpegAsync(Windows.Foundation.Size,Nokia.Graphics.Imaging.OutputOption,System.Double,Nokia.Graphics.Imaging.OutputColorSpacing)">
+            <summary>
+Asynchronous render of editingSession to jpeg. Rendered jpeg will have specified
+dimensions and discrepancies in aspect ratio will be handled according to specified output options.
+</summary>
+            <param name="size">Desired size of the rendered jpeg.</param>
+            <param name="outputOptions">Desired behavior when source and target aspect ratio differ.</param>
+            <param name="quality">Desired jpeg quality between 0.0 and 1.0.</param>
+            <param name="colorSpacing">
+Color spacing will affect how the color channels are sub-sampled when encoding the
+JPEG file. Sub-sampling of the color channels will reduce the resulting file size.
+YUV 4:2:0 color spacing is recommended for achieving the lowest file size.
+</param>
+            <returns>Asynchronously returns an IBuffer containing the jpeg data.</returns>
+        </member>
+        <member name="M:Nokia.Graphics.Imaging.EditingSession.RenderToJpegAsync(Windows.Foundation.Size,Nokia.Graphics.Imaging.OutputOption)">
+            <summary>
+Asynchronous render of editingSession to jpeg. Rendered jpeg will have specified
+dimensions and discrepancies in aspect ratio will be handled according to specified output options.
+</summary>
+            <param name="size">Desired size of the rendered jpeg.</param>
+            <param name="outputOptions">Desired behavior when source and target aspect ratio differ.</param>
+            <returns>Asynchronously returns an IBuffer containing the jpeg data.</returns>
+        </member>
+        <member name="M:Nokia.Graphics.Imaging.EditingSession.RenderToJpegAsync">
+            <summary>
+Asynchronous render of editingSession to jpeg.
+</summary>
+            <returns>Asynchronously returns an IBuffer containing the jpeg data.</returns>
+        </member>
+        <member name="M:Nokia.Graphics.Imaging.EditingSession.RenderToBitmapAsync(Nokia.Graphics.Imaging.Bitmap,Nokia.Graphics.Imaging.OutputOption,Windows.Foundation.Rect)">
+            <summary>
+Asynchronous render of cropped region to bitmap with specified aspect ratio behavior.
+</summary>
+            <param name="renderTarget">Bitmap to render to.</param>
+            <param name="outputOptions">Desired behavior when source and target aspect ratio differ.</param>
+            <param name="cropArea">Rectangle describing the crop of the source to apply before rendering.</param>
+            <returns>The asynchronous action</returns>
+        </member>
+        <member name="M:Nokia.Graphics.Imaging.EditingSession.RenderToBitmapAsync(Nokia.Graphics.Imaging.Bitmap,Nokia.Graphics.Imaging.OutputOption)">
+            <summary>
+Asynchronous render of editingSession to bitmap with specified aspect ratio behavior.
+</summary>
+            <param name="renderTarget">Bitmap to render to.</param>
+            <param name="outputOptions">Desired behavior when source and target aspect ratio differ.</param>
+            <returns>The asynchronous action</returns>
+        </member>
+        <member name="M:Nokia.Graphics.Imaging.EditingSession.RenderToBitmapAsync(Nokia.Graphics.Imaging.Bitmap)">
+            <summary>
+Asynchronous render of editingSession to bitmap.
+</summary>
+            <param name="renderTarget">Bitmap to render to.</param>
+            <returns>The asynchronous action</returns>
+        </member>
+        <member name="M:Nokia.Graphics.Imaging.EditingSession.Dispose">
+            <summary>
+EditingSession destructor.
+</summary>
+        </member>
+        <member name="M:Nokia.Graphics.Imaging.EditingSession.#ctor(Nokia.Graphics.Imaging.Bitmap)">
+            <summary>
+Creates a editingSession from a bitmap.
+</summary>
+            <param name="bitmap">Bitmap to use as source to the created editingSession.</param>
+        </member>
+        <member name="M:Nokia.Graphics.Imaging.EditingSession.#ctor(Windows.Storage.Streams.IBuffer,Nokia.Graphics.Imaging.InputImageFormat)">
+            <summary>
+Creates a sesssion from a buffer.
+</summary>
+            <param name="buffer">Buffer containing the image data.</param>
+            <param name="format">Image type in the buffer.</param>
+        </member>
+        <member name="M:Nokia.Graphics.Imaging.EditingSession.#ctor(Windows.Storage.Streams.IBuffer)">
+            <summary>
+Creates a sesssion from a compressed image buffer.
+</summary>
+            <remarks>
+An attempt will be made to 
+automatically detect the image format. If the image date is not corrupt the 
+editingSession should be able to detect JPEG, GIF, PNG, TIFF, BMP, WBMP. If the 
+image format cannot be determined an exeception will be thrown.
+For optimal performance, or if the image format cannot be determined, please 
+provide the image format explicitly when creating a new editingSession.
+</remarks>
+            <param name="buffer">Buffer containing the compressed image data.</param>
+        </member>
+        <member name="T:Nokia.Graphics.Imaging.EditingSession">
+            <summary>
+This class represents image processing editingSession. 
+</summary>
+        </member>
         <member name="M:Nokia.Graphics.Imaging.FilterFactory.CreateBlendFilter(Nokia.Graphics.Imaging.IEditingSession,Nokia.Graphics.Imaging.BlendFunction)">
             <summary>
     Blends a editingSession on the current editingSession image using blend function.
@@ -1001,6 +1044,15 @@ The region in which the effect is applied, for instance a face, given in current
 </param>
             <returns>The created filter instance.</returns>
         </member>
+        <member name="T:Nokia.Graphics.Imaging.FilterFactory">
+            <summary>
+Contains artistic filters and filters that enhance image by modifying brightness, colors, color temperature, image exposure 
+and other attributes.
+</summary>
+            <remarks>
+All coordinates refers to current coordinates, i.e coordinates after transformations like crop, scaling and rotations.
+</remarks>
+        </member>
         
         
         
@@ -1008,12 +1060,46 @@ The region in which the effect is applied, for instance a face, given in current
         
         
         
-        
-        
-        
-        
-        
-        
+        <member name="P:Nokia.Graphics.Imaging.SplitToneRange.Blue">
+            <summary>
+Defines the Blue component of the RGB color to be set for the luminance
+</summary>
+            <remarks>
+Allowed range is [ luminanceLowValue, luminanceHighValue ].
+</remarks>
+        </member>
+        <member name="P:Nokia.Graphics.Imaging.SplitToneRange.Green">
+            <summary>
+Defines the Green component of the RGB color to be set for the luminance
+</summary>
+            <remarks>
+Allowed range is [ luminanceLowValue, luminanceHighValue ].
+</remarks>
+        </member>
+        <member name="P:Nokia.Graphics.Imaging.SplitToneRange.Red">
+            <summary>
+Defines the Red component of the RGB color to be set for the luminance
+</summary>
+            <remarks>
+Allowed range is [ luminanceLowValue, luminanceHighValue ].
+</remarks>
+        </member>
+        <member name="P:Nokia.Graphics.Imaging.SplitToneRange.LuminanceHigh">
+            <summary>
+Defines the higher luminance value.
+</summary>
+            <remarks>
+Allowed range is [ 0, 255 ]. Must be higher than luminanceLowValue.
+</remarks>
+        </member>
+        <member name="P:Nokia.Graphics.Imaging.SplitToneRange.LuminanceLow">
+            <summary>
+Defines the lower luminance value.
+</summary>
+            <remarks>
+Allowed range is [ 0, 255 ]. Must be lower than luminanceHighValue.
+</remarks>
+        </member>
         <member name="M:Nokia.Graphics.Imaging.SplitToneRange.#ctor(System.Int32,System.Int32,System.Int32,System.Int32,System.Int32)">
             <summary>
 Creates a new SplitToneRange object
@@ -1038,6 +1124,316 @@ Allowed range is [ luminanceLowValue, luminanceHighValue ].
 Defines the B value of the RGB color to be set for the luminance
 Allowed range is [ luminanceLowValue, luminanceHighValue ].
 </param>
+        </member>
+        <member name="T:Nokia.Graphics.Imaging.SplitToneRange">
+            <summary>
+Defines a luminance range and the color to be applied by the split tone filter.
+</summary>
+        </member>
+        <member name="T:Nokia.Graphics.Imaging.WhiteBalanceMode">
+            <summary>
+Defines the white balance modes to use with the white balance filter.
+</summary>
+        </member>
+        <member name="F:Nokia.Graphics.Imaging.WhiteBalanceMode.Cluster">
+            <summary>Calulates the reference from the mean value of the 256-bin distribution.</summary>
+        </member>
+        <member name="F:Nokia.Graphics.Imaging.WhiteBalanceMode.Manual">
+            <summary> Uses a white reference color.</summary>
+        </member>
+        <member name="F:Nokia.Graphics.Imaging.WhiteBalanceMode.Max">
+            <summary> Uses the estimated maximum intensity color.</summary>
+        </member>
+        <member name="F:Nokia.Graphics.Imaging.WhiteBalanceMode.Mean">
+            <summary> Uses the estimated mean gray for the color correction.</summary>
+        </member>
+        <member name="T:Nokia.Graphics.Imaging.WarpEffect">
+            <summary>
+Effects for the warp filter.
+</summary>
+        </member>
+        <member name="T:Nokia.Graphics.Imaging.SketchMode">
+            <summary>
+Modes for the sketch filter. 
+</summary>
+        </member>
+        <member name="F:Nokia.Graphics.Imaging.SketchMode.Color">
+            <summary>Sketch in color.</summary>
+        </member>
+        <member name="F:Nokia.Graphics.Imaging.SketchMode.Gray">
+            <summary>Sketch in grayscale.</summary>
+        </member>
+        <member name="T:Nokia.Graphics.Imaging.SharpnessLevel">
+            <summary>
+Levels for the sharpness filter. 
+</summary>
+        </member>
+        <member name="T:Nokia.Graphics.Imaging.RotationResizeMode">
+            <summary>
+Image resizing behaviors when rotating. The image can be resized to fit within
+the original image dimensions during rotation, or it could go over the dimension border.
+</summary>
+        </member>
+        <member name="F:Nokia.Graphics.Imaging.RotationResizeMode.FitOutside">
+            <summary>Resize the rotated image so that the original image dimensions fit inside the rotated image.</summary>
+        </member>
+        <member name="F:Nokia.Graphics.Imaging.RotationResizeMode.FitInside">
+            <summary>Resize the rotated image so that it fits inside the original image dimensions.</summary>
+        </member>
+        <member name="F:Nokia.Graphics.Imaging.RotationResizeMode.Ignore">
+            <summary>Do not  resize while rotating</summary>
+        </member>
+        <member name="T:Nokia.Graphics.Imaging.Rotation">
+            <summary>
+Stepwise rotation. Can be done 0, 90, 180 and 270 degrees clockwise.
+</summary>
+        </member>
+        <member name="F:Nokia.Graphics.Imaging.Rotation.Rotate270">
+            <summary>Rotates the image 270 degrees clockwise.</summary>
+        </member>
+        <member name="F:Nokia.Graphics.Imaging.Rotation.Rotate180">
+            <summary>Rotates the image 180 degrees clockwise.</summary>
+        </member>
+        <member name="F:Nokia.Graphics.Imaging.Rotation.Rotate90">
+            <summary>Rotates the image 90 degrees clockwise.</summary>
+        </member>
+        <member name="F:Nokia.Graphics.Imaging.Rotation.Rotate0">
+            <summary>Rotates the image zero degrees clockwise.</summary>
+        </member>
+        <member name="T:Nokia.Graphics.Imaging.NoiseLevel">
+            <summary>
+The amount of noise added by the noise filter.
+</summary>
+        </member>
+        <member name="T:Nokia.Graphics.Imaging.LomoVignetting">
+            <summary>
+Vignetting impact levels to use with the lomo filter.
+</summary>
+        </member>
+        <member name="T:Nokia.Graphics.Imaging.LomoStyle">
+            <summary>
+Color styles to use with the lomo filter.
+</summary>
+        </member>
+        <member name="T:Nokia.Graphics.Imaging.FlipMode">
+            <summary>
+Flip modes employed by the flip filter. An image can be flipped around its horizontal or vertical
+axis as well as around both axes at once.
+</summary>
+        </member>
+        <member name="F:Nokia.Graphics.Imaging.FlipMode.Both">
+            <summary>Flip the image vertically and horizontally</summary>
+        </member>
+        <member name="F:Nokia.Graphics.Imaging.FlipMode.Horizontal">
+            <summary>Flip the image horizontally</summary>
+        </member>
+        <member name="F:Nokia.Graphics.Imaging.FlipMode.Vertical">
+            <summary>Flip the image vertically</summary>
+        </member>
+        <member name="F:Nokia.Graphics.Imaging.FlipMode.None">
+            <summary>Do not flip the image</summary>
+        </member>
+        <member name="T:Nokia.Graphics.Imaging.ExposureMode">
+            <summary>
+Exposure modes to use with the exposure filter.
+</summary>
+        </member>
+        <member name="F:Nokia.Graphics.Imaging.ExposureMode.Gamma">
+            <summary>Adjust the brightness of an image using a gamma correction curve.</summary>
+        </member>
+        <member name="F:Nokia.Graphics.Imaging.ExposureMode.Natural">
+            <summary>
+Adjust the brightness of an image using a "natural" curve inspired
+by a film characteristic curve. This mode preserves
+the blacks in an image much better than the gamma mode.</summary>
+        </member>
+        <member name="T:Nokia.Graphics.Imaging.DespeckleLevel">
+            <summary>
+The amount of despeckling done by the despeckle filter.
+</summary>
+        </member>
+        <member name="T:Nokia.Graphics.Imaging.BlurRegionShape">
+            <summary>
+Describes how the blur region is interpreted by the blur filter.
+</summary>
+        </member>
+        <member name="F:Nokia.Graphics.Imaging.BlurRegionShape.Elliptical">
+            <summary>The region is an ellipse fitted into a rectangle.</summary>
+        </member>
+        <member name="F:Nokia.Graphics.Imaging.BlurRegionShape.Rectangular">
+            <summary>The region is a rectangle.</summary>
+        </member>
+        <member name="T:Nokia.Graphics.Imaging.BlurLevel">
+            <summary>
+Enum describing the blur levels for the blur filter.
+</summary>
+        </member>
+        <member name="T:Nokia.Graphics.Imaging.BlendFunction">
+            <summary>
+The blend function to use whith the blend filter.
+</summary>
+        </member>
+        <member name="M:Nokia.Graphics.Imaging.IEditingSession.UndoAll">
+            <summary>
+Removes all filters.
+</summary>
+        </member>
+        <member name="M:Nokia.Graphics.Imaging.IEditingSession.Undo">
+            <summary>
+Removes the last added filters.
+</summary>
+        </member>
+        <member name="M:Nokia.Graphics.Imaging.IEditingSession.CanUndo">
+            <summary>
+Checks if there are filters to remove.
+</summary>
+            <returns>true if there are filters to remove.</returns>
+        </member>
+        <member name="M:Nokia.Graphics.Imaging.IEditingSession.AddFilter(Nokia.Graphics.Imaging.IFilter)">
+            <summary>
+Adds a filter.
+</summary>
+        </member>
+        <member name="P:Nokia.Graphics.Imaging.IEditingSession.Dimensions">
+            <summary>
+The dimensions of the source in pixels.
+</summary>
+        </member>
+        <member name="M:Nokia.Graphics.Imaging.IEditingSession.RenderToJpegAsync(Windows.Foundation.Size,Nokia.Graphics.Imaging.OutputOption,System.Double,Nokia.Graphics.Imaging.OutputColorSpacing)">
+            <summary>
+Asynchronous render of editingSession to jpeg. Rendered jpeg will have specified
+dimensions and discrepancies in aspect ratio will be handled according to specified output options.
+</summary>
+            <param name="size">Desired size of the rendered jpeg.</param>
+            <param name="outputOptions">Desired behavior when source and target aspect ratio differ.</param>
+            <param name="quality">Desired jpeg quality between 0.0 and 1.0.</param>
+            <param name="outputColorSpacing">Desired jpeg color spacing.</param>
+            <returns>Asynchronously returns an IBuffer containing the jpeg data.</returns>
+        </member>
+        <member name="M:Nokia.Graphics.Imaging.IEditingSession.RenderToJpegAsync(Windows.Foundation.Size,Nokia.Graphics.Imaging.OutputOption)">
+            <summary>
+Asynchronous render of editingSession to jpeg. Rendered jpeg will have specified
+dimensions and discrepancies in aspect ratio will be handled according to specified output options.
+</summary>
+            <param name="size">Desired size of the rendered jpeg.</param>
+            <param name="outputOptions">Desired behavior when source and target aspect ratio differ.</param>
+            <returns>Asynchronously returns an IBuffer containing the jpeg data.</returns>
+        </member>
+        <member name="M:Nokia.Graphics.Imaging.IEditingSession.RenderToJpegAsync">
+            <summary>
+Asynchronous render of editingSession to jpeg.
+</summary>
+            <returns>Asynchronously returns an IBuffer containing the jpeg data.</returns>
+        </member>
+        <member name="M:Nokia.Graphics.Imaging.IEditingSession.RenderToBitmapAsync(Nokia.Graphics.Imaging.Bitmap,Nokia.Graphics.Imaging.OutputOption,Windows.Foundation.Rect)">
+            <summary>
+Asynchronous render of cropped region to bitmap with specified aspect ratio behavior.
+</summary>
+            <param name="renderTarget">Bitmap to render to.</param>
+            <param name="outputOptions">Desired behavior when source and target aspect ratio differ.</param>
+            <param name="cropArea">Rectangle describing the crop of the source to apply before rendering.</param>
+            <returns>The asynchronous action</returns>
+        </member>
+        <member name="M:Nokia.Graphics.Imaging.IEditingSession.RenderToBitmapAsync(Nokia.Graphics.Imaging.Bitmap,Nokia.Graphics.Imaging.OutputOption)">
+            <summary>
+Asynchronous render of editingSession to bitmap with specified aspect ratio behavior.
+</summary>
+            <param name="renderTarget">Bitmap to render to.</param>
+            <param name="outputOptions">Desired behavior when source and target aspect ratio differ.</param>
+            <returns>The asynchronous action</returns>
+        </member>
+        <member name="M:Nokia.Graphics.Imaging.IEditingSession.RenderToBitmapAsync(Nokia.Graphics.Imaging.Bitmap)">
+            <summary>
+Asynchronous render of editingSession to bitmap.
+</summary>
+            <param name="renderTarget">Bitmap to render to.</param>
+            <returns>The asynchronous action</returns>
+        </member>
+        <member name="T:Nokia.Graphics.Imaging.IEditingSession">
+            <summary>
+A session for editing an image using filters.
+</summary>
+            <remark>
+This interface is provided in order to facilitate the creation of test doubles. It is not possible for a 
+user of the SDK to create an implementation of IEditingSession that will work with the filters provided in the SDK.
+</remark>
+        </member>
+        <member name="M:Nokia.Graphics.Imaging.IFilter.Undo(Nokia.Graphics.Imaging.IEditingSession)">
+            <summary>Undo this filter on an editing session</summary>
+            <remarks>Do not call this method directly, use IEditingSession::Undo</remarks>
+        </member>
+        <member name="M:Nokia.Graphics.Imaging.IFilter.Apply(Nokia.Graphics.Imaging.IEditingSession)">
+            <summary>Apply this filter to an editing session</summary>
+            <remarks>Do not call this method directly, use IEditingSession::Apply</remarks>
+        </member>
+        <member name="T:Nokia.Graphics.Imaging.IFilter">
+            <summary>
+Image editing filter.
+</summary>
+        </member>
+        <member name="T:Nokia.Graphics.Imaging.InputImageFormat">
+            <summary>
+Supported input image formats.
+</summary>
+        </member>
+        <member name="T:Nokia.Graphics.Imaging.OutputOption">
+            <summary>
+Behavior when rendering to a target with different aspect ratio than the source.
+</summary>
+        </member>
+        <member name="T:Nokia.Graphics.Imaging.OutputColorSpacing">
+            <summary>
+Color spacing for the output image.
+</summary>
+        </member>
+        <member name="M:Nokia.Graphics.Imaging.Exif.CreateExifFromBuffer(Windows.Storage.Streams.IBuffer)">
+Creates an Exif instance based on the exif data contained in the provided buffer.
+buffer: the provided buffer to use when creating the Exif instance; must not be null
+returns the created Exif instance or an empty instance if valid exif data was not found.
+</member>
+        <member name="M:Nokia.Graphics.Imaging.Exif.GetThumbnailAsync">
+            <summary>
+Asynchronously gets the thumbnail, or null if not found.
+<returns>Returns an IBuffer containing the thumbnail jpeg data.</returns></summary>
+        </member>
+        <member name="M:Nokia.Graphics.Imaging.Exif.SetTagDateTimeDigitizedRaw(System.Byte[])">
+            <summary>
+Set DateTime Digitized tag.
+</summary>
+            <param name="data">New DateTime Digitized tag.</param>
+        </member>
+        <member name="M:Nokia.Graphics.Imaging.Exif.SetTagDateTimeOriginalRaw(System.Byte[])">
+            <summary>
+Set DateTime Original tag.
+</summary>
+            <param name="data">New DateTime Original tag.</param>
+        </member>
+        <member name="M:Nokia.Graphics.Imaging.Exif.GetTagOrientation">
+            <summary>
+Retrieves the Orientation tag
+<return>Returns an integer describing the orientation.</return></summary>
+        </member>
+        <member name="M:Nokia.Graphics.Imaging.Exif.SetTagOrientation(System.Int32)">
+            <summary>
+Change the Orientation tag
+</summary>
+            <param name="orientation">The new orientation.</param>
+        </member>
+        <member name="M:Nokia.Graphics.Imaging.Exif.DeleteExifIFD(System.Int32)">
+            <summary>
+Delete a specific IFD from the Exif.
+</summary>
+            <param name="IFD">The IFD to delete.</param>
+        </member>
+        <member name="M:Nokia.Graphics.Imaging.Exif.Dispose">
+            <summary>
+Destructor.
+</summary>
+        </member>
+        <member name="T:Nokia.Graphics.Imaging.Exif">
+            <summary>
+The Exif class describes and allows manipulation of exif data.
+</summary>
         </member>
         
         
@@ -1076,6 +1472,1011 @@ Allowed range is [ luminanceLowValue, luminanceHighValue ].
         
         
         
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        <member name="M:Nokia.Graphics.Imaging.JpegTools.AutoResizeAsync(Windows.Storage.Streams.IBuffer,Nokia.Graphics.Imaging.AutoResizeConfiguration)">
+            <summary>
+Jpeg squeeze of an image into a new smaller jpeg  
+using configured auto resize parameters.
+</summary>
+            <param name="jpegSource">
+Source jpeg buffer to be squeezed.
+</param>
+            <param name="autoConfiguration">
+Resize configuration parameters.
+</param>
+            <returns> Asynchronously returns buffer with squeezed jpeg </returns>
+        </member>
+        <member name="M:Nokia.Graphics.Imaging.JpegTools.SqueezeAsync(Windows.Storage.Streams.IBuffer,System.UInt32)">
+            <summary>
+Jpeg squeeze of an image into a new smaller jpeg  
+with a desired maximum buffer size in bytes.
+</summary>
+            <param name="jpegSource">
+Source jpeg buffer to be squeezed.
+</param>
+            <param name="toSize">
+Desired maximum output jpeg size.
+</param>
+            <returns> Asynchronously returns buffer with squeezed jpeg </returns>
+        </member>
+        <member name="M:Nokia.Graphics.Imaging.JpegTools.BlendAsync(Windows.Storage.Streams.IBuffer,Nokia.Graphics.Imaging.Bitmap,Windows.Foundation.Point)">
+            <summary>
+Blends a jpeg image with another bitmap image into a new jpeg.
+The source jpeg image dimensions cannot be smaller than 
+the dimensions of the bitmap image to blend. 
+</summary>
+            <param name="jpegSource">
+Source jpeg to be blended.
+</param>
+            <param name="bitmapSource">
+Bitmap image to be blended with jpeg image. Image must be in ARGB8888 or AYUV4444 color mode.
+</param>
+            <param name="blendPosition">
+Blend start position in the jpeg image (upper left corner).
+</param>
+            <returns> Asynchroniously returns buffer with blended jpeg </returns>
+        </member>
+        <member name="M:Nokia.Graphics.Imaging.JpegTools.FlipAsync(Windows.Storage.Streams.IBuffer,System.Boolean,System.Boolean)">
+            <summary>
+Performs lossless flip, flips a jpeg into a new jpeg.
+</summary>
+            <param name="jpegSource">
+Source jpeg to be flipped.
+</param>
+            <param name="flipHorizontal">
+Specifies if jpeg should be horisontally flipped.
+</param>
+            <param name="flipVertical">
+Specifies if jpeg should be vertically flipped.
+</param>
+            <returns> Asynchroniously returns buffer with flipped jpeg </returns>
+        </member>
+        <member name="M:Nokia.Graphics.Imaging.JpegTools.Dispose">
+            <summary>
+JpegTools destructor.
+</summary>
+        </member>
+        <member name="T:Nokia.Graphics.Imaging.JpegTools">
+            <summary>
+JpegTools. Operations are done in jpeg compressed domain.</summary>
+        </member>
+        <member name="T:Nokia.Graphics.Imaging.OrientationMode">
+            <summary>
+Enum describing the different orientation modes.
+All modes with flip mean horizontal flip.
+</summary>
+        </member>
+        <member name="F:Nokia.Graphics.Imaging.OrientationMode.ROTATE_270_FLIP">
+            <summary>
+Flip horizontally, and rotate -90 (CW)
+</summary>
+        </member>
+        <member name="F:Nokia.Graphics.Imaging.OrientationMode.ROTATE_180_FLIP">
+            <summary>
+Flip horizontally, and rotate 180
+</summary>
+        </member>
+        <member name="F:Nokia.Graphics.Imaging.OrientationMode.ROTATE_90_FLIP">
+            <summary>
+Flip horizontally, and rotate  90 (CCW)
+</summary>
+        </member>
+        <member name="F:Nokia.Graphics.Imaging.OrientationMode.ROTATE_0_FLIP">
+            <summary>
+Flip horizontally
+</summary>
+        </member>
+        <member name="F:Nokia.Graphics.Imaging.OrientationMode.ROTATE_270_NO_FLIP">
+            <summary>
+Rotate -90 (CW), no flip
+</summary>
+        </member>
+        <member name="F:Nokia.Graphics.Imaging.OrientationMode.ROTATE_180_NO_FLIP">
+            <summary>
+Rotate 180, no flip
+</summary>
+        </member>
+        <member name="F:Nokia.Graphics.Imaging.OrientationMode.ROTATE_90_NO_FLIP">
+            <summary>
+Rotate  90 (CCW), no flip
+</summary>
+        </member>
+        
+        
+        
+        
+        
+        
+        <member name="M:Nokia.Graphics.Imaging.AutoResizeConfiguration.ToString">
+            <summary>
+Returns a string that represents the current object.
+</summary>
+            <returns>
+A string that represents the current object.
+</returns>
+        </member>
+        <member name="P:Nokia.Graphics.Imaging.AutoResizeConfiguration.ColorSpacing">
+            <summary>
+One of the supported color spaces.
+</summary>
+            <value name="colorSpace" />
+        </member>
+        <member name="P:Nokia.Graphics.Imaging.AutoResizeConfiguration.MinEncodingQuality">
+            <summary>
+The lowest desired encoding quality.
+Must be in the range [0.0, 1.0]
+</summary>
+            <value name="minEncodingQuality" />
+        </member>
+        <member name="P:Nokia.Graphics.Imaging.AutoResizeConfiguration.ResizeMode">
+            <summary>
+One of the AutoResizeModes
+</summary>
+            <value name="resizeMode" />
+        </member>
+        <member name="P:Nokia.Graphics.Imaging.AutoResizeConfiguration.MinImageSize">
+            <summary>
+Minimum image size to achieve. 
+</summary>
+            <remarks>
+                <para>
+The rendered image will be at least as large as this size in at least
+one dimension.
+The size must be smaller than maxImageSize.
+A minImageSize of {160, 120} will, for the following different source
+image sizes, give this minimum size:
+</para>
+                <para>{1024, 1024} will be at least {120, 120}</para>
+                <para>{1280, 640}  will be at least {160, 80}</para>
+                <para>{640, 1280}  will be at least {80, 160}</para>
+            </remarks>
+            <value name="minImageSize" />
+        </member>
+        <member name="P:Nokia.Graphics.Imaging.AutoResizeConfiguration.MaxImageSize">
+            <summary>
+Maximum image size to achieve. 
+</summary>
+            <remarks>
+                <para>
+The rendered image will fit within this outer bounding box when
+allowing for rotation. The size must be larger than minImageSize.
+A maxImageSize of {640, 480} will, for the following different source
+image sizes, give this maximum size:
+</para>
+                <para>{1024, 1024} will be at most {480, 480}</para>
+                <para>{1280, 640}  will be at most {640, 320}</para>
+                <para>{640, 1280}  will be at most {320, 640}</para>
+            </remarks>
+            <value name="maxImageSize" />
+        </member>
+        <member name="P:Nokia.Graphics.Imaging.AutoResizeConfiguration.MaxBufferSize">
+            <summary>
+Maximum output buffer size in bytes.
+</summary>
+            <value name="maxBufferSize" />
+        </member>
+        <member name="M:Nokia.Graphics.Imaging.AutoResizeConfiguration.#ctor(System.UInt32,Windows.Foundation.Size,Windows.Foundation.Size,Nokia.Graphics.Imaging.AutoResizeMode,System.Double,Nokia.Graphics.Imaging.ColorSpace)">
+            <summary>
+Creates a new resize configuration object for the JpegTools.
+</summary>
+            <param name="maxBufferSize">
+Maximum output buffer size in bytes.
+</param>
+            <param name="maxImageSize">
+                <para>
+Maximum image size to achieve. The rendered image will fit within this outer bounding box when
+allowing for rotation. The size must be larger than minImageSize.
+A maxImageSize of {640, 480} will, for the following different source
+image sizes, give this maximum size:
+</para>
+                <para>{1024, 1024} will be at most {480, 480}</para>
+                <para>{1280, 640}  will be at most {640, 320}</para>
+                <para>{640, 1280}  will be at most {320, 640}</para>
+            </param>
+            <param name="minImageSize">
+                <para>
+Minimum image size to achieve. The rendered image will be at least as large as this size in at least
+one dimension. The size must be smaller than maxImageSize.
+A minImageSize of {160, 120} will, for the following different source
+image sizes, give this minimum size:
+</para>
+                <para>{1024, 1024} will be at least {120, 120}</para>
+                <para>{1280, 640}  will be at least {160, 80}</para>
+                <para>{640, 1280}  will be at least {80, 160}</para>
+            </param>
+            <param name="resizeMode">
+One of the AutoResizeModes
+</param>
+            <param name="minEncodingQuality">
+The lowest desired encoding quality. Must be in the range [0.0, 1.0]
+</param>
+            <param name="colorSpacing">
+Color spacing will affect how the color channels are sub-sampled when encoding the
+JPEG file. Sub-sampling of the color channels will reduce the resulting file size.
+YUV 4:2:0 color spacing is recommended for achieving the lowest file size.
+</param>
+        </member>
+        <member name="T:Nokia.Graphics.Imaging.AutoResizeConfiguration">
+            <summary>
+  Configuration settings for the JpegTools resize.
+</summary>
+        </member>
+        <member name="T:Nokia.Graphics.Imaging.AutoResizeMode">
+            <summary>
+Resize modes used with JpegTools::AutoResizeAsync.
+</summary>
+        </member>
+        <member name="F:Nokia.Graphics.Imaging.AutoResizeMode.PrioritizeHighEncodingQuality">
+            <summary>Auto resize will try to preserve the highest possible encoding quality
+while shrinking the width and height of the image. This might be
+useful if you substantially reduce the size of the image.
+</summary>
+        </member>
+        <member name="F:Nokia.Graphics.Imaging.AutoResizeMode.PrioritizeLargeImageSize">
+            <summary>Auto resize will try to preserve the maxImageSize while lowering
+the encoding quality.
+</summary>
+        </member>
+        <member name="F:Nokia.Graphics.Imaging.AutoResizeMode.PreserveSourceEncodingQuality">
+            <summary>Auto resize will try to preserve the source encoding quality while
+shrinking the width and height of the image.
+</summary>
+        </member>
+        <member name="F:Nokia.Graphics.Imaging.AutoResizeMode.Automatic">
+            <summary>Auto resize will simultaneously lower the encoding quality and shrink
+the width and height of the image.
+</summary>
+        </member>
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        <member name="T:Nokia.Graphics.Imaging.ColorSpace">
+            <summary>
+Color spacing modes for YUV component data.
+</summary>
+        </member>
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        <member name="M:Nokia.Graphics.Imaging.Bitmap.AsCTBitmapPtr">
+            <summary>
+Getter for the internal CTBitmap pointer as an IntPtr.
+</summary>
+            <returns> Internal CTBitmap pointer as an IntPtr.</returns>
+        </member>
+        <member name="M:Nokia.Graphics.Imaging.Bitmap.Dispose">
+            <summary>
+Destructor.
+</summary>
+        </member>
+        <member name="M:Nokia.Graphics.Imaging.Bitmap.CopyDataFrom(Nokia.Graphics.Imaging.Bitmap)">
+            <summary>
+Copies the image data from the passed bitmap
+</summary>
+            <param name="width">The bitmap to copy the data from.</param>
+        </member>
+        <member name="P:Nokia.Graphics.Imaging.Bitmap.Dimensions">
+            <summary>
+The dimensions of the bitmap.
+</summary>
+        </member>
+        <member name="M:Nokia.Graphics.Imaging.Bitmap.#ctor(Nokia.Graphics.Imaging.Bitmap,Windows.Foundation.Rect)">
+            <summary>
+Creates a Bitmap that points to the same image data as another Bitmap, cropped to a smaller rectangle.
+</summary>
+            <remarks>
+Data provided in the source bitmap is not copied, only a reference to it is kept.
+</remarks>
+            <param name="sourceBitmap"> a Bitmap </param>
+            <param name="cropArea"> Crop area rectangle. Must fit within dimensions of sourceBitmap. </param>
+        </member>
+        <member name="M:Nokia.Graphics.Imaging.Bitmap.#ctor(Windows.Foundation.Size,Nokia.Graphics.Imaging.ColorMode,System.UInt32[],Windows.Storage.Streams.IBuffer[])">
+            <summary>
+Creates a bitmap by binding planes of data from the provided IBuffers. Suitable for planar color modes.
+</summary>
+            <remarks>
+Data provided in the constructor is not copied, only a reference to it is kept.
+</remarks>
+            <param name="size">The size of the bitmap to be created.</param>
+            <param name="colorMode">The color mode of the bitmap to be created.</param>
+            <param name="scanlines">The scanlines of the individual planes of the bitmap to be created.</param>
+            <param name="data">The data to be bound, provided in IBuffers.</param>
+        </member>
+        <member name="M:Nokia.Graphics.Imaging.Bitmap.#ctor(Windows.Foundation.Size,Nokia.Graphics.Imaging.ColorMode,System.UInt32,Windows.Storage.Streams.IBuffer)">
+            <summary>
+Creates a Bitmap by binding data from the provided IBuffer. Suitable for interleaved color modes.
+</summary>
+            <remarks>
+Data provided in the constructor is not copied, only a reference to it is kept.
+</remarks>
+            <param name="size">The size of the bitmap to be created.</param>
+            <param name="scanline">The scanline of the bitmap to be created.</param>
+            <param name="colorMode">The color mode of the bitmap to be created.</param>
+            <param name="data">The data to be bound, provided in an IBuffer.</param>
+        </member>
+        <member name="M:Nokia.Graphics.Imaging.Bitmap.#ctor(Windows.Foundation.Size,Nokia.Graphics.Imaging.ColorMode)">
+            <summary>
+Creates an empty Bitmap where data can be rendered to.
+</summary>
+            <param name="size">The size of the bitmap to be created.</param>
+            <param name="colorMode">The color mode of the bitmap to be created.</param>
+        </member>
+        <member name="T:Nokia.Graphics.Imaging.Bitmap">
+            <summary>
+Contains pixel data for an image. 
+</summary>
+        </member>
+        <member name="M:Nokia.Graphics.CreateException(CRESULT)">
+            <summary>
+Converts a CRESULT error to a suitable exception.
+</summary>
+            <param name="res">Result code.</param>
+            <returns>The created exception.</returns>
+        </member>
+        <member name="M:Nokia.Graphics.CreateIBufferFromCTBuffer(CTBuffer*)">
+            <summary>
+Helper function to create an IBuffer from a CTBuffer.
+</summary>
+            <param name="buffer">The CTBuffer used to create the IBuffer.</param>
+            <returns>The created buffer instance.</returns>
+        </member>
+        <member name="M:Nokia.Graphics.CreateCTBufferFromIBuffer(Windows.Storage.Streams.IBuffer)">
+            <summary>
+Helper function to initialize a CTBuffer using an IBuffer.
+</summary>
+            <param name="buffer">The IBuffer used to initialize the CTBuffer.</param>
+            <returns>The created CTBuffer.</returns>
+        </member>
+        <member name="T:Nokia.Graphics.Imaging.ColorMode">
+            <summary>
+Color formats
+</summary>
+        </member>
+        <member name="F:Nokia.Graphics.Imaging.ColorMode.Float32">
+            <summary>
+32 bit float32 per pixel.
+</summary>
+        </member>
+        <member name="F:Nokia.Graphics.Imaging.ColorMode.Float16">
+            <summary>
+16 bit float16 per pixel.
+</summary>
+        </member>
+        <member name="F:Nokia.Graphics.Imaging.ColorMode.Vu">
+            <summary>
+Represent a single VU channel, VUVUVU...
+</summary>
+        </member>
+        <member name="F:Nokia.Graphics.Imaging.ColorMode.Uv">
+            <summary>
+Represent a single UV channel, UVUVUV...
+</summary>
+        </member>
+        <member name="F:Nokia.Graphics.Imaging.ColorMode.Yuv422_Y1UY2V">
+            <summary>
+Y, U, Y, V, interleaved.
+</summary>
+        </member>
+        <member name="F:Nokia.Graphics.Imaging.ColorMode.Yuv444P">
+            <summary>
+Planar YUV444. YYY..., UUU..., VVV...
+</summary>
+        </member>
+        <member name="F:Nokia.Graphics.Imaging.ColorMode.Yuv420P">
+            <summary>
+Planar YUV420. YYY..., UUU..., VVV...
+</summary>
+        </member>
+        <member name="F:Nokia.Graphics.Imaging.ColorMode.Yvu422Sp">
+            <summary>
+Semi-planar YVU422. YYY..., VUVUVU...
+</summary>
+        </member>
+        <member name="F:Nokia.Graphics.Imaging.ColorMode.Yuv422Sp">
+            <summary>
+Semi-planar YUV422. YYY..., UVUVUV...
+</summary>
+        </member>
+        <member name="F:Nokia.Graphics.Imaging.ColorMode.Yvu420Sp">
+            <summary>
+Semi-planar YVU420. YYY..., VUVUVU...
+</summary>
+        </member>
+        <member name="F:Nokia.Graphics.Imaging.ColorMode.Yuv420Sp">
+            <summary>
+Semi-planar YUV422. YYY..., UVUVUV...
+</summary>
+        </member>
+        <member name="F:Nokia.Graphics.Imaging.ColorMode.Yuv422P">
+            <summary>
+Planar YUV422. YYY..., UUU..., VVV...
+</summary>
+        </member>
+        <member name="F:Nokia.Graphics.Imaging.ColorMode.Gray32">
+            <summary>
+32 bit grayscale, 32 bit per pixel.
+</summary>
+        </member>
+        <member name="F:Nokia.Graphics.Imaging.ColorMode.Gray16">
+            <summary>
+16 bit grayscale, 16 bit per pixel.
+</summary>
+        </member>
+        <member name="F:Nokia.Graphics.Imaging.ColorMode.Gray8">
+            <summary>
+8 bit grayscale, 8 bit per pixel.
+</summary>
+        </member>
+        <member name="F:Nokia.Graphics.Imaging.ColorMode.Bgra8888">
+            <summary>
+4 bytes per pixel, interleaved.
+</summary>
+        </member>
+        <member name="F:Nokia.Graphics.Imaging.ColorMode.Argb8888">
+            <summary>
+4 bytes per pixel, interleaved.
+</summary>
+        </member>
+        <member name="F:Nokia.Graphics.Imaging.ColorMode.Rgb565D">
+            <summary>
+5 bits red, 6 bits green, 5 bits blue, interleaved, with dithering to minimize gradient errors.
+</summary>
+        </member>
+        <member name="F:Nokia.Graphics.Imaging.ColorMode.Rgb565">
+            <summary>
+5 bits red, 6 bits green, 5 bits blue, interleaved.
+</summary>
+        </member>
+        <member name="F:Nokia.Graphics.Imaging.ColorMode.Ayuv4444">
+            <summary>
+Standard interleaved AYUV.
+</summary>
+        </member>
         <member name="M:Nokia.Graphics.Imaging.AutoEnhanceConfiguration.ToString">
             <summary>
   Returns a string that represents the current object.
@@ -1216,961 +2617,11 @@ Allowed range is [ luminanceLowValue, luminanceHighValue ].
   and will not apply white balance.
 </remarks>
         </member>
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        <member name="M:Nokia.Graphics.Imaging.EditingSession.UndoAll">
+        <member name="T:Nokia.Graphics.Imaging.AutoEnhanceConfiguration">
             <summary>
-Removes all filters.
+  Configuration settings for the AutoEnhance filter.
 </summary>
         </member>
-        <member name="M:Nokia.Graphics.Imaging.EditingSession.Undo">
-            <summary>
-Removes the last added filters.
-</summary>
-        </member>
-        <member name="M:Nokia.Graphics.Imaging.EditingSession.CanUndo">
-            <summary>
-Checks if there are filters to remove.
-</summary>
-            <returns>true if there are filters to remove.</returns>
-        </member>
-        <member name="M:Nokia.Graphics.Imaging.EditingSession.AddFilter(Nokia.Graphics.Imaging.IFilter)">
-            <summary>
-Adds a filter that can be removed in one Undo() step.
-</summary>
-        </member>
-        
-        <member name="M:Nokia.Graphics.Imaging.EditingSession.RenderToJpegAsync(Windows.Foundation.Size,Nokia.Graphics.Imaging.OutputOption,System.Double,Nokia.Graphics.Imaging.OutputColorSpacing)">
-            <summary>
-Asynchronous render of editingSession to jpeg. Rendered jpeg will have specified
-dimensions and discrepancies in aspect ratio will be handled according to specified output options.
-</summary>
-            <param name="size">Desired size of the rendered jpeg.</param>
-            <param name="outputOptions">Desired behavior when source and target aspect ratio differ.</param>
-            <param name="quality">Desired jpeg quality between 0.0 and 1.0.</param>
-            <param name="colorSpacing">
-Color spacing will affect how the color channels are sub-sampled when encoding the
-JPEG file. Sub-sampling of the color channels will reduce the resulting file size.
-YUV 4:2:0 color spacing is recommended for achieving the lowest file size.
-</param>
-            <returns>Asynchronously returns an IBuffer containing the jpeg data.</returns>
-        </member>
-        <member name="M:Nokia.Graphics.Imaging.EditingSession.RenderToJpegAsync(Windows.Foundation.Size,Nokia.Graphics.Imaging.OutputOption)">
-            <summary>
-Asynchronous render of editingSession to jpeg. Rendered jpeg will have specified
-dimensions and discrepancies in aspect ratio will be handled according to specified output options.
-</summary>
-            <param name="size">Desired size of the rendered jpeg.</param>
-            <param name="outputOptions">Desired behavior when source and target aspect ratio differ.</param>
-            <returns>Asynchronously returns an IBuffer containing the jpeg data.</returns>
-        </member>
-        <member name="M:Nokia.Graphics.Imaging.EditingSession.RenderToJpegAsync">
-            <summary>
-Asynchronous render of editingSession to jpeg.
-</summary>
-            <returns>Asynchronously returns an IBuffer containing the jpeg data.</returns>
-        </member>
-        <member name="M:Nokia.Graphics.Imaging.EditingSession.RenderToBitmapAsync(Nokia.Graphics.Imaging.Bitmap,Nokia.Graphics.Imaging.OutputOption,Windows.Foundation.Rect)">
-            <summary>
-Asynchronous render of cropped region to bitmap with specified aspect ratio behavior.
-</summary>
-            <param name="renderTarget">Bitmap to render to.</param>
-            <param name="outputOptions">Desired behavior when source and target aspect ratio differ.</param>
-            <param name="cropArea">Rectangle describing the crop of the source to apply before rendering.</param>
-            <returns>The asynchronous action</returns>
-        </member>
-        <member name="M:Nokia.Graphics.Imaging.EditingSession.RenderToBitmapAsync(Nokia.Graphics.Imaging.Bitmap,Nokia.Graphics.Imaging.OutputOption)">
-            <summary>
-Asynchronous render of editingSession to bitmap with specified aspect ratio behavior.
-</summary>
-            <param name="renderTarget">Bitmap to render to.</param>
-            <param name="outputOptions">Desired behavior when source and target aspect ratio differ.</param>
-            <returns>The asynchronous action</returns>
-        </member>
-        <member name="M:Nokia.Graphics.Imaging.EditingSession.RenderToBitmapAsync(Nokia.Graphics.Imaging.Bitmap)">
-            <summary>
-Asynchronous render of editingSession to bitmap.
-</summary>
-            <param name="renderTarget">Bitmap to render to.</param>
-            <returns>The asynchronous action</returns>
-        </member>
-        <member name="M:Nokia.Graphics.Imaging.EditingSession.Dispose">
-            <summary>
-EditingSession destructor.
-</summary>
-        </member>
-        <member name="M:Nokia.Graphics.Imaging.EditingSession.#ctor(Nokia.Graphics.Imaging.Bitmap)">
-            <summary>
-Creates a editingSession from a bitmap.
-</summary>
-            <param name="bitmap">Bitmap to use as source to the created editingSession.</param>
-        </member>
-        <member name="M:Nokia.Graphics.Imaging.EditingSession.#ctor(Windows.Storage.Streams.IBuffer,Nokia.Graphics.Imaging.InputImageFormat)">
-            <summary>
-Creates a sesssion from a buffer.
-</summary>
-            <param name="buffer">Buffer containing the image data.</param>
-            <param name="format">Image type in the buffer.</param>
-        </member>
-        <member name="M:Nokia.Graphics.Imaging.EditingSession.#ctor(Windows.Storage.Streams.IBuffer)">
-            <summary>
-Creates a sesssion from a compressed image buffer.
-</summary>
-            <remarks>
-An attempt will be made to 
-automatically detect the image format. If the image date is not corrupt the 
-editingSession should be able to detect JPEG, GIF, PNG, TIFF, BMP, WBMP. If the 
-image format cannot be determined an exeception will be thrown.
-For optimal performance, or if the image format cannot be determined, please 
-provide the image format explicitly when creating a new editingSession.
-</remarks>
-            <param name="buffer">Buffer containing the compressed image data.</param>
-        </member>
-        
-        <member name="M:Nokia.Graphics.Imaging.IEditingSession.UndoAll">
-            <summary>
-Removes all filters.
-</summary>
-        </member>
-        <member name="M:Nokia.Graphics.Imaging.IEditingSession.Undo">
-            <summary>
-Removes the last added filters.
-</summary>
-        </member>
-        <member name="M:Nokia.Graphics.Imaging.IEditingSession.CanUndo">
-            <summary>
-Checks if there are filters to remove.
-</summary>
-            <returns>true if there are filters to remove.</returns>
-        </member>
-        <member name="M:Nokia.Graphics.Imaging.IEditingSession.AddFilter(Nokia.Graphics.Imaging.IFilter)">
-            <summary>
-Adds a filter.
-</summary>
-        </member>
-        
-        <member name="M:Nokia.Graphics.Imaging.IEditingSession.RenderToJpegAsync(Windows.Foundation.Size,Nokia.Graphics.Imaging.OutputOption,System.Double,Nokia.Graphics.Imaging.OutputColorSpacing)">
-            <summary>
-Asynchronous render of editingSession to jpeg. Rendered jpeg will have specified
-dimensions and discrepancies in aspect ratio will be handled according to specified output options.
-</summary>
-            <param name="size">Desired size of the rendered jpeg.</param>
-            <param name="outputOptions">Desired behavior when source and target aspect ratio differ.</param>
-            <param name="quality">Desired jpeg quality between 0.0 and 1.0.</param>
-            <param name="outputColorSpacing">Desired jpeg color spacing.</param>
-            <returns>Asynchronously returns an IBuffer containing the jpeg data.</returns>
-        </member>
-        <member name="M:Nokia.Graphics.Imaging.IEditingSession.RenderToJpegAsync(Windows.Foundation.Size,Nokia.Graphics.Imaging.OutputOption)">
-            <summary>
-Asynchronous render of editingSession to jpeg. Rendered jpeg will have specified
-dimensions and discrepancies in aspect ratio will be handled according to specified output options.
-</summary>
-            <param name="size">Desired size of the rendered jpeg.</param>
-            <param name="outputOptions">Desired behavior when source and target aspect ratio differ.</param>
-            <returns>Asynchronously returns an IBuffer containing the jpeg data.</returns>
-        </member>
-        <member name="M:Nokia.Graphics.Imaging.IEditingSession.RenderToJpegAsync">
-            <summary>
-Asynchronous render of editingSession to jpeg.
-</summary>
-            <returns>Asynchronously returns an IBuffer containing the jpeg data.</returns>
-        </member>
-        <member name="M:Nokia.Graphics.Imaging.IEditingSession.RenderToBitmapAsync(Nokia.Graphics.Imaging.Bitmap,Nokia.Graphics.Imaging.OutputOption,Windows.Foundation.Rect)">
-            <summary>
-Asynchronous render of cropped region to bitmap with specified aspect ratio behavior.
-</summary>
-            <param name="renderTarget">Bitmap to render to.</param>
-            <param name="outputOptions">Desired behavior when source and target aspect ratio differ.</param>
-            <param name="cropArea">Rectangle describing the crop of the source to apply before rendering.</param>
-            <returns>The asynchronous action</returns>
-        </member>
-        <member name="M:Nokia.Graphics.Imaging.IEditingSession.RenderToBitmapAsync(Nokia.Graphics.Imaging.Bitmap,Nokia.Graphics.Imaging.OutputOption)">
-            <summary>
-Asynchronous render of editingSession to bitmap with specified aspect ratio behavior.
-</summary>
-            <param name="renderTarget">Bitmap to render to.</param>
-            <param name="outputOptions">Desired behavior when source and target aspect ratio differ.</param>
-            <returns>The asynchronous action</returns>
-        </member>
-        <member name="M:Nokia.Graphics.Imaging.IEditingSession.RenderToBitmapAsync(Nokia.Graphics.Imaging.Bitmap)">
-            <summary>
-Asynchronous render of editingSession to bitmap.
-</summary>
-            <param name="renderTarget">Bitmap to render to.</param>
-            <returns>The asynchronous action</returns>
-        </member>
-        
-        <member name="M:Nokia.Graphics.Imaging.IFilter.Undo(Nokia.Graphics.Imaging.IEditingSession)">
-            <summary>Undo this filter on an editing session</summary>
-            <remarks>Do not call this method directly, use IEditingSession::Undo</remarks>
-        </member>
-        <member name="M:Nokia.Graphics.Imaging.IFilter.Apply(Nokia.Graphics.Imaging.IEditingSession)">
-            <summary>Apply this filter to an editing session</summary>
-            <remarks>Do not call this method directly, use IEditingSession::Apply</remarks>
-        </member>
-        
-        
-        
-        
-        <member name="M:Nokia.Graphics.Imaging.Bitmap.AsCTBitmapPtr">
-            <summary>
-Getter for the internal CTBitmap pointer as an IntPtr.
-</summary>
-            <returns> Internal CTBitmap pointer as an IntPtr.</returns>
-        </member>
-        <member name="M:Nokia.Graphics.Imaging.Bitmap.Dispose">
-            <summary>
-Destructor.
-</summary>
-        </member>
-        <member name="M:Nokia.Graphics.Imaging.Bitmap.CopyDataFrom(Nokia.Graphics.Imaging.Bitmap)">
-            <summary>
-Copies the image data from the passed bitmap
-</summary>
-            <param name="width">The bitmap to copy the data from.</param>
-        </member>
-        
-        <member name="M:Nokia.Graphics.Imaging.Bitmap.#ctor(Nokia.Graphics.Imaging.Bitmap,Windows.Foundation.Rect)">
-            <summary>
-Creates a Bitmap that points to the same image data as another Bitmap, cropped to a smaller rectangle.
-</summary>
-            <remarks>
-Data provided in the source bitmap is not copied, only a reference to it is kept.
-</remarks>
-            <param name="sourceBitmap"> a Bitmap </param>
-            <param name="cropArea"> Crop area rectangle. Must fit within dimensions of sourceBitmap. </param>
-        </member>
-        <member name="M:Nokia.Graphics.Imaging.Bitmap.#ctor(Windows.Foundation.Size,Nokia.Graphics.Imaging.ColorMode,System.UInt32[],Windows.Storage.Streams.IBuffer[])">
-            <summary>
-Creates a bitmap by binding planes of data from the provided IBuffers. Suitable for planar color modes.
-</summary>
-            <remarks>
-Data provided in the constructor is not copied, only a reference to it is kept.
-</remarks>
-            <param name="size">The size of the bitmap to be created.</param>
-            <param name="colorMode">The color mode of the bitmap to be created.</param>
-            <param name="scanlines">The scanlines of the individual planes of the bitmap to be created.</param>
-            <param name="data">The data to be bound, provided in IBuffers.</param>
-        </member>
-        <member name="M:Nokia.Graphics.Imaging.Bitmap.#ctor(Windows.Foundation.Size,Nokia.Graphics.Imaging.ColorMode,System.UInt32,Windows.Storage.Streams.IBuffer)">
-            <summary>
-Creates a Bitmap by binding data from the provided IBuffer. Suitable for interleaved color modes.
-</summary>
-            <remarks>
-Data provided in the constructor is not copied, only a reference to it is kept.
-</remarks>
-            <param name="size">The size of the bitmap to be created.</param>
-            <param name="scanline">The scanline of the bitmap to be created.</param>
-            <param name="colorMode">The color mode of the bitmap to be created.</param>
-            <param name="data">The data to be bound, provided in an IBuffer.</param>
-        </member>
-        <member name="M:Nokia.Graphics.Imaging.Bitmap.#ctor(Windows.Foundation.Size,Nokia.Graphics.Imaging.ColorMode)">
-            <summary>
-Creates an empty Bitmap where data can be rendered to.
-</summary>
-            <param name="size">The size of the bitmap to be created.</param>
-            <param name="colorMode">The color mode of the bitmap to be created.</param>
-        </member>
-        
-        <member name="M:Nokia.Graphics.CreateException(CRESULT)">
-            <summary>
-Converts a CRESULT error to a suitable exception.
-</summary>
-            <param name="res">Result code.</param>
-            <returns>The created exception.</returns>
-        </member>
-        <member name="M:Nokia.Graphics.CreateIBufferFromCTBuffer(CTBuffer*)">
-            <summary>
-Helper function to create an IBuffer from a CTBuffer.
-</summary>
-            <param name="buffer">The CTBuffer used to create the IBuffer.</param>
-            <returns>The created buffer instance.</returns>
-        </member>
-        <member name="M:Nokia.Graphics.CreateCTBufferFromIBuffer(Windows.Storage.Streams.IBuffer)">
-            <summary>
-Helper function to initialize a CTBuffer using an IBuffer.
-</summary>
-            <param name="buffer">The IBuffer used to initialize the CTBuffer.</param>
-            <returns>The created CTBuffer.</returns>
-        </member>
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        <member name="M:Nokia.Graphics.Imaging.Exif.CreateExifFromBuffer(Windows.Storage.Streams.IBuffer)">
-Creates an Exif instance based on the exif data contained in the provided buffer.
-buffer: the provided buffer to use when creating the Exif instance; must not be null
-returns the created Exif instance or an empty instance if valid exif data was not found.
-</member>
-        <member name="M:Nokia.Graphics.Imaging.Exif.GetThumbnailAsync">
-            <summary>
-Asynchronously gets the thumbnail, or null if not found.
-<returns>Returns an IBuffer containing the thumbnail jpeg data.</returns></summary>
-        </member>
-        <member name="M:Nokia.Graphics.Imaging.Exif.SetTagDateTimeDigitizedRaw(System.Byte[])">
-            <summary>
-Set DateTime Digitized tag.
-</summary>
-            <param name="data">New DateTime Digitized tag.</param>
-        </member>
-        <member name="M:Nokia.Graphics.Imaging.Exif.SetTagDateTimeOriginalRaw(System.Byte[])">
-            <summary>
-Set DateTime Original tag.
-</summary>
-            <param name="data">New DateTime Original tag.</param>
-        </member>
-        <member name="M:Nokia.Graphics.Imaging.Exif.GetTagOrientation">
-            <summary>
-Retrieves the Orientation tag
-<return>Returns an integer describing the orientation.</return></summary>
-        </member>
-        <member name="M:Nokia.Graphics.Imaging.Exif.SetTagOrientation(System.Int32)">
-            <summary>
-Change the Orientation tag
-</summary>
-            <param name="orientation">The new orientation.</param>
-        </member>
-        <member name="M:Nokia.Graphics.Imaging.Exif.DeleteExifIFD(System.Int32)">
-            <summary>
-Delete a specific IFD from the Exif.
-</summary>
-            <param name="IFD">The IFD to delete.</param>
-        </member>
-        <member name="M:Nokia.Graphics.Imaging.Exif.Dispose">
-            <summary>
-Destructor.
-</summary>
-        </member>
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
         
         
         
