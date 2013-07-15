@@ -128,5 +128,6 @@ Nokia Lumia Developer's Library:
 7. Version history
 -------------------------------------------------------------------------------
 
+1.0.1 Invalid reference paths fixed and some updates to app icons
 1.0 First release
 0.8 First release candidate
