@@ -135,7 +135,7 @@
     <value>Menu Item</value>
   </data>
   <data name="AboutText" xml:space="preserve">
-    <value>About</value>
+    <value>about</value>
   </data>
   <data name="ApplicationName" xml:space="preserve">
     <value>Filter Effects</value>

@@ -61,7 +61,7 @@ namespace FilterEffects.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to About.
+        ///   Looks up a localized string similar to about.
         /// </summary>
         public static string AboutText {
             get {

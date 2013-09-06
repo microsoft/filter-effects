@@ -23,10 +23,26 @@ namespace FilterEffects
     /// </summary>
     public abstract class AbstractFilter
     {
+        /// <summary>
+        /// The states of the state machine.
+        /// </summary>
+        private enum States
+        {
+            Wait = 0,
+            Apply,
+            Schedule
+        };
+
+        // Members
         protected IBuffer _buffer;
         protected FilterPropertiesControl _control;
         private WriteableBitmap _previewBitmap;
-        private Bitmap _filteredBitmap;
+
+        // Use a temporary buffer for rendering to remove concurrent access
+        // between rendering and the image shown on the screen.
+        private WriteableBitmap _tmpBitmap;
+
+        private EditingSession _session;
 
         /// <summary>
         /// Name of the filter.
@@ -46,6 +62,24 @@ namespace FilterEffects
             private set;
         }
 
+        private States _state = States.Wait;
+        private States State
+        {
+            get
+            {
+                return _state;
+            }
+            set
+            {
+                if (_state != value)
+                {
+                    System.Diagnostics.Debug.WriteLine(
+                        "AbstractFilter.State.set: " + _state + " -> " + value);
+                    _state = value;
+                }
+            }
+        }            
+        
         /// <summary>
         /// Constructor.
         /// </summary>
@@ -77,25 +111,33 @@ namespace FilterEffects
         public void SetBuffer(IBuffer buffer)
         {
             _buffer = buffer;
+
+            if (_session != null)
+            {
+               _session.Dispose();
+               _session = null;
+            }
+
+           _session = new EditingSession(_buffer);
         }
 
         /// <summary>
         /// Creates a filtered preview image from the given buffer.
         /// </summary>
-        public async void CreatePreviewImage()
+        public void CreatePreviewImage()
         {
-            if (_buffer == null)
+            switch (State)
             {
-                return;
-            }
-
-            EditingSession session = new EditingSession(_buffer);
-
-            // Perform the filtering
-            using (session)
-            {
-                DefineFilter(session);
-                await RenderToBitmapAsync(session);
+                case States.Wait: // State machine transition: Wait -> Apply
+                    State = States.Apply;
+                    ApplyFilter(); // Apply the filter
+                    break;
+                case States.Apply: // State machine transition: Apply -> Schedule
+                    State = States.Schedule;
+                    break;
+                default:
+                    // Do nothing
+                    break;
             }
         }
 
@@ -105,14 +147,17 @@ namespace FilterEffects
         /// <param name="session">The session initialized with the desired jpeg.</param>
         public async Task RenderToBitmapAsync(EditingSession session)
         {
-            await session.RenderToBitmapAsync(_filteredBitmap, OutputOption.PreserveAspectRatio);
+            await session.RenderToWriteableBitmapAsync(_tmpBitmap, OutputOption.PreserveAspectRatio);
+            _tmpBitmap.Pixels.CopyTo(_previewBitmap.Pixels, 0);
             _previewBitmap.Invalidate(); // Force a redraw
         }
 
         /// <summary>
-        /// Creates the PreviewBuffers or resize them if needed.
+        /// Creates a preview bitmap if one does not exist or the size of the
+        /// previous bitmap does not match the given dimensions.
         /// </summary>
-        /// <param name="session">The session initialized with the desired jpeg.</param>
+        /// <param name="width">The width of the output resolution.</param>
+        /// <param name="height">The height of the output resolution.</param>
         public void SetOutputResolution(int width, int height)
         {
             if (_previewBitmap != null)
@@ -125,8 +170,50 @@ namespace FilterEffects
             }
 
             _previewBitmap = new WriteableBitmap(width, height);
-            _filteredBitmap = _previewBitmap.AsBitmap();
+            _tmpBitmap = new WriteableBitmap(width, height);
             PreviewImage.Source = _previewBitmap; // Force a redraw
+        }
+
+        /// <summary>
+        /// Applies the filter. If another processing request was scheduled
+        /// while processing the buffer, the method will recursively call
+        /// itself.
+        /// </summary>
+        protected async void ApplyFilter()
+        {
+            try
+            {
+                if (_buffer != null)
+                {
+                    _session.UndoAll(); // Remove old filters
+                    DefineFilter(_session);
+                    await RenderToBitmapAsync(_session);
+                }
+                else
+                {
+                    System.Diagnostics.Debug.WriteLine(
+                        "AbstractFilter.ApplyFilter(): No buffer set!");
+                }
+            }
+            catch (Exception)
+            {
+            }
+            finally
+            {
+                switch (State)
+                {
+                    case States.Apply: // State machine transition : Apply -> Wait
+                        State = States.Wait;
+                        break;
+                    case States.Schedule: // State machine transition: Schedule -> Apply
+                        State = States.Apply;
+                        ApplyFilter(); // Apply the filter
+                        break;
+                    default:
+                        // Do nothing
+                        break;
+                }
+            }
         }
     }
 }

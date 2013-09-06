@@ -113,13 +113,18 @@ https://github.com/nokia-developer/filter-effects/blob/master/Licence.txt
 6. Related documentation
 -------------------------------------------------------------------------------
 
-Nokia Lumia Developer's Library:
-http://www.developer.nokia.com/Resources/Library/Lumia
+* Nokia Lumia Developer's Library:
+  http://www.developer.nokia.com/Resources/Library/Lumia
+* Wiki article: Optimizing Imaging SDK use for rapidly changing filter
+  parameters:
+  http://developer.nokia.com/Community/Wiki/Optimizing_Imaging_SDK_use_for_rapidly_changing_filter_parameters
 
 
 7. Version history
 -------------------------------------------------------------------------------
 
+* 1.1 Performance optimisations added based on Yan's wiki article (see related
+      documentation
 * 1.0.1 Invalid reference paths fixed and some updates to app icons
 * 1.0 First release
 * 0.8 First release candidate
