@@ -12,8 +12,9 @@ and apply an effect to it.
 This example application is hosted in GitHub:
 https://github.com/nokia-developer/filter-effects
 
-For more information on implementation, visit the wiki pages:
-https://github.com/nokia-developer/filter-effects/wiki
+For more information on implementation, visit Nokia Lumia
+Developer's Library:
+http://developer.nokia.com/Resources/Library/Lumia/#!nokia-imaging-sdk/sample-projects/filter-effects.html
 
 
 1. Prerequisites
