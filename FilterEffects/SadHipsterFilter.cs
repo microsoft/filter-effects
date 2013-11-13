@@ -21,23 +21,29 @@ namespace FilterEffects
 {
     public class SadHipsterFilter : CarShowFilter
     {
+        // Constants
+        private const double DefaultBrightness = 0.5;
+        private const double DefaultSaturation = 0.3;
+        private const LomoVignetting DefaultLomoVignetting = LomoVignetting.Medium;
+        private const LomoStyle DefaultLomoStyle = LomoStyle.Yellow;
+
         public SadHipsterFilter()
             : base()
         {
             Name = "Sad Hipster";
 
-            _brightness = 0.5;
-            _saturation = 0.3;
-            _lomoVignetting = LomoVignetting.Medium;
-            _lomoStyle = LomoStyle.Yellow;
+            _lomoFilter.Brightness = DefaultBrightness;
+            _lomoFilter.Saturation = DefaultSaturation;
+            _lomoFilter.LomoVignetting = DefaultLomoVignetting;
+            _lomoFilter.LomoStyle = DefaultLomoStyle;
+
             _lomoVignettingGroup = "SadHipsterLomoVignetting";
         }
 
-        public override void DefineFilter(EditingSession session)
+        protected override void SetFilters(FilterEffect effect)
         {
-            session.AddFilter(FilterFactory.CreateAntiqueFilter());
-            session.AddFilter(FilterFactory.CreateLomoFilter(
-                _brightness, _saturation, _lomoVignetting, _lomoStyle));
+            AntiqueFilter antiqueFilter = new AntiqueFilter();
+            effect.Filters = new List<IFilter>() { antiqueFilter, _lomoFilter };
         }
     }
 }

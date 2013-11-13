@@ -1,5 +1,5 @@
 ﻿<!--
-    Copyright (c) 2012 Nokia Corporation.
+    Copyright (c) 2013 Nokia Corporation.
 -->
 
 <phone:PhoneApplicationPage
@@ -17,50 +17,31 @@
     Foreground="{StaticResource PhoneForegroundBrush}"
     SupportedOrientations="PortraitOrLandscape" Orientation="Portrait"
     shell:SystemTray.IsVisible="True">
+    
 	<phone:PhoneApplicationPage.Resources>
+        <!-- Animation to be shown after photo capture. -->
 		<Storyboard x:Name="CaptureAnimation">
-			<DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.ScaleY)" Storyboard.TargetName="VideoCanvas">
-				<EasingDoubleKeyFrame KeyTime="0" Value="1">
-					<EasingDoubleKeyFrame.EasingFunction>
-						<BackEase EasingMode="EaseOut"/>
-					</EasingDoubleKeyFrame.EasingFunction>
-				</EasingDoubleKeyFrame>
-				<EasingDoubleKeyFrame KeyTime="0:0:0.182" Value="0.835">
-					<EasingDoubleKeyFrame.EasingFunction>
-						<BackEase EasingMode="EaseOut"/>
-					</EasingDoubleKeyFrame.EasingFunction>
-				</EasingDoubleKeyFrame>
-				<EasingDoubleKeyFrame KeyTime="0:0:0.2" Value="0.835">
-					<EasingDoubleKeyFrame.EasingFunction>
-						<BounceEase EasingMode="EaseOut"/>
-					</EasingDoubleKeyFrame.EasingFunction>
-				</EasingDoubleKeyFrame>
-			</DoubleAnimationUsingKeyFrames>
-			<DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateY)" Storyboard.TargetName="VideoCanvas">
+			<DoubleAnimationUsingKeyFrames
+                Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateY)"
+                Storyboard.TargetName="VideoCanvas">
 				<EasingDoubleKeyFrame KeyTime="0" Value="0">
 					<EasingDoubleKeyFrame.EasingFunction>
 						<BackEase EasingMode="EaseOut"/>
 					</EasingDoubleKeyFrame.EasingFunction>
 				</EasingDoubleKeyFrame>
-				<EasingDoubleKeyFrame KeyTime="0:0:0.182" Value="63.5">
+				<EasingDoubleKeyFrame KeyTime="0:0:0.4" Value="100">
 					<EasingDoubleKeyFrame.EasingFunction>
 						<BackEase EasingMode="EaseOut"/>
 					</EasingDoubleKeyFrame.EasingFunction>
 				</EasingDoubleKeyFrame>
 			</DoubleAnimationUsingKeyFrames>
-			<DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.ScaleX)" Storyboard.TargetName="VideoCanvas">
-				<EasingDoubleKeyFrame KeyTime="0:0:0.182" Value="1"/>
-				<EasingDoubleKeyFrame KeyTime="0:0:0.2" Value="0.979">
+			<DoubleAnimationUsingKeyFrames
+                Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.ScaleX)"
+                Storyboard.TargetName="VideoCanvas">
+				<EasingDoubleKeyFrame KeyTime="0:0:0.0" Value="1"/>
+				<EasingDoubleKeyFrame KeyTime="0:0:0.4" Value="0.94">
 					<EasingDoubleKeyFrame.EasingFunction>
-						<BounceEase EasingMode="EaseOut"/>
-					</EasingDoubleKeyFrame.EasingFunction>
-				</EasingDoubleKeyFrame>
-			</DoubleAnimationUsingKeyFrames>
-			<DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateX)" Storyboard.TargetName="VideoCanvas">
-				<EasingDoubleKeyFrame KeyTime="0:0:0.182" Value="0"/>
-				<EasingDoubleKeyFrame KeyTime="0:0:0.2" Value="5">
-					<EasingDoubleKeyFrame.EasingFunction>
-						<BounceEase EasingMode="EaseOut"/>
+						<QuadraticEase EasingMode="EaseOut"/>
 					</EasingDoubleKeyFrame.EasingFunction>
 				</EasingDoubleKeyFrame>
 			</DoubleAnimationUsingKeyFrames>
@@ -68,7 +49,6 @@
 	</phone:PhoneApplicationPage.Resources>
  
     <Grid x:Name="LayoutRoot" Background="Transparent" Margin="0, 0, 0, 0">
-       
         <Canvas x:Name="VideoCanvas" RenderTransformOrigin="0.5,0.5" Canvas.ZIndex="0">
             <Canvas.RenderTransform>
                 <CompositeTransform/>
@@ -83,10 +63,7 @@
                 </VideoBrush>
             </Canvas.Background>
         </Canvas>
-
-        <Rectangle x:Name="TitleShade" Height="60" VerticalAlignment="Top" Opacity="0.4" Fill="Black" />
         <phone:Pivot x:Name="TitleText" Title="{Binding Path=LocalizedResources.ApplicationTitle, Source={StaticResource LocalizedStrings}}"  />
-
     </Grid>
 
     <phone:PhoneApplicationPage.ApplicationBar>

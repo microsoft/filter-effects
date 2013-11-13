@@ -21,11 +21,14 @@ namespace FilterEffects
 {
     public class CarShowFilter : AbstractFilter
     {
+        // Constants
+        private const double DefaultBrightness = 0.5;
+        private const double DefaultSaturation = 0.5;
+        private const LomoVignetting DefaultLomoVignetting = LomoVignetting.High;
+        private const LomoStyle DefaultLomoStyle = LomoStyle.Neutral;
+
         // Members
-        protected double _brightness = 0.5;
-        protected double _saturation = 0.5;
-        protected LomoVignetting _lomoVignetting = LomoVignetting.Medium;
-        protected LomoStyle _lomoStyle = LomoStyle.Neutral;
+        protected LomoFilter _lomoFilter;
         protected String _lomoVignettingGroup = "CarShowLomoVignetting";
 
         public CarShowFilter()
@@ -33,23 +36,22 @@ namespace FilterEffects
         {
             Name = "Car Show";
 
-            _brightness = 0.5;
-            _saturation = 0.8;
-            _lomoVignetting = LomoVignetting.High;
-            _lomoStyle = LomoStyle.Neutral;
+            _lomoFilter = new LomoFilter();
+            _lomoFilter.Brightness = DefaultBrightness;
+            _lomoFilter.Saturation = DefaultSaturation;
+            _lomoFilter.LomoVignetting = DefaultLomoVignetting;
+            _lomoFilter.LomoStyle = DefaultLomoStyle;
         }
 
-        public override void DefineFilter(EditingSession session)
+        protected override void SetFilters(FilterEffect effect)
         {
-            session.AddFilter(FilterFactory.CreateLomoFilter(
-                _brightness, _saturation, _lomoVignetting, _lomoStyle));
+            effect.Filters = new List<IFilter>() { _lomoFilter };
         }
 
         public override bool AttachControl(FilterPropertiesControl control)
         {
             _control = control;
             Grid grid = new Grid();
-
             int rowIndex = 0;
 
             TextBlock brightnessText = new TextBlock();
@@ -59,7 +61,7 @@ namespace FilterEffects
             Slider brightnessSlider = new Slider();
             brightnessSlider.Minimum = 0.0;
             brightnessSlider.Maximum = 1.0;
-            brightnessSlider.Value = _brightness;
+            brightnessSlider.Value = _lomoFilter.Brightness;
             brightnessSlider.ValueChanged += brightnessSlider_ValueChanged;
             Grid.SetRow(brightnessSlider, rowIndex++);
 
@@ -70,7 +72,7 @@ namespace FilterEffects
             Slider saturationSlider = new Slider();
             saturationSlider.Minimum = 0.0;
             saturationSlider.Maximum = 1.0;
-            saturationSlider.Value = _saturation;
+            saturationSlider.Value = _lomoFilter.Saturation;
             saturationSlider.ValueChanged += saturationSlider_ValueChanged;
             Grid.SetRow(saturationSlider, rowIndex++);
 
@@ -78,13 +80,13 @@ namespace FilterEffects
             lomoVignettingText.Text = AppResources.LomoVignetting;
             Grid.SetRow(lomoVignettingText, rowIndex++);
 
-            RadioButton lowRadioButton = new RadioButton();
-            lowRadioButton.GroupName = _lomoVignettingGroup;
+            RadioButton highRadioButton = new RadioButton();
+            highRadioButton.GroupName = _lomoVignettingGroup;
             TextBlock textBlock = new TextBlock();
-            textBlock.Text = AppResources.Low;
-            lowRadioButton.Content = textBlock;
-            lowRadioButton.Checked += lowRadioButton_Checked;
-            Grid.SetRow(lowRadioButton, rowIndex++);
+            textBlock.Text = AppResources.High;
+            highRadioButton.Content = textBlock;
+            highRadioButton.Checked += highRadioButton_Checked;
+            Grid.SetRow(highRadioButton, rowIndex++);
 
             RadioButton medRadioButton = new RadioButton();
             medRadioButton.GroupName = _lomoVignettingGroup;
@@ -94,15 +96,15 @@ namespace FilterEffects
             medRadioButton.Checked += medRadioButton_Checked;
             Grid.SetRow(medRadioButton, rowIndex++);
 
-            RadioButton highRadioButton = new RadioButton();
-            highRadioButton.GroupName = _lomoVignettingGroup;
+            RadioButton lowRadioButton = new RadioButton();
+            lowRadioButton.GroupName = _lomoVignettingGroup;
             textBlock = new TextBlock();
-            textBlock.Text = AppResources.High;
-            highRadioButton.Content = textBlock;
-            highRadioButton.Checked += highRadioButton_Checked;
-            Grid.SetRow(highRadioButton, rowIndex++);
+            textBlock.Text = AppResources.Low;
+            lowRadioButton.Content = textBlock;
+            lowRadioButton.Checked += lowRadioButton_Checked;
+            Grid.SetRow(lowRadioButton, rowIndex++);
 
-            switch (_lomoVignetting)
+            switch (_lomoFilter.LomoVignetting)
             {
                 case LomoVignetting.Low: lowRadioButton.IsChecked = true; break;
                 case LomoVignetting.Medium: medRadioButton.IsChecked = true; break;
@@ -131,37 +133,38 @@ namespace FilterEffects
 
         protected void brightnessSlider_ValueChanged(object sender, System.Windows.RoutedPropertyChangedEventArgs<double> e)
         {
-            _brightness = 1.0 - e.NewValue;
-            Debug.WriteLine("Brightness changed to " + _brightness);
-            CreatePreviewImage();
+            Debug.WriteLine("Changing brightness to " + (1.0 - e.NewValue));
+            _changes.Add(() => { _lomoFilter.Brightness = 1.0 - e.NewValue; });
+            Apply();
             _control.NotifyManipulated();
         }
 
         protected void saturationSlider_ValueChanged(object sender, System.Windows.RoutedPropertyChangedEventArgs<double> e)
         {
-            _saturation = e.NewValue;
-            CreatePreviewImage();
+            Debug.WriteLine("Changing saturation changed to " + e.NewValue);
+            _changes.Add(() => { _lomoFilter.Saturation = e.NewValue; });
+            Apply();
             _control.NotifyManipulated();
         }
 
         protected void lowRadioButton_Checked(object sender, System.Windows.RoutedEventArgs e)
         {
-            _lomoVignetting = LomoVignetting.Low;
-            CreatePreviewImage();
+            _changes.Add(() => { _lomoFilter.LomoVignetting = LomoVignetting.Low; });
+            Apply();
             _control.NotifyManipulated();
         }
 
         protected void medRadioButton_Checked(object sender, System.Windows.RoutedEventArgs e)
         {
-            _lomoVignetting = LomoVignetting.Medium;
-            CreatePreviewImage();
+            _changes.Add(() => { _lomoFilter.LomoVignetting = LomoVignetting.Medium; });
+            Apply();
             _control.NotifyManipulated();
         }
 
         protected void highRadioButton_Checked(object sender, System.Windows.RoutedEventArgs e)
         {
-            _lomoVignetting = LomoVignetting.High;
-            CreatePreviewImage();
+            _changes.Add(() => { _lomoFilter.LomoVignetting = LomoVignetting.High; });
+            Apply();
             _control.NotifyManipulated();
         }
     }

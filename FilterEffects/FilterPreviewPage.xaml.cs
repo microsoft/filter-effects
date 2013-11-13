@@ -12,6 +12,7 @@ using System.Net;
 using System.Runtime.InteropServices.WindowsRuntime;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Threading;
@@ -24,7 +25,6 @@ using Nokia.Graphics;
 using Nokia.Graphics.Imaging;
 
 using FilterEffects.Resources;
-using System.Windows.Media.Animation;
 
 namespace FilterEffects
 {
@@ -36,8 +36,9 @@ namespace FilterEffects
     public partial class FilterPreviewPage : PhoneApplicationPage
     {
         // Constants
-        private const int DefaultOutputResolutionWidth = 480;
-        private const int DefaultOutputResolutionHeight = 640;
+        private const String DebugTag = "FilterPreviewPage";
+        private const double DefaultOutputResolutionWidth = 480;
+        private const double DefaultOutputResolutionHeight = 640;
         private const String FileNamePrefix = "FilterEffects_";
         private const String TombstoneImageDir = "TempData";
         private const String TombstoneImageFile = "TempData\\TempImage.jpg";
@@ -94,6 +95,15 @@ namespace FilterEffects
             if (e.NavigationMode != System.Windows.Navigation.NavigationMode.Back)
             {
                 StoreState();
+            }
+            else
+            {
+                // Navigating back
+                // Dispose the filters
+                foreach (AbstractFilter filter in _filters)
+                {
+                    filter.Dispose();
+                }
             }
 
             FilterPreviewPivot.SelectionChanged -= FilterPreviewPivot_SelectionChanged;
@@ -218,6 +228,8 @@ namespace FilterEffects
                     control.VerticalAlignment = VerticalAlignment.Bottom;
                     control.Opacity = 0;
                     control.Visibility = Visibility.Collapsed;
+                    control.ControlBackground.Fill =
+                        dataContext.ThemeBackgroundBrush();
                     grid.Children.Add(control);
 
                     grid.Tap += ShowPropertiesControls;
@@ -226,9 +238,10 @@ namespace FilterEffects
 
                 pivotItem.Content = grid;
                 FilterPreviewPivot.Items.Add(pivotItem);
-                filter.SetOutputResolution(DefaultOutputResolutionWidth,
-                                           DefaultOutputResolutionHeight);
+                filter.Resolution = new Size(DefaultOutputResolutionWidth, DefaultOutputResolutionHeight);
             }
+
+            HintTextBackground.Fill = FilterEffects.DataContext.Singleton.ThemeBackgroundBrush();
 
             FilterPreviewPivot.SelectionChanged += FilterPreviewPivot_SelectionChanged;
         }
@@ -249,7 +262,7 @@ namespace FilterEffects
         /// <summary>
         /// Takes the captured image and applies filters to it.
         /// </summary>
-        private async void CreatePreviewImages()
+        private void CreatePreviewImages()
         {
             DataContext dataContext = FilterEffects.DataContext.Singleton;
 
@@ -260,21 +273,10 @@ namespace FilterEffects
                 return;
             }
 
-            // Create a session that we will use with all the filters
-            IBuffer buffer = dataContext.ImageStream.GetWindowsRuntimeBuffer();
-            EditingSession session = new EditingSession(buffer);
-
-            // Perform the filtering
-            using (session)
+            foreach (AbstractFilter filter in _filters)
             {
-                foreach (AbstractFilter filter in _filters)
-                {
-                    filter.SetBuffer(buffer);
-                    filter.DefineFilter(session);
-
-                    await filter.RenderToBitmapAsync(session);
-                    session.UndoAll();
-                }
+                filter.Buffer = dataContext.ImageStream.GetWindowsRuntimeBuffer();
+                filter.Apply();
             }
         }
 
@@ -288,8 +290,6 @@ namespace FilterEffects
             _progressIndicator.Text = AppResources.SavingText;
             _progressIndicator.IsVisible = true;
             SystemTray.SetProgressIndicator(this, _progressIndicator);
-
-            MediaLibrary library = new MediaLibrary();
             int selectedIndex = FilterPreviewPivot.SelectedIndex;
 
             DataContext dataContext = FilterEffects.DataContext.Singleton;
@@ -298,31 +298,30 @@ namespace FilterEffects
             {
                 if (selectedIndex == 0)
                 {
-                    library.SavePictureToCameraRoll(FileNamePrefix
-                        + DateTime.Now.ToString() + ".jpg",
-                        dataContext.ImageStream);
+                    using (MediaLibrary library = new MediaLibrary())
+                    {
+                        library.SavePictureToCameraRoll(FileNamePrefix
+                            + DateTime.Now.ToString() + ".jpg",
+                            dataContext.ImageStream);
+                    }
                 }
                 else
                 {
                     AbstractFilter filter = _filters[selectedIndex];
-                    EditingSession session = new EditingSession(dataContext.ImageStream.GetWindowsRuntimeBuffer());
 
-                    using (session)
+                    IBuffer buffer = await filter.RenderJpegAsync(
+                        dataContext.ImageStream.GetWindowsRuntimeBuffer());
+
+                    using (MediaLibrary library = new MediaLibrary())
                     {
-                        filter.DefineFilter(session);
-                        IBuffer data = await session.RenderToJpegAsync();
-
-                        // Save the rendered image into a file
                         library.SavePictureToCameraRoll(FileNamePrefix
-                            + DateTime.Now.ToString() + ".jpg", data.AsStream());
+                            + DateTime.Now.ToString() + ".jpg", buffer.AsStream());
                     }
                 }
-
             }
             catch (Exception ex)
             {
-                Debug.WriteLine("FilterPreviewPage::SaveButton_Click(): Failed to save the image to camera roll: "
-                    + ex.ToString());
+                MessageBox.Show("Failed to save the image: " + ex.ToString());
             }
 
             _progressIndicator.IsVisible = false;
@@ -339,12 +338,19 @@ namespace FilterEffects
         /// <param name="e"></param>
         void FilterPreviewPivot_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            Debug.WriteLine("FilterPreviewPage.FilterPreviewPivot_SelectionChanged()");
+            Debug.WriteLine(DebugTag + ".FilterPreviewPivot_SelectionChanged()");
 
             if (!_hintTextShown && FilterPreviewPivot.SelectedIndex != 0)
             {
                 HintText.Visibility = Visibility.Visible;
                 _hintTextShown = true;
+            }
+            else if (_hintTextShown
+                     && HintText.Visibility == Visibility.Visible
+                     && FilterPreviewPivot.SelectedIndex == 0)
+            {
+                HintText.Visibility = Visibility.Collapsed;
+                _hintTextShown = false;
             }
 
             ShowControlsAnimationStoryBoard.Completed -= ShowControlsAnimationStoryBoard_Completed;
@@ -378,7 +384,7 @@ namespace FilterEffects
                         if (element.Visibility == Visibility.Collapsed
                             || element.Opacity < 1)
                         {
-                            Debug.WriteLine("FilterPreviewPage.ShowPropertiesControls()");
+                            Debug.WriteLine(DebugTag + ".ShowPropertiesControls()");
 
                             if (HintText.Visibility == Visibility.Visible)
                             {
@@ -425,7 +431,8 @@ namespace FilterEffects
         }
 
         /// <summary>
-        /// 
+        /// Makes sure that the controls stay visible after the animation is
+        /// completed.
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -446,7 +453,7 @@ namespace FilterEffects
 
             if (_controlToHide != null)
             {
-                Debug.WriteLine("FilterPreviewPage.HidePropertiesControls()");
+                Debug.WriteLine(DebugTag + ".HidePropertiesControls()");
                 Storyboard.SetTargetName(HideControlsAnimation, _controlToHide.Name);
                 HideControlsAnimation.From = _controlToHide.Opacity;
                 HideControlsAnimationStoryBoard.Begin();
@@ -482,7 +489,7 @@ namespace FilterEffects
         /// <param name="e"></param>
         void OnControlManipulated(object sender, EventArgs e)
         {
-            Debug.WriteLine("FilterPreviewPage.OnControlManipulated(): " + sender);
+            Debug.WriteLine(DebugTag + ".OnControlManipulated(): " + sender);
 
             if (_timer != null)
             {

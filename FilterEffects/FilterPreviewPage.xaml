@@ -46,8 +46,14 @@
         <phone:Pivot x:Name="FilterPreviewPivot" Title="{Binding Path=LocalizedResources.FilterPreviewPivotTitle, Source={StaticResource LocalizedStrings}}" />
 
         <Grid x:Name="HintText" Height="50" Margin="0,0,0,70" VerticalAlignment="Bottom" Background="Transparent" Visibility="Collapsed">
-            <Rectangle Fill="Black" Opacity="0.5" />
-            <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Text="{Binding Path=LocalizedResources.FilterSettingsHintText, Source={StaticResource LocalizedStrings}}" />
+            <Rectangle
+                x:Name="HintTextBackground"
+                Fill="{StaticResource PhoneAccentBrush}" Opacity="0.5" />
+            <TextBlock
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                Style="{StaticResource PhoneTextNormalStyle}"
+                Text="{Binding Path=LocalizedResources.FilterSettingsHintText, Source={StaticResource LocalizedStrings}}" />
         </Grid>
     </Grid>
 

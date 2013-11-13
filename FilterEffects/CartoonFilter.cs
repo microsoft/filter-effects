@@ -20,17 +20,21 @@ namespace FilterEffects
 {
     public class CartoonFilter : AbstractFilter
     {
-        protected bool _distinctEdges = false;
+        private const bool DefaultDistinctEdges = false;
+        protected Nokia.Graphics.Imaging.CartoonFilter _cartoonFilter;
 
         public CartoonFilter()
             : base()
         {
             Name = "Cartoon";
+
+            _cartoonFilter = new Nokia.Graphics.Imaging.CartoonFilter();
+            _cartoonFilter.DistinctEdges = DefaultDistinctEdges;
         }
 
-        public override void DefineFilter(EditingSession session)
+        protected override void SetFilters(FilterEffect effect)
         {
-            session.AddFilter(FilterFactory.CreateCartoonFilter(_distinctEdges));
+            effect.Filters = new List<IFilter>() { _cartoonFilter };
         }
 
         public override bool AttachControl(FilterPropertiesControl control)
@@ -43,7 +47,7 @@ namespace FilterEffects
             TextBlock textBlock = new TextBlock();
             textBlock.Text = AppResources.DistinctEdges;
             distinctEdgesCheckBox.Content = textBlock;
-            distinctEdgesCheckBox.IsChecked = _distinctEdges;
+            distinctEdgesCheckBox.IsChecked = _cartoonFilter.DistinctEdges;
             distinctEdgesCheckBox.Checked += distinctEdgesCheckBox_Checked;
             distinctEdgesCheckBox.Unchecked += distinctEdgesCheckBox_Unchecked;
             Grid.SetRow(distinctEdgesCheckBox, rowIndex++);
@@ -63,15 +67,15 @@ namespace FilterEffects
 
         void distinctEdgesCheckBox_Checked(object sender, System.Windows.RoutedEventArgs e)
         {
-            _distinctEdges = true;
-            CreatePreviewImage();
+            _changes.Add(() => { _cartoonFilter.DistinctEdges = true; });
+            Apply();
             _control.NotifyManipulated();
         }
 
         void distinctEdgesCheckBox_Unchecked(object sender, System.Windows.RoutedEventArgs e)
         {
-            _distinctEdges = false;
-            CreatePreviewImage();
+            _changes.Add(() => { _cartoonFilter.DistinctEdges = false; });
+            Apply();
             _control.NotifyManipulated();
         }
     }

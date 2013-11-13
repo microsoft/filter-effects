@@ -8,6 +8,8 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Media;
 
 namespace FilterEffects
 {
@@ -20,6 +22,8 @@ namespace FilterEffects
         private static DataContext _instance = null;
         private MemoryStream _imageStream = null;
         private MemoryStream _thumbStream = null;
+        private SolidColorBrush _brush = null;
+        private bool _hasDarkTheme = false;
 
         // Properties
 
@@ -48,7 +52,18 @@ namespace FilterEffects
                 _thumbStream = value;
             }
         }
-        
+
+        /// <summary>
+        /// Provides information on theme background.
+        /// </summary>
+        public bool PhoneHasDarkTheme
+        {
+            get
+            {
+                return _hasDarkTheme;
+            }
+        }
+
         /// <summary>
         /// Returns the singleton instance of this class.
         /// </summary>
@@ -71,6 +86,11 @@ namespace FilterEffects
         private DataContext()
         {
             CreateStreams();
+
+            // Resolve the theme background
+            Visibility darkBackgroundVisibility =
+                (Visibility)Application.Current.Resources["PhoneDarkThemeVisibility"];
+            _hasDarkTheme = (darkBackgroundVisibility == Visibility.Visible);
         }
 
         /// <summary>
@@ -80,6 +100,35 @@ namespace FilterEffects
         {
             _imageStream = new MemoryStream();
             _thumbStream = new MemoryStream();
+        }
+
+        /// <returns>A solid color brush instance with color matching the theme
+        /// background.</returns>
+        public SolidColorBrush ThemeBackgroundBrush()
+        {
+            if (_brush == null)
+            {
+                Color color = new Color();
+
+                if (_hasDarkTheme)
+                {
+                    color.A = 255;
+                    color.R = 0;
+                    color.G = 0;
+                    color.B = 0;
+                }
+                else
+                {
+                    color.A = 255;
+                    color.R = 255;
+                    color.G = 255;
+                    color.B = 255;
+                }
+
+                _brush = new SolidColorBrush(color);
+            }
+
+            return _brush;
         }
     }
 }

@@ -20,18 +20,22 @@ namespace FilterEffects
 {
     public class EightiesPopSongFilter : AbstractFilter
     {
-        protected const String SketchModeGroup = "SketchModeGroup";
-        protected SketchMode _sketchMode = SketchMode.Gray;
+        private const String SketchModeGroup = "SketchModeGroup";
+        private const SketchMode DefaultSketchMode = SketchMode.Gray;
+        private SketchFilter _sketchFilter;
 
         public EightiesPopSongFilter()
             : base()
         {
             Name = "80's Pop Song";
+
+            _sketchFilter = new SketchFilter();
+            _sketchFilter.SketchMode = DefaultSketchMode;
         }
 
-        public override void DefineFilter(EditingSession session)
+        protected override void SetFilters(FilterEffect effect)
         {
-            session.AddFilter(FilterFactory.CreateSketchFilter(_sketchMode));
+            effect.Filters = new List<IFilter>() { _sketchFilter };
         }
 
         public override bool AttachControl(FilterPropertiesControl control)
@@ -60,7 +64,7 @@ namespace FilterEffects
             colorRadioButton.Checked += colorRadioButton_Checked;
             Grid.SetRow(colorRadioButton, rowIndex++);
 
-            if (_sketchMode == SketchMode.Gray)
+            if (_sketchFilter.SketchMode == SketchMode.Gray)
             {
                 grayRadioButton.IsChecked = true;
             }
@@ -86,15 +90,15 @@ namespace FilterEffects
 
         void grayRadioButton_Checked(object sender, System.Windows.RoutedEventArgs e)
         {
-            _sketchMode = SketchMode.Gray;
-            CreatePreviewImage();
+            _changes.Add(() => { _sketchFilter.SketchMode = SketchMode.Gray; });
+            Apply();
             _control.NotifyManipulated();
         }
 
         void colorRadioButton_Checked(object sender, System.Windows.RoutedEventArgs e)
         {
-            _sketchMode = SketchMode.Color;
-            CreatePreviewImage();
+            _changes.Add(() => { _sketchFilter.SketchMode = SketchMode.Color; });
+            Apply();
             _control.NotifyManipulated();
         }
     }

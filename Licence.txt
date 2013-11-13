@@ -1,4 +1,4 @@
-Copyright © 2012-2013 Nokia Corporation. All rights reserved.
+Copyright © 2013 Nokia Corporation. All rights reserved.
 
 Nokia, Nokia Developer, and HERE are trademarks and/or registered trademarks of
 Nokia Corporation. Other product and company names mentioned herein may be

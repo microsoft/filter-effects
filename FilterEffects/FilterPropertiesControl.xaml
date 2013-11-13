@@ -16,7 +16,11 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
-        <Rectangle Grid.Row="0" Fill="Black" Opacity="0.3" />
+        <Rectangle
+            x:Name="ControlBackground"
+            Grid.Row="0"
+            Fill="{StaticResource PhoneAccentBrush}"
+            Opacity="0.3" />
         <StackPanel
             x:Name="ControlsContainer"
             Grid.Row="0"

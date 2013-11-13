@@ -21,9 +21,9 @@ namespace FilterEffects
             Name = "Original";
         }
 
-        public override void DefineFilter(EditingSession session)
+        protected override void SetFilters(FilterEffect effect)
         {
-            // No effect
+            // No need to do anything
         }
 
         public override bool AttachControl(FilterPropertiesControl control)

@@ -1,5 +1,5 @@
 ﻿/**
- * Copyright (c) 2012 Nokia Corporation.
+ * Copyright (c) 2013 Nokia Corporation.
  */
 
 using Microsoft.Devices;
@@ -132,7 +132,6 @@ namespace FilterEffects
             int videoCanvasHeight = 480;
             Thickness videoCanvasMargin = new Thickness(-60, 0, 0, 0);
             Thickness titleTextMargin = new Thickness(0, 0, 0, 0);
-            Visibility titleShadeVisibility = Visibility.Visible;
 
             // Orientation.specific changes to default values
             if (orientation == PageOrientation.PortraitUp)
@@ -141,7 +140,6 @@ namespace FilterEffects
                 videoCanvasWidth = 480;
                 videoCanvasHeight = 640;
                 videoCanvasMargin = new Thickness(0, -20, 0, 0);
-                titleShadeVisibility = Visibility.Collapsed;
             }
             else if (orientation == PageOrientation.LandscapeRight)
             {
@@ -156,7 +154,6 @@ namespace FilterEffects
             VideoCanvas.Height = videoCanvasHeight;
             VideoCanvas.Margin = videoCanvasMargin;
             TitleText.Margin = titleTextMargin;
-            TitleShade.Visibility = titleShadeVisibility;
 
             if (_photoCaptureDevice != null)
             {
