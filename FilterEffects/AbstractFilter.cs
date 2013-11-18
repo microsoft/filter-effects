@@ -218,8 +218,11 @@ namespace FilterEffects
 
                     // Render the filters first to the temporary bitmap and
                     // copy the changes then to the preview bitmap
-                    WriteableBitmapRenderer renderer = new WriteableBitmapRenderer(_effect, _tmpBitmap);
-                    await renderer.RenderAsync();
+                    using (WriteableBitmapRenderer renderer = new WriteableBitmapRenderer(_effect, _tmpBitmap))
+                    {
+                        await renderer.RenderAsync();
+                    }
+
                     _tmpBitmap.Pixels.CopyTo(_previewBitmap.Pixels, 0);
                     _previewBitmap.Invalidate(); // Force a redraw
                 }
