@@ -70,6 +70,12 @@ namespace FilterEffects
             {
                 if (value != null)
                 {
+                    if (_source != null)
+                    {
+                        _source.Dispose();
+                        _source = null;
+                    }
+
                     _source = new BufferImageSource(value);
 
                     if (_effect != null)
@@ -259,6 +265,12 @@ namespace FilterEffects
         public void Dispose()
         {
             System.Diagnostics.Debug.WriteLine("Disposing effect.");
+
+            if (_source != null)
+            {
+                _source.Dispose();
+                _source = null;
+            }
 
             if (_effect != null)
             {
