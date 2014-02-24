@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Package xmlns="http://schemas.microsoft.com/appx/2010/manifest" xmlns:m2="http://schemas.microsoft.com/appx/2013/manifest">
-  <Identity Name="NokiaDeveloper.FilterEffects" Publisher="CN=aaa" Version="0.1.0.0" />
+  <Identity Name="NokiaDeveloper.FilterEffects" Publisher="CN=aaa" Version="1.0.0.1" />
   <Properties>
     <DisplayName>Filter Effects</DisplayName>
     <PublisherDisplayName>Nokia Developer</PublisherDisplayName>
