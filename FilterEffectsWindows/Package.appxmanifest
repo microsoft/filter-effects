@@ -1,0 +1,35 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Package xmlns="http://schemas.microsoft.com/appx/2010/manifest" xmlns:m2="http://schemas.microsoft.com/appx/2013/manifest">
+  <Identity Name="NokiaDeveloper.FilterEffects" Publisher="CN=aaa" Version="0.1.0.0" />
+  <Properties>
+    <DisplayName>Filter Effects</DisplayName>
+    <PublisherDisplayName>Nokia Developer</PublisherDisplayName>
+    <Logo>Assets\StoreLogo.png</Logo>
+  </Properties>
+  <Prerequisites>
+    <OSMinVersion>6.3.0</OSMinVersion>
+    <OSMaxVersionTested>6.3.0</OSMaxVersionTested>
+  </Prerequisites>
+  <Resources>
+    <Resource Language="x-generate" />
+  </Resources>
+  <Applications>
+    <Application Id="App" Executable="$targetnametoken$.exe" EntryPoint="Filter_Effects.App">
+      <m2:VisualElements DisplayName="Filter Effects" Description="A Nokia example demonstrating the use of the different filters of Nokia Imaging SDK with camera photos. This example app uses the camera and displays the viewfinder for taking a picture. The taken photo is then processed with the predefined filters. The filter properties can be manipulated and the changes can be seen in the preview image immediately. The processed image can be saved in JPEG format into the camera roll album. You can also select an existing photo and apply an effect to it. This Nokia example application has been created to provide tips and best practice guidance for software developers and app designers, and may not have all the features you would expect in a commercial product. This application is published in Store as a free software as it may also have value to regular Nokia users. The source code and documentation of this example can be downloaded from Nokia Developer website." BackgroundColor="#124191" ForegroundText="light" Square150x150Logo="Assets\Logo.png" Square30x30Logo="Assets\SmallLogo.png" ToastCapable="true">
+        <m2:DefaultTile>
+          <m2:ShowNameOnTiles>
+            <m2:ShowOn Tile="square150x150Logo" />
+          </m2:ShowNameOnTiles>
+        </m2:DefaultTile>
+        <m2:SplashScreen Image="Assets\SplashScreen.png" />
+        <m2:InitialRotationPreference>
+          <m2:Rotation Preference="landscape" />
+        </m2:InitialRotationPreference>
+      </m2:VisualElements>
+    </Application>
+  </Applications>
+  <Capabilities>
+    <DeviceCapability Name="webcam" />
+    <DeviceCapability Name="microphone" />
+  </Capabilities>
+</Package>
