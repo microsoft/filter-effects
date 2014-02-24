@@ -181,7 +181,7 @@
   <ItemGroup>
     <Reference Include="Microsoft.Phone.Controls, Version=8.0.0.0, Culture=neutral, PublicKeyToken=24eec0d8c86cda1e, processorArchitecture=MSIL" />
     <Reference Include="Nokia.Graphics.Imaging.Managed">
-      <HintPath>..\packages\NokiaImagingSDK.1.0.272.0\lib\wp8\Nokia.Graphics.Imaging.Managed.dll</HintPath>
+      <HintPath>..\packages\NokiaImagingSDK.1.1.177\lib\wp8\Nokia.Graphics.Imaging.Managed.dll</HintPath>
     </Reference>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\$(TargetFrameworkIdentifier)\$(TargetFrameworkVersion)\Microsoft.$(TargetFrameworkIdentifier).$(TargetFrameworkVersion).Overrides.targets" />
@@ -196,4 +196,11 @@
   <ProjectExtensions />
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
   <Import Project="..\packages\NokiaImagingSDK.1.0.272.0\build\wp8\NokiaImagingSDK.targets" Condition="Exists('..\packages\NokiaImagingSDK.1.0.272.0\build\wp8\NokiaImagingSDK.targets')" />
+  <Import Project="..\packages\NokiaImagingSDK.1.1.177\build\wp8\NokiaImagingSDK.targets" Condition="Exists('..\packages\NokiaImagingSDK.1.1.177\build\wp8\NokiaImagingSDK.targets')" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Enable NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\NokiaImagingSDK.1.1.177\build\wp8\NokiaImagingSDK.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\NokiaImagingSDK.1.1.177\build\wp8\NokiaImagingSDK.targets'))" />
+  </Target>
 </Project>
