@@ -14,7 +14,7 @@ https://github.com/nokia-developer/filter-effects
 
 For more information on implementation, visit Nokia Lumia
 Developer's Library:
-http://developer.nokia.com/Resources/Library/Lumia/#!nokia-imaging-sdk/sample-projects/filter-effects.html
+http://developer.nokia.com/Resources/Library/Lumia/nokia-imaging-sdk/sample-projects/filter-effects.html
 
 
 1. Important classes
