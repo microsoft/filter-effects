@@ -104,6 +104,7 @@ https://github.com/nokia-developer/filter-effects/blob/master/Licence.txt
 6. Version history
 -------------------------------------------------------------------------------
 
+* 1.3 Upgraded to Imaging SDK 1.1, windows version added, and new HDR effect added both to the Windows Phone and Windows versions.
 * 1.2 Updated to support the latest version of the Nokia Imaging SDK. Theme
       support added.
 * 1.1 Performance optimisations added based on Yan's wiki article (see related
