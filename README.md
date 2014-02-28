@@ -79,7 +79,7 @@ Make sure you have the following installed:
 
 Please see official documentation for deploying and testing applications on
 Windows Phone devices:
-http://msdn.microsoft.com/en-us/library/gg588378%28v=vs.92%29.aspx
+http://msdn.microsoft.com/en-us/library/windowsphone/develop/ff402565%28v=vs.105%29.aspx
 
 
 4. License
