@@ -41,9 +41,8 @@ the file system.
 2. Compatibility
 -------------------------------------------------------------------------------
 
-Compatible with Windows Phone 8 phones. The project is dependent on Nokia
-Imaging SDK. The example has been tested with Nokia Lumia 920 and Nokia Lumia
-620. Developed with Visual Studio 2012 Express for Windows Phone 8.
+Compatible with Windows Phone 8 phones, and Windows 8.1 (desktop and RT). The project is dependent on Nokia
+Imaging SDK.
 
 2.1 Required capabilities
 -------------------------
