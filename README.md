@@ -28,7 +28,7 @@ filters implemented by this example are:
  * `MarvelFilter`: Cartoon filter
  * `EightiesPopSongFilter`: Sketch filter
  * `SadHipsterFilter`: Antique and lomo filter
- * `SurroundedFilter´: HDR effect
+ * `SurroundedFilter`: HDR effect
 * `DataContext`: A singleton class holding the references to image data.
 * `PreviewPage`: Manages the filters and implements image management
 including saving the image into the camera roll.
