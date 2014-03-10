@@ -1,5 +1,6 @@
 ﻿/**
- * Copyright (c) 2013 Nokia Corporation.
+ * Copyright (c) 2013-2014 Nokia Corporation.
+ * See the license file delivered with this project for more information.
  */
 
 using System;
@@ -15,11 +16,12 @@ using System.Windows.Shapes;
 using Nokia.Graphics;
 using Nokia.Graphics.Imaging;
 
+using FilterEffects.Filters.FilterControls;
 using FilterEffects.Resources;
 
-namespace FilterEffects
+namespace FilterEffects.Filters
 {
-    public class CarShowFilter : AbstractFilter
+    public class SixthGearFilter : AbstractFilter
     {
         // Constants
         private const double DefaultBrightness = 0.5;
@@ -31,10 +33,11 @@ namespace FilterEffects
         protected LomoFilter _lomoFilter;
         protected String _lomoVignettingGroup = "CarShowLomoVignetting";
 
-        public CarShowFilter()
+        public SixthGearFilter()
             : base()
         {
-            Name = "Car Show";
+            Name = "Sixth Gear";
+            ShortDescription = "Lomo";
 
             _lomoFilter = new LomoFilter();
             _lomoFilter.Brightness = DefaultBrightness;
@@ -50,7 +53,8 @@ namespace FilterEffects
 
         public override bool AttachControl(FilterPropertiesControl control)
         {
-            _control = control;
+            Control = control;
+
             Grid grid = new Grid();
             int rowIndex = 0;
 
@@ -134,38 +138,38 @@ namespace FilterEffects
         protected void brightnessSlider_ValueChanged(object sender, System.Windows.RoutedPropertyChangedEventArgs<double> e)
         {
             Debug.WriteLine("Changing brightness to " + (1.0 - e.NewValue));
-            _changes.Add(() => { _lomoFilter.Brightness = 1.0 - e.NewValue; });
+            Changes.Add(() => { _lomoFilter.Brightness = 1.0 - e.NewValue; });
             Apply();
-            _control.NotifyManipulated();
+            Control.NotifyManipulated();
         }
 
         protected void saturationSlider_ValueChanged(object sender, System.Windows.RoutedPropertyChangedEventArgs<double> e)
         {
             Debug.WriteLine("Changing saturation changed to " + e.NewValue);
-            _changes.Add(() => { _lomoFilter.Saturation = e.NewValue; });
+            Changes.Add(() => { _lomoFilter.Saturation = e.NewValue; });
             Apply();
-            _control.NotifyManipulated();
+            Control.NotifyManipulated();
         }
 
         protected void lowRadioButton_Checked(object sender, System.Windows.RoutedEventArgs e)
         {
-            _changes.Add(() => { _lomoFilter.LomoVignetting = LomoVignetting.Low; });
+            Changes.Add(() => { _lomoFilter.LomoVignetting = LomoVignetting.Low; });
             Apply();
-            _control.NotifyManipulated();
+            Control.NotifyManipulated();
         }
 
         protected void medRadioButton_Checked(object sender, System.Windows.RoutedEventArgs e)
         {
-            _changes.Add(() => { _lomoFilter.LomoVignetting = LomoVignetting.Medium; });
+            Changes.Add(() => { _lomoFilter.LomoVignetting = LomoVignetting.Medium; });
             Apply();
-            _control.NotifyManipulated();
+            Control.NotifyManipulated();
         }
 
         protected void highRadioButton_Checked(object sender, System.Windows.RoutedEventArgs e)
         {
-            _changes.Add(() => { _lomoFilter.LomoVignetting = LomoVignetting.High; });
+            Changes.Add(() => { _lomoFilter.LomoVignetting = LomoVignetting.High; });
             Apply();
-            _control.NotifyManipulated();
+            Control.NotifyManipulated();
         }
     }
 }

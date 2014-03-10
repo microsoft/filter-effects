@@ -1,5 +1,6 @@
 ﻿/**
- * Copyright (c) 2013 Nokia Corporation.
+ * Copyright (c) 2013-2014 Nokia Corporation.
+ * See the license file delivered with this project for more information.
  */
 
 using System;
@@ -17,9 +18,9 @@ using Nokia.Graphics.Imaging;
 
 using FilterEffects.Resources;
 
-namespace FilterEffects
+namespace FilterEffects.Filters
 {
-    public class SadHipsterFilter : CarShowFilter
+    public class SadHipsterFilter : SixthGearFilter
     {
         // Constants
         private const double DefaultBrightness = 0.5;
@@ -31,6 +32,7 @@ namespace FilterEffects
             : base()
         {
             Name = "Sad Hipster";
+            ShortDescription = "Antique & Lomo";
 
             _lomoFilter.Brightness = DefaultBrightness;
             _lomoFilter.Saturation = DefaultSaturation;

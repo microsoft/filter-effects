@@ -1,7 +1,7 @@
 ﻿<!--
-    Copyright (c) 2013 Nokia Corporation.
+    Copyright (c) 2013-2014 Nokia Corporation.
+    See the license file delivered with this project for more information.
 -->
-
 <phone:PhoneApplicationPage
     x:Class="FilterEffects.MainPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"

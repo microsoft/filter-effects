@@ -1,5 +1,6 @@
 ﻿/**
- * Copyright (c) 2013 Nokia Corporation.
+ * Copyright (c) 2013-2014 Nokia Corporation.
+ * See the license file delivered with this project for more information.
  */
 
 using System;
@@ -14,9 +15,10 @@ using System.Windows.Shapes;
 using Nokia.Graphics;
 using Nokia.Graphics.Imaging;
 
+using FilterEffects.Filters.FilterControls;
 using FilterEffects.Resources;
 
-namespace FilterEffects
+namespace FilterEffects.Filters
 {
     public class EightiesPopSongFilter : AbstractFilter
     {
@@ -28,6 +30,7 @@ namespace FilterEffects
             : base()
         {
             Name = "80's Pop Song";
+            ShortDescription = "Sketch";
 
             _sketchFilter = new SketchFilter();
             _sketchFilter.SketchMode = DefaultSketchMode;
@@ -40,7 +43,8 @@ namespace FilterEffects
 
         public override bool AttachControl(FilterPropertiesControl control)
         {
-            _control = control;
+            Control = control;
+
             Grid grid = new Grid();
             int rowIndex = 0;
 
@@ -90,16 +94,16 @@ namespace FilterEffects
 
         void grayRadioButton_Checked(object sender, System.Windows.RoutedEventArgs e)
         {
-            _changes.Add(() => { _sketchFilter.SketchMode = SketchMode.Gray; });
+            Changes.Add(() => { _sketchFilter.SketchMode = SketchMode.Gray; });
             Apply();
-            _control.NotifyManipulated();
+            Control.NotifyManipulated();
         }
 
         void colorRadioButton_Checked(object sender, System.Windows.RoutedEventArgs e)
         {
-            _changes.Add(() => { _sketchFilter.SketchMode = SketchMode.Color; });
+            Changes.Add(() => { _sketchFilter.SketchMode = SketchMode.Color; });
             Apply();
-            _control.NotifyManipulated();
+            Control.NotifyManipulated();
         }
     }
 }

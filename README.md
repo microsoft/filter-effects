@@ -24,16 +24,14 @@ http://developer.nokia.com/Resources/Library/Lumia/nokia-imaging-sdk/sample-proj
 application. This abstract class implements the preview image handling and
 defines the methods required to be implemented by the derived classes. The
 filters implemented by this example are:
- * `CarShowFilter`: Lomo filter
- * `CartoonFilter`: Cartoon filter
+ * `SixthGearFilter`: Lomo filter
+ * `MarvelFilter`: Cartoon filter
  * `EightiesPopSongFilter`: Sketch filter
  * `SadHipsterFilter`: Antique and lomo filter
+ * `SurroundedFilter´: HDR effect
 * `DataContext`: A singleton class holding the references to image data.
-* `FilterPreviewPage`: Manages the filters and implements image management
+* `PreviewPage`: Manages the filters and implements image management
 including saving the image into the camera roll.
-* `FilterPropertiesControl`: A custom user control for adjusting the filter
-settings. Each filter is responsible for populating the control compontents.
-This class is but a place holder with minimal implementation.
 * `MainPage`: Implements the camera view finder and fetching saved images from
 the file system.
 
@@ -41,8 +39,8 @@ the file system.
 2. Compatibility
 -------------------------------------------------------------------------------
 
-Compatible with Windows Phone 8 phones, and Windows 8.1 (desktop and RT). The project is dependent on Nokia
-Imaging SDK.
+Compatible with Windows Phone 8 phones, and Windows 8.1 (desktop and RT). The
+project is dependent on Nokia Imaging SDK.
 
 2.1 Required capabilities
 -------------------------
@@ -103,7 +101,9 @@ https://github.com/nokia-developer/filter-effects/blob/master/Licence.txt
 6. Version history
 -------------------------------------------------------------------------------
 
-* 1.3 Upgraded to Imaging SDK 1.1, windows version added, and new HDR effect added both to the Windows Phone and Windows versions.
+* 1.3 Upgraded to Nokia Imaging SDK 1.1, Windows version added, and new HDR
+      effect - contributed by Joost van Schaik - added both to the Windows Phone
+      and Windows versions. 
 * 1.2 Updated to support the latest version of the Nokia Imaging SDK. Theme
       support added.
 * 1.1 Performance optimisations added based on Yan's wiki article (see related

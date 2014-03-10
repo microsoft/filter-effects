@@ -1,15 +1,10 @@
 ﻿/**
- * Copyright (c) 2013 Nokia Corporation.
+ * Copyright (c) 2013-2014 Nokia Corporation.
+ * See the license file delivered with this project for more information.
  */
 
-using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Media;
+using Windows.Foundation;
 
 namespace FilterEffects
 {
@@ -19,65 +14,52 @@ namespace FilterEffects
     /// </summary>
     public class DataContext
     {
-        private static DataContext _instance = null;
-        private MemoryStream _imageStream = null;
-        private MemoryStream _thumbStream = null;
-        private SolidColorBrush _brush = null;
-        private bool _hasDarkTheme = false;
+        public const double DefaultPreviewResolutionWidth = 640;
+        public const double DefaultPreviewResolutionHeight = 480;
 
         // Properties
-
-        public MemoryStream ImageStream
-        {
-            get
-            {
-                return _imageStream;
-            }
-
-            set
-            {
-                _imageStream = value;
-            }
-        }
-
-        public MemoryStream ThumbStream
-        {
-            get
-            {
-                return _thumbStream;
-            }
-
-            set
-            {
-                _thumbStream = value;
-            }
-        }
-
-        /// <summary>
-        /// Provides information on theme background.
-        /// </summary>
-        public bool PhoneHasDarkTheme
-        {
-            get
-            {
-                return _hasDarkTheme;
-            }
-        }
 
         /// <summary>
         /// Returns the singleton instance of this class.
         /// </summary>
-        public static DataContext Singleton
+        private static DataContext _instance;
+        public static DataContext Instance
         {
-            get
-            {
-                if (_instance == null)
-                {
-                    _instance = new DataContext();
-                }
+            get { return _instance ?? (_instance = new DataContext()); }
+        }
 
-                return _instance;
-            }
+        public MemoryStream PreviewResolutionStream
+        {
+            get;
+            set;
+        }
+
+        public MemoryStream FullResolutionStream
+        {
+            get;
+            set;
+        }
+
+        public Size PreviewResolution
+        {
+            get;
+            set;
+        }
+
+        public Size FullResolution
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// Indicates whether the image data was just captured with camera or
+        /// is an existing image from the file system.
+        /// </summary>
+        public bool WasCaptured
+        {
+            get;
+            set;
         }
 
         /// <summary>
@@ -85,50 +67,36 @@ namespace FilterEffects
         /// </summary>
         private DataContext()
         {
-            CreateStreams();
+            PreviewResolutionStream = new MemoryStream();
+            FullResolutionStream = new MemoryStream();
+            FullResolution = new Size(DefaultPreviewResolutionWidth, DefaultPreviewResolutionHeight);
+            PreviewResolution = new Size(DefaultPreviewResolutionWidth, DefaultPreviewResolutionHeight);
+        }
 
-            // Resolve the theme background
-            Visibility darkBackgroundVisibility =
-                (Visibility)Application.Current.Resources["PhoneDarkThemeVisibility"];
-            _hasDarkTheme = (darkBackgroundVisibility == Visibility.Visible);
+        public void ResetStreams()
+        {
+            PreviewResolutionStream.Seek(0, SeekOrigin.Begin);
+            FullResolutionStream.Seek(0, SeekOrigin.Begin);
         }
 
         /// <summary>
-        /// (Re)creates the stream instances.
+        /// For convenience.
         /// </summary>
-        public void CreateStreams()
+        /// <param name="width"></param>
+        /// <param name="height"></param>
+        public void SetPreviewResolution(int width, int height)
         {
-            _imageStream = new MemoryStream();
-            _thumbStream = new MemoryStream();
+            PreviewResolution = new Size(width, height);
         }
 
-        /// <returns>A solid color brush instance with color matching the theme
-        /// background.</returns>
-        public SolidColorBrush ThemeBackgroundBrush()
+        /// <summary>
+        /// For convenience.
+        /// </summary>
+        /// <param name="width"></param>
+        /// <param name="height"></param>
+        public void SetFullResolution(int width, int height)
         {
-            if (_brush == null)
-            {
-                Color color = new Color();
-
-                if (_hasDarkTheme)
-                {
-                    color.A = 255;
-                    color.R = 0;
-                    color.G = 0;
-                    color.B = 0;
-                }
-                else
-                {
-                    color.A = 255;
-                    color.R = 255;
-                    color.G = 255;
-                    color.B = 255;
-                }
-
-                _brush = new SolidColorBrush(color);
-            }
-
-            return _brush;
+            FullResolution = new Size(width, height);
         }
     }
 }

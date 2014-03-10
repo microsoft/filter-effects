@@ -1,5 +1,6 @@
 ﻿/**
- * Copyright (c) 2013 Nokia Corporation.
+ * Copyright (c) 2013-2014 Nokia Corporation.
+ * See the license file delivered with this project for more information.
  */
 
 using System;
@@ -14,19 +15,21 @@ using System.Windows.Shapes;
 using Nokia.Graphics;
 using Nokia.Graphics.Imaging;
 
+using FilterEffects.Filters.FilterControls;
 using FilterEffects.Resources;
 
-namespace FilterEffects
+namespace FilterEffects.Filters
 {
-    public class CartoonFilter : AbstractFilter
+    public class MarvelFilter : AbstractFilter
     {
         private const bool DefaultDistinctEdges = false;
         protected Nokia.Graphics.Imaging.CartoonFilter _cartoonFilter;
 
-        public CartoonFilter()
+        public MarvelFilter()
             : base()
         {
-            Name = "Cartoon";
+            Name = "Marvel";
+            ShortDescription = "Cartoon";
 
             _cartoonFilter = new Nokia.Graphics.Imaging.CartoonFilter();
             _cartoonFilter.DistinctEdges = DefaultDistinctEdges;
@@ -39,7 +42,8 @@ namespace FilterEffects
 
         public override bool AttachControl(FilterPropertiesControl control)
         {
-            _control = control;
+            Control = control;
+
             Grid grid = new Grid();
             int rowIndex = 0;
 
@@ -67,16 +71,16 @@ namespace FilterEffects
 
         void distinctEdgesCheckBox_Checked(object sender, System.Windows.RoutedEventArgs e)
         {
-            _changes.Add(() => { _cartoonFilter.DistinctEdges = true; });
+            Changes.Add(() => { _cartoonFilter.DistinctEdges = true; });
             Apply();
-            _control.NotifyManipulated();
+            Control.NotifyManipulated();
         }
 
         void distinctEdgesCheckBox_Unchecked(object sender, System.Windows.RoutedEventArgs e)
         {
-            _changes.Add(() => { _cartoonFilter.DistinctEdges = false; });
+            Changes.Add(() => { _cartoonFilter.DistinctEdges = false; });
             Apply();
-            _control.NotifyManipulated();
+            Control.NotifyManipulated();
         }
     }
 }

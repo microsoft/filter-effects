@@ -1,5 +1,6 @@
 ﻿/**
- * Copyright (c) 2013 Nokia Corporation.
+ * Copyright (c) 2013-2014 Nokia Corporation.
+ * See the license file delivered with this project for more information.
  */
 
 using System;
@@ -12,7 +13,7 @@ using System.Windows.Navigation;
 using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
 
-namespace FilterEffects
+namespace FilterEffects.Filters.FilterControls
 {
     public partial class FilterPropertiesControl : UserControl
     {

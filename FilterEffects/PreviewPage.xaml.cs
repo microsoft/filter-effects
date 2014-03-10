@@ -1,5 +1,6 @@
 ﻿/**
- * Copyright (c) 2013 Nokia Corporation.
+ * Copyright (c) 2013-2014 Nokia Corporation.
+ * See the license file delivered with this project for more information.
  */
 
 using System;
@@ -24,6 +25,8 @@ using Windows.Storage.Streams;
 using Nokia.Graphics;
 using Nokia.Graphics.Imaging;
 
+using FilterEffects.Filters;
+using FilterEffects.Filters.FilterControls;
 using FilterEffects.Resources;
 
 namespace FilterEffects
@@ -33,10 +36,10 @@ namespace FilterEffects
     /// of all the created filters. This page also manages saving the image
     /// into the media library.
     /// </summary>
-    public partial class FilterPreviewPage : PhoneApplicationPage
+    public partial class PreviewPage : PhoneApplicationPage
     {
         // Constants
-        private const String DebugTag = "FilterPreviewPage";
+        private const String DebugTag = "PreviewPage: ";
         private const double DefaultOutputResolutionWidth = 480;
         private const double DefaultOutputResolutionHeight = 640;
         private const String FileNamePrefix = "FilterEffects_";
@@ -49,6 +52,7 @@ namespace FilterEffects
 
         // Members
         private List<AbstractFilter> _filters = null;
+        private List<Image> _previewImages = null;
         private ProgressIndicator _progressIndicator = new ProgressIndicator();
         private DispatcherTimer _timer = null;
         private FilterPropertiesControl _controlToHide = null;
@@ -58,7 +62,7 @@ namespace FilterEffects
         /// <summary>
         /// Constructor.
         /// </summary>
-        public FilterPreviewPage()
+        public PreviewPage()
         {
             InitializeComponent();
             _isNewPageInstance = true;
@@ -126,9 +130,9 @@ namespace FilterEffects
                     FileMode.OpenOrCreate,
                     myStore))
                 {
-                    DataContext dataContext = FilterEffects.DataContext.Singleton;
-                    dataContext.ImageStream.Position = 0;
-                    dataContext.ImageStream.CopyTo(isoFileStream);
+                    DataContext dataContext = FilterEffects.DataContext.Instance;
+                    dataContext.FullResolutionStream.Position = 0;
+                    dataContext.FullResolutionStream.CopyTo(isoFileStream);
                     isoFileStream.Flush();
                 }
             }
@@ -158,10 +162,10 @@ namespace FilterEffects
                         FileMode.Open, 
                         myStore))
                     {
-                        DataContext dataContext = FilterEffects.DataContext.Singleton;
+                        DataContext dataContext = FilterEffects.DataContext.Instance;
 
                         // Load image asynchronously at application launch
-                        await isoFileStream.CopyToAsync(dataContext.ImageStream);
+                        await isoFileStream.CopyToAsync(dataContext.FullResolutionStream);
                         Dispatcher.BeginInvoke(() =>
                         {
                             CreatePreviewImages();
@@ -201,7 +205,9 @@ namespace FilterEffects
         {
             CreateFilters();
 
-            DataContext dataContext = FilterEffects.DataContext.Singleton;
+            DataContext dataContext = FilterEffects.DataContext.Instance;
+            _previewImages = new List<Image>();
+            int i = 0;
 
             // Create a pivot item with an image for each filter. The image
             // content is added later. In addition, create the preview bitmaps
@@ -210,6 +216,11 @@ namespace FilterEffects
             {
                 PivotItem pivotItem = new PivotItem();
                 pivotItem.Header = filter.Name;
+
+                if (filter.ShortDescription != null && filter.ShortDescription.Length > 0)
+                {
+                    pivotItem.Header += " (" + filter.ShortDescription + ")";
+                }
 
                 FilterPropertiesControl control = new FilterPropertiesControl();
 
@@ -221,15 +232,15 @@ namespace FilterEffects
                 name = PivotItemNamePrefix + filter.Name;
                 grid.Name = name;
 
-                grid.Children.Add(filter.PreviewImage);
+                _previewImages.Add(new Image());
+                grid.Children.Add(_previewImages[i++]);
 
                 if (filter.AttachControl(control))
                 {
                     control.VerticalAlignment = VerticalAlignment.Bottom;
                     control.Opacity = 0;
                     control.Visibility = Visibility.Collapsed;
-                    control.ControlBackground.Fill =
-                        dataContext.ThemeBackgroundBrush();
+                    control.ControlBackground.Fill = AppUtils.ThemeBackgroundBrush;
                     grid.Children.Add(control);
 
                     grid.Tap += ShowPropertiesControls;
@@ -238,10 +249,11 @@ namespace FilterEffects
 
                 pivotItem.Content = grid;
                 FilterPreviewPivot.Items.Add(pivotItem);
-                filter.Resolution = new Size(DefaultOutputResolutionWidth, DefaultOutputResolutionHeight);
+                filter.PreviewResolution = new Windows.Foundation.Size(
+                    DefaultOutputResolutionWidth, DefaultOutputResolutionHeight);
             }
 
-            HintTextBackground.Fill = FilterEffects.DataContext.Singleton.ThemeBackgroundBrush();
+            HintTextBackground.Fill = AppUtils.ThemeBackgroundBrush;
 
             FilterPreviewPivot.SelectionChanged += FilterPreviewPivot_SelectionChanged;
         }
@@ -253,10 +265,11 @@ namespace FilterEffects
         {
             _filters = new List<AbstractFilter>();
             _filters.Add(new OriginalImageFilter()); // This is for the original image and has no effects
-            _filters.Add(new CarShowFilter());
+            _filters.Add(new SixthGearFilter());
             _filters.Add(new SadHipsterFilter());
             _filters.Add(new EightiesPopSongFilter());
-            _filters.Add(new CartoonFilter());
+            _filters.Add(new MarvelFilter());
+            _filters.Add(new SurroundedFilter());
         }
 
         /// <summary>
@@ -264,18 +277,21 @@ namespace FilterEffects
         /// </summary>
         private void CreatePreviewImages()
         {
-            DataContext dataContext = FilterEffects.DataContext.Singleton;
+            DataContext dataContext = FilterEffects.DataContext.Instance;
 
-            if (dataContext.ThumbStream == null)
+            if (dataContext.PreviewResolutionStream == null)
             {
                 // No captured image available!
                 NavigationService.GoBack();
                 return;
             }
 
+            int i = 0;
+
             foreach (AbstractFilter filter in _filters)
             {
-                filter.Buffer = dataContext.ImageStream.GetWindowsRuntimeBuffer();
+                filter.Buffer = dataContext.PreviewResolutionStream.GetWindowsRuntimeBuffer();
+                _previewImages[i++].Source = filter.PreviewImageSource;
                 filter.Apply();
             }
         }
@@ -292,7 +308,7 @@ namespace FilterEffects
             SystemTray.SetProgressIndicator(this, _progressIndicator);
             int selectedIndex = FilterPreviewPivot.SelectedIndex;
 
-            DataContext dataContext = FilterEffects.DataContext.Singleton;
+            DataContext dataContext = FilterEffects.DataContext.Instance;
 
             try
             {
@@ -302,7 +318,7 @@ namespace FilterEffects
                     {
                         library.SavePictureToCameraRoll(FileNamePrefix
                             + DateTime.Now.ToString() + ".jpg",
-                            dataContext.ImageStream);
+                            dataContext.FullResolutionStream);
                     }
                 }
                 else
@@ -310,7 +326,7 @@ namespace FilterEffects
                     AbstractFilter filter = _filters[selectedIndex];
 
                     IBuffer buffer = await filter.RenderJpegAsync(
-                        dataContext.ImageStream.GetWindowsRuntimeBuffer());
+                        dataContext.FullResolutionStream.GetWindowsRuntimeBuffer());
 
                     using (MediaLibrary library = new MediaLibrary())
                     {
@@ -338,7 +354,7 @@ namespace FilterEffects
         /// <param name="e"></param>
         void FilterPreviewPivot_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            Debug.WriteLine(DebugTag + ".FilterPreviewPivot_SelectionChanged()");
+            Debug.WriteLine(DebugTag + "FilterPreviewPivot_SelectionChanged()");
 
             if (!_hintTextShown && FilterPreviewPivot.SelectedIndex != 0)
             {
@@ -384,7 +400,7 @@ namespace FilterEffects
                         if (element.Visibility == Visibility.Collapsed
                             || element.Opacity < 1)
                         {
-                            Debug.WriteLine(DebugTag + ".ShowPropertiesControls()");
+                            Debug.WriteLine(DebugTag + "ShowPropertiesControls()");
 
                             if (HintText.Visibility == Visibility.Visible)
                             {
@@ -453,7 +469,7 @@ namespace FilterEffects
 
             if (_controlToHide != null)
             {
-                Debug.WriteLine(DebugTag + ".HidePropertiesControls()");
+                Debug.WriteLine(DebugTag + "HidePropertiesControls()");
                 Storyboard.SetTargetName(HideControlsAnimation, _controlToHide.Name);
                 HideControlsAnimation.From = _controlToHide.Opacity;
                 HideControlsAnimationStoryBoard.Begin();
@@ -489,7 +505,7 @@ namespace FilterEffects
         /// <param name="e"></param>
         void OnControlManipulated(object sender, EventArgs e)
         {
-            Debug.WriteLine(DebugTag + ".OnControlManipulated(): " + sender);
+            Debug.WriteLine(DebugTag + "OnControlManipulated(): " + sender);
 
             if (_timer != null)
             {

@@ -1,5 +1,6 @@
 ﻿/**
- * Copyright (c) 2013 Nokia Corporation.
+ * Copyright (c) 2013-2014 Nokia Corporation.
+ * See the license file delivered with this project for more information.
  */
 
 using Microsoft.Devices;
@@ -30,10 +31,6 @@ namespace FilterEffects
     /// </summary>
     public partial class MainPage : PhoneApplicationPage
     {
-        // Constants
-        private const int DefaultCameraResolutionWidth = 640;
-        private const int DefaultCameraResolutionHeight = 480;
-
         // Members
         private PhotoCaptureDevice _photoCaptureDevice = null;
         private PhotoChooserTask _photoChooserTask = null;
@@ -54,7 +51,7 @@ namespace FilterEffects
             ApplicationBar.MenuItems.Add(menuItem);
 
             _photoChooserTask = new PhotoChooserTask();
-            _photoChooserTask.Completed += new EventHandler<PhotoResult>(PhotoChooserTask_Completed);
+            _photoChooserTask.Completed += new EventHandler<PhotoResult>(PhotoChooserTask_Completed_Async);
 
             _progressIndicator.IsIndeterminate = true;
         }
@@ -257,11 +254,11 @@ namespace FilterEffects
         private async Task InitializeCamera(CameraSensorLocation sensorLocation)
         {
             Windows.Foundation.Size initialResolution =
-                new Windows.Foundation.Size(DefaultCameraResolutionWidth,
-                                            DefaultCameraResolutionHeight);
+                new Windows.Foundation.Size(FilterEffects.DataContext.DefaultPreviewResolutionWidth,
+                                            FilterEffects.DataContext.DefaultPreviewResolutionHeight);
             Windows.Foundation.Size previewResolution =
-                new Windows.Foundation.Size(DefaultCameraResolutionWidth,
-                                            DefaultCameraResolutionHeight);
+                new Windows.Foundation.Size(FilterEffects.DataContext.DefaultPreviewResolutionWidth,
+                                            FilterEffects.DataContext.DefaultPreviewResolutionHeight);
 
             // Find out the largest 4:3 capture resolution available on device
             IReadOnlyList<Windows.Foundation.Size> availableResolutions =
@@ -324,15 +321,14 @@ namespace FilterEffects
             {
                 _capturing = true;
 
-                DataContext dataContext = FilterEffects.DataContext.Singleton;
+                DataContext dataContext = FilterEffects.DataContext.Instance;
 
                 // Reset the streams
-                dataContext.ImageStream.Seek(0, SeekOrigin.Begin);
-                dataContext.ThumbStream.Seek(0, SeekOrigin.Begin);
+                dataContext.ResetStreams();
 
                 CameraCaptureSequence sequence = _photoCaptureDevice.CreateCaptureSequence(1);
-                sequence.Frames[0].CaptureStream = dataContext.ImageStream.AsOutputStream();
-                sequence.Frames[0].ThumbnailStream = dataContext.ThumbStream.AsOutputStream();
+                sequence.Frames[0].CaptureStream = dataContext.FullResolutionStream.AsOutputStream();
+                sequence.Frames[0].ThumbnailStream = dataContext.PreviewResolutionStream.AsOutputStream();
 
                 await _photoCaptureDevice.PrepareCaptureSequenceAsync(sequence);
                 await sequence.StartCaptureAsync();
@@ -351,7 +347,7 @@ namespace FilterEffects
 
             if (goToPreview)
             {
-                NavigationService.Navigate(new Uri("/FilterPreviewPage.xaml", UriKind.Relative));
+                NavigationService.Navigate(new Uri("/PreviewPage.xaml", UriKind.Relative));
             }
         }
 
@@ -376,40 +372,57 @@ namespace FilterEffects
         /// </summary>
         /// <param name="sender">PhotoChooserTask that is completed.</param>
         /// <param name="e">Result of the task, including chosen photo.</param>
-        void PhotoChooserTask_Completed(object sender, PhotoResult e)
+        private async void PhotoChooserTask_Completed_Async(object sender, PhotoResult e)
         {
             if (e.TaskResult == TaskResult.OK && e.ChosenPhoto != null)
             {
-                DataContext dataContext = FilterEffects.DataContext.Singleton;
+                DataContext dataContext = FilterEffects.DataContext.Instance;
 
                 // Reset the streams
-                dataContext.CreateStreams();
+                dataContext.ResetStreams();
 
                 // Use the largest possible dimensions
                 WriteableBitmap bitmap = new WriteableBitmap(3552, 2448);
+
+                BitmapImage image = new BitmapImage();
+                image.SetSource(e.ChosenPhoto);
+
                 try
                 {
-                    // Jpeg images can be used as such.
+                    // Jpeg images can be used as such
                     bitmap.LoadJpeg(e.ChosenPhoto);
                     e.ChosenPhoto.Position = 0;
-                    e.ChosenPhoto.CopyTo(dataContext.ImageStream);
+                    e.ChosenPhoto.CopyTo(dataContext.FullResolutionStream);
                 }
                 catch (Exception /*ex*/)
                 {
                     // Image format is not jpeg. Can be anything, so first 
-                    // load it into a bitmap image and then write as jpeg.
-                    BitmapImage image = new BitmapImage();
-                    image.SetSource(e.ChosenPhoto);
-
+                    // load it into a bitmap image and then write as jpeg
                     bitmap = new WriteableBitmap(image);
-                    bitmap.SaveJpeg(dataContext.ImageStream, image.PixelWidth, image.PixelHeight, 0, 100);
+                    bitmap.SaveJpeg(dataContext.FullResolutionStream, image.PixelWidth, image.PixelHeight, 0, 100);
                 }
+
+                dataContext.SetFullResolution(image.PixelWidth, image.PixelHeight);
+
+                dataContext.PreviewResolution = new Windows.Foundation.Size(
+                    FilterEffects.DataContext.DefaultPreviewResolutionWidth, 0);
+                int previewWidth = (int)FilterEffects.DataContext.DefaultPreviewResolutionWidth;
+                int previewHeight = 0;
+
+                AppUtils.CalculatePreviewResolution(
+                    (int)dataContext.FullResolution.Width, (int)dataContext.FullResolution.Height,
+                    ref previewWidth, ref previewHeight);
+
+                dataContext.SetPreviewResolution(previewWidth, previewHeight);
+
+                await AppUtils.ScaleImageStreamAsync(
+                    e.ChosenPhoto, dataContext.PreviewResolutionStream, dataContext.PreviewResolution);
 
                 // Get the storyboard from application resources
                 Storyboard sb = (Storyboard)Resources["CaptureAnimation"];
                 sb.Begin();
 
-                NavigationService.Navigate(new Uri("/FilterPreviewPage.xaml", UriKind.Relative));
+                NavigationService.Navigate(new Uri("/PreviewPage.xaml", UriKind.Relative));
             }
         }
     }
