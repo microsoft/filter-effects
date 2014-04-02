@@ -1,0 +1,60 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.30304.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "FilterEffects", "FilterEffects", "{123DEE4D-0C81-4036-81D7-D4BDE19B5DBA}"
+EndProject
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "FilterEffects.Shared", "FilterEffects\FilterEffects.Shared\FilterEffects.Shared.shproj", "{14A875D5-B4ED-4023-9678-1CD1BD988B0F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FilterEffects.Windows", "FilterEffects\FilterEffects.Windows\FilterEffects.Windows.csproj", "{8D38E07A-032F-42F1-A34A-4B2715F8E45E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FilterEffects.WindowsPhone", "FilterEffects\FilterEffects.WindowsPhone\FilterEffects.WindowsPhone.csproj", "{6EB560C0-3E40-4D28-9B6B-8DFE20C3431C}"
+EndProject
+Global
+	GlobalSection(SharedMSBuildProjectFiles) = preSolution
+		FilterEffects\FilterEffects.Shared\FilterEffects.Shared.projitems*{14a875d5-b4ed-4023-9678-1cd1bd988b0f}*SharedItemsImports = 13
+		FilterEffects\FilterEffects.Shared\FilterEffects.Shared.projitems*{8d38e07a-032f-42f1-a34a-4b2715f8e45e}*SharedItemsImports = 4
+		FilterEffects\FilterEffects.Shared\FilterEffects.Shared.projitems*{6eb560c0-3e40-4d28-9b6b-8dfe20c3431c}*SharedItemsImports = 4
+	EndGlobalSection
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|ARM = Debug|ARM
+		Debug|x86 = Debug|x86
+		Release|ARM = Release|ARM
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{8D38E07A-032F-42F1-A34A-4B2715F8E45E}.Debug|ARM.ActiveCfg = Debug|ARM
+		{8D38E07A-032F-42F1-A34A-4B2715F8E45E}.Debug|ARM.Build.0 = Debug|ARM
+		{8D38E07A-032F-42F1-A34A-4B2715F8E45E}.Debug|ARM.Deploy.0 = Debug|ARM
+		{8D38E07A-032F-42F1-A34A-4B2715F8E45E}.Debug|x86.ActiveCfg = Debug|x86
+		{8D38E07A-032F-42F1-A34A-4B2715F8E45E}.Debug|x86.Build.0 = Debug|x86
+		{8D38E07A-032F-42F1-A34A-4B2715F8E45E}.Debug|x86.Deploy.0 = Debug|x86
+		{8D38E07A-032F-42F1-A34A-4B2715F8E45E}.Release|ARM.ActiveCfg = Release|ARM
+		{8D38E07A-032F-42F1-A34A-4B2715F8E45E}.Release|ARM.Build.0 = Release|ARM
+		{8D38E07A-032F-42F1-A34A-4B2715F8E45E}.Release|ARM.Deploy.0 = Release|ARM
+		{8D38E07A-032F-42F1-A34A-4B2715F8E45E}.Release|x86.ActiveCfg = Release|x86
+		{8D38E07A-032F-42F1-A34A-4B2715F8E45E}.Release|x86.Build.0 = Release|x86
+		{8D38E07A-032F-42F1-A34A-4B2715F8E45E}.Release|x86.Deploy.0 = Release|x86
+		{6EB560C0-3E40-4D28-9B6B-8DFE20C3431C}.Debug|ARM.ActiveCfg = Debug|ARM
+		{6EB560C0-3E40-4D28-9B6B-8DFE20C3431C}.Debug|ARM.Build.0 = Debug|ARM
+		{6EB560C0-3E40-4D28-9B6B-8DFE20C3431C}.Debug|ARM.Deploy.0 = Debug|ARM
+		{6EB560C0-3E40-4D28-9B6B-8DFE20C3431C}.Debug|x86.ActiveCfg = Debug|ARM
+		{6EB560C0-3E40-4D28-9B6B-8DFE20C3431C}.Debug|x86.Build.0 = Debug|ARM
+		{6EB560C0-3E40-4D28-9B6B-8DFE20C3431C}.Debug|x86.Deploy.0 = Debug|ARM
+		{6EB560C0-3E40-4D28-9B6B-8DFE20C3431C}.Release|ARM.ActiveCfg = Release|ARM
+		{6EB560C0-3E40-4D28-9B6B-8DFE20C3431C}.Release|ARM.Build.0 = Release|ARM
+		{6EB560C0-3E40-4D28-9B6B-8DFE20C3431C}.Release|ARM.Deploy.0 = Release|ARM
+		{6EB560C0-3E40-4D28-9B6B-8DFE20C3431C}.Release|x86.ActiveCfg = Release|x86
+		{6EB560C0-3E40-4D28-9B6B-8DFE20C3431C}.Release|x86.Build.0 = Release|x86
+		{6EB560C0-3E40-4D28-9B6B-8DFE20C3431C}.Release|x86.Deploy.0 = Release|x86
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{14A875D5-B4ED-4023-9678-1CD1BD988B0F} = {123DEE4D-0C81-4036-81D7-D4BDE19B5DBA}
+		{8D38E07A-032F-42F1-A34A-4B2715F8E45E} = {123DEE4D-0C81-4036-81D7-D4BDE19B5DBA}
+		{6EB560C0-3E40-4D28-9B6B-8DFE20C3431C} = {123DEE4D-0C81-4036-81D7-D4BDE19B5DBA}
+	EndGlobalSection
+EndGlobal

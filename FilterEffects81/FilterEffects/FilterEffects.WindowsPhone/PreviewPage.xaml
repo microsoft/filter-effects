@@ -1,0 +1,98 @@
+﻿<!--
+    Copyright (c) 2013-2014 Nokia Corporation.
+    See the license file delivered with this project for more information.
+-->
+<Page
+    x:Class="FilterEffects.PreviewPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+    <Page.Resources>
+        <Storyboard x:Name="ShowControlsAnimationStoryBoard">
+            <DoubleAnimation 
+                x:Name="ShowControlsAnimation"
+                Storyboard.TargetProperty="(UIElement.Opacity)" 
+                To="1"
+                Duration="0:0:0.2"
+                />
+        </Storyboard>
+        <Storyboard x:Name="HideControlsAnimationStoryBoard">
+            <DoubleAnimation 
+                x:Name="HideControlsAnimation"
+                Storyboard.TargetProperty="(UIElement.Opacity)"
+                To="0"
+                Duration="0:0:0.3" 
+                />
+        </Storyboard>
+    </Page.Resources>
+
+    <!--LayoutRoot is the root grid where all page content is placed-->
+    <Grid x:Name="LayoutRoot" Background="Transparent" Tapped="ShowPropertiesControls">        
+        <!-- The Pivot items are created dynamically in PreviewPage.xaml.cs -->
+        <Pivot
+            x:Name="FilterPreviewPivot"
+            Grid.Row="0"
+            x:Uid="PreviewPivot"
+            Title=""
+            />
+
+        <!-- Placeholder for populating the controls to adjust filter properties -->
+        <Grid VerticalAlignment="Bottom" Background="Transparent">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <Rectangle
+                Grid.Row="0"
+                Fill="{ThemeResource AppBarBackgroundThemeBrush}"
+                Opacity="0.3"
+                />
+            <Grid
+                x:Name="FilterControlsContainer"
+                Grid.Row="0"
+                Margin="6,6,6,6"
+                />
+        </Grid>
+            
+        <Grid
+            x:Name="HintText"
+            Height="50"
+            VerticalAlignment="Bottom"
+            Background="Transparent"
+            Visibility="Collapsed">
+            <Rectangle
+                x:Name="HintTextBackground"
+                Fill="{ThemeResource AppBarBackgroundThemeBrush}"
+                Opacity="0.5"
+                />
+            <TextBlock
+                x:Uid="FilterSettingsHint"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                Style="{ThemeResource BodyTextBlockStyle}"
+                Text=""
+                />
+        </Grid>
+
+        <ProgressRing
+            x:Name="ProgressIndicator"
+            Grid.Row="0"
+            IsActive="False"
+            />
+    </Grid>
+
+    <Page.BottomAppBar>
+        <CommandBar Opacity="0.4">
+            <AppBarButton
+                x:Name="SaveButton"
+                x:Uid="SaveButton"
+                Icon="Save"
+                Label=""
+                Click="SaveButton_Click"
+                IsEnabled="True"
+                />
+        </CommandBar>
+    </Page.BottomAppBar> 
+</Page>

@@ -1,0 +1,25 @@
+﻿<!--
+    Copyright (c) 2014 Nokia Corporation.
+    See the license file delivered with this project for more information.
+-->
+<Page
+    x:Name="pageRoot"
+    x:Class="FilterEffects.ViewfinderPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+    
+    <Grid Background="{StaticResource ApplicationPageBackgroundThemeBrush}">
+        <CaptureElement Name="MyCaptureElement" Height="800" Tapped="CaptureButton_Click" />
+        <ProgressRing x:Name="ProgressIndicator" IsActive="False" Height="200" Width="200"/>
+    </Grid>
+    <Page.BottomAppBar>
+        <CommandBar>
+            <AppBarButton x:Uid="CaptureButton" Icon="Camera" Label="" Click="CaptureButton_Click" />
+            <AppBarButton x:Uid="SelectImageButton" Icon="Folder" Label="" Click="SelectImageButton_Click" />
+            <AppBarButton x:Uid="AboutButton" Icon="Help" Label="" Click="AboutButton_Click" />
+        </CommandBar>
+    </Page.BottomAppBar>
+</Page>

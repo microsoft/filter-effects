@@ -1,0 +1,59 @@
+﻿<!--
+    Copyright (c) 2013-2014 Nokia Corporation.
+    See the license file delivered with this project for more information.
+-->
+
+<Page
+    x:Class="FilterEffects.AboutPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Background="#124191">
+
+    <Grid x:Name="LayoutRoot">
+
+        <Grid.ChildrenTransitions>
+            <TransitionCollection>
+                <EntranceThemeTransition/>
+            </TransitionCollection>
+        </Grid.ChildrenTransitions>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!-- TitlePanel -->
+        <StackPanel Grid.Row="0" Margin="24,17,0,28">
+            <TextBlock x:Uid="Application" Text="" Style="{ThemeResource TitleTextBlockStyle}" Typography.Capitals="SmallCaps" Foreground="White"/>
+            <TextBlock x:Uid="AboutPage" Text="" Margin="0,12,0,0" Style="{ThemeResource HeaderTextBlockStyle}" Foreground="White"/>
+        </StackPanel>
+        <ScrollViewer Grid.Row="1" Margin="12,0,12,24">
+            <StackPanel x:Name="ContentPanel" Margin="0,0,0,0">
+                <RichTextBlock FontSize="16">
+                    <Paragraph>
+                        <Run x:Uid="Version" Text="" Foreground="White"/>
+                        <Run x:Name="VersionNumber" Text="" Foreground="White"/>
+                    </Paragraph>
+                    <Paragraph/>
+                    <Paragraph>
+                        <Run x:Uid="AboutDescription" Text="" Foreground="White"/>
+                    </Paragraph>
+                    <Paragraph/>
+                    <Paragraph>
+                        <Run x:Uid="AboutDisclaimer" Text="" Foreground="White"/>
+                    </Paragraph>
+                    <Paragraph/>
+                    <Paragraph>
+                        <Run x:Uid="AboutMore" Text="" Foreground="White"/>
+                    </Paragraph>
+                    <Paragraph/>
+                </RichTextBlock>
+                <HyperlinkButton NavigateUri="http://developer.nokia.com"
+                    Content="Nokia Developer website" FontSize="24"/>
+            </StackPanel>
+        </ScrollViewer>
+    </Grid>
+</Page>
