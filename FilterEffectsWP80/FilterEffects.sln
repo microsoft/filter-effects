@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
 VisualStudioVersion = 12.0.30203.2
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FilterEffects", "FilterEffects\FilterEffects.csproj", "{4D0915A0-7A9F-4660-802E-436743C304DE}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FilterEffects", "FilterEffectsWP\FilterEffects.csproj", "{4D0915A0-7A9F-4660-802E-436743C304DE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
