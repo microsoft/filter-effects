@@ -1,5 +1,5 @@
 ﻿/**
- * Copyright (c) 2014 Nokia Corporation.
+ * Copyright (c) 2014 Microsoft Mobile.
  */
 
 using System.Collections.ObjectModel;
