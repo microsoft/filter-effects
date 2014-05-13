@@ -39,11 +39,13 @@ namespace FilterEffects.Filters
             Name = "Sixth Gear";
             ShortDescription = "Lomo";
 
-            _lomoFilter = new LomoFilter();
-            _lomoFilter.Brightness = DefaultBrightness;
-            _lomoFilter.Saturation = DefaultSaturation;
-            _lomoFilter.LomoVignetting = DefaultLomoVignetting;
-            _lomoFilter.LomoStyle = DefaultLomoStyle;
+            _lomoFilter = new LomoFilter
+            {
+                Brightness = DefaultBrightness,
+                Saturation = DefaultSaturation,
+                LomoVignetting = DefaultLomoVignetting,
+                LomoStyle = DefaultLomoStyle
+            };
         }
 
         protected override void SetFilters(FilterEffect effect)
@@ -58,52 +60,37 @@ namespace FilterEffects.Filters
             Grid grid = new Grid();
             int rowIndex = 0;
 
-            TextBlock brightnessText = new TextBlock();
-            brightnessText.Text = AppResources.Brightness;
+            TextBlock brightnessText = new TextBlock {Text = AppResources.Brightness};
             Grid.SetRow(brightnessText, rowIndex++);
 
-            Slider brightnessSlider = new Slider();
-            brightnessSlider.Minimum = 0.0;
-            brightnessSlider.Maximum = 1.0;
-            brightnessSlider.Value = _lomoFilter.Brightness;
+            Slider brightnessSlider = new Slider {Minimum = 0.0, Maximum = 1.0, Value = _lomoFilter.Brightness};
             brightnessSlider.ValueChanged += brightnessSlider_ValueChanged;
             Grid.SetRow(brightnessSlider, rowIndex++);
 
-            TextBlock saturationText = new TextBlock();
-            saturationText.Text = AppResources.Saturation;
+            TextBlock saturationText = new TextBlock {Text = AppResources.Saturation};
             Grid.SetRow(saturationText, rowIndex++);
 
-            Slider saturationSlider = new Slider();
-            saturationSlider.Minimum = 0.0;
-            saturationSlider.Maximum = 1.0;
-            saturationSlider.Value = _lomoFilter.Saturation;
+            Slider saturationSlider = new Slider {Minimum = 0.0, Maximum = 1.0, Value = _lomoFilter.Saturation};
             saturationSlider.ValueChanged += saturationSlider_ValueChanged;
             Grid.SetRow(saturationSlider, rowIndex++);
 
-            TextBlock lomoVignettingText = new TextBlock();
-            lomoVignettingText.Text = AppResources.LomoVignetting;
+            TextBlock lomoVignettingText = new TextBlock {Text = AppResources.LomoVignetting};
             Grid.SetRow(lomoVignettingText, rowIndex++);
 
-            RadioButton highRadioButton = new RadioButton();
-            highRadioButton.GroupName = _lomoVignettingGroup;
-            TextBlock textBlock = new TextBlock();
-            textBlock.Text = AppResources.High;
+            RadioButton highRadioButton = new RadioButton {GroupName = _lomoVignettingGroup};
+            TextBlock textBlock = new TextBlock {Text = AppResources.High};
             highRadioButton.Content = textBlock;
             highRadioButton.Checked += highRadioButton_Checked;
             Grid.SetRow(highRadioButton, rowIndex++);
 
-            RadioButton medRadioButton = new RadioButton();
-            medRadioButton.GroupName = _lomoVignettingGroup;
-            textBlock = new TextBlock();
-            textBlock.Text = AppResources.Medium;
+            RadioButton medRadioButton = new RadioButton {GroupName = _lomoVignettingGroup};
+            textBlock = new TextBlock {Text = AppResources.Medium};
             medRadioButton.Content = textBlock;
             medRadioButton.Checked += medRadioButton_Checked;
             Grid.SetRow(medRadioButton, rowIndex++);
 
-            RadioButton lowRadioButton = new RadioButton();
-            lowRadioButton.GroupName = _lomoVignettingGroup;
-            textBlock = new TextBlock();
-            textBlock.Text = AppResources.Low;
+            RadioButton lowRadioButton = new RadioButton {GroupName = _lomoVignettingGroup};
+            textBlock = new TextBlock {Text = AppResources.Low};
             lowRadioButton.Content = textBlock;
             lowRadioButton.Checked += lowRadioButton_Checked;
             Grid.SetRow(lowRadioButton, rowIndex++);

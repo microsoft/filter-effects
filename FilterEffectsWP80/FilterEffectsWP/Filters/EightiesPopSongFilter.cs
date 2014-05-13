@@ -32,8 +32,7 @@ namespace FilterEffects.Filters
             Name = "80's Pop Song";
             ShortDescription = "Sketch";
 
-            _sketchFilter = new SketchFilter();
-            _sketchFilter.SketchMode = DefaultSketchMode;
+            _sketchFilter = new SketchFilter {SketchMode = DefaultSketchMode};
         }
 
         protected override void SetFilters(FilterEffect effect)
@@ -48,22 +47,17 @@ namespace FilterEffects.Filters
             Grid grid = new Grid();
             int rowIndex = 0;
 
-            TextBlock sketchModeText = new TextBlock();
-            sketchModeText.Text = AppResources.SketchMode;
+            TextBlock sketchModeText = new TextBlock {Text = AppResources.SketchMode};
             Grid.SetRow(sketchModeText, rowIndex++);
 
-            RadioButton grayRadioButton = new RadioButton();
-            grayRadioButton.GroupName = SketchModeGroup;
-            TextBlock textBlock = new TextBlock();
-            textBlock.Text = AppResources.Gray;
+            RadioButton grayRadioButton = new RadioButton {GroupName = SketchModeGroup};
+            TextBlock textBlock = new TextBlock {Text = AppResources.Gray};
             grayRadioButton.Content = textBlock;
             grayRadioButton.Checked += grayRadioButton_Checked;
             Grid.SetRow(grayRadioButton, rowIndex++);
 
-            RadioButton colorRadioButton = new RadioButton();
-            colorRadioButton.GroupName = SketchModeGroup;
-            textBlock = new TextBlock();
-            textBlock.Text = AppResources.Color;
+            RadioButton colorRadioButton = new RadioButton {GroupName = SketchModeGroup};
+            textBlock = new TextBlock {Text = AppResources.Color};
             colorRadioButton.Content = textBlock;
             colorRadioButton.Checked += colorRadioButton_Checked;
             Grid.SetRow(colorRadioButton, rowIndex++);

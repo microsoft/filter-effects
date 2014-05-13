@@ -44,9 +44,11 @@ namespace FilterEffects
         {
             InitializeComponent();
 
-            ApplicationBarMenuItem menuItem = new ApplicationBarMenuItem();
-            menuItem.Text = AppResources.AboutText;
-            menuItem.IsEnabled = false;
+            ApplicationBarMenuItem menuItem = new ApplicationBarMenuItem
+            {
+                Text = AppResources.AboutText,
+                IsEnabled = false
+            };
             menuItem.Click += new EventHandler(AboutMenuItem_Click);
             ApplicationBar.MenuItems.Add(menuItem);
 

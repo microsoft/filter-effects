@@ -8,22 +8,16 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.IO.IsolatedStorage;
-using System.Linq;
-using System.Net;
 using System.Runtime.InteropServices.WindowsRuntime;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media.Animation;
-using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Threading;
 using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
 using Microsoft.Xna.Framework.Media;
 using Windows.Storage.Streams;
-
-using Nokia.Graphics;
-using Nokia.Graphics.Imaging;
 
 using FilterEffects.Filters;
 using FilterEffects.Filters.FilterControls;
@@ -166,10 +160,7 @@ namespace FilterEffects
 
                         // Load image asynchronously at application launch
                         await isoFileStream.CopyToAsync(dataContext.FullResolutionStream);
-                        Dispatcher.BeginInvoke(() =>
-                        {
-                            CreatePreviewImages();
-                        });
+                        Dispatcher.BeginInvoke(CreatePreviewImages);
                     }
                 }
             }
@@ -214,8 +205,7 @@ namespace FilterEffects
             // and associate them with the images.
             foreach (AbstractFilter filter in _filters)
             {
-                PivotItem pivotItem = new PivotItem();
-                pivotItem.Header = filter.Name;
+                PivotItem pivotItem = new PivotItem {Header = filter.Name};
 
                 if (filter.ShortDescription != null && filter.ShortDescription.Length > 0)
                 {
@@ -263,13 +253,15 @@ namespace FilterEffects
         /// </summary>
         private void CreateFilters()
         {
-            _filters = new List<AbstractFilter>();
-            _filters.Add(new OriginalImageFilter()); // This is for the original image and has no effects
-            _filters.Add(new SixthGearFilter());
-            _filters.Add(new SadHipsterFilter());
-            _filters.Add(new EightiesPopSongFilter());
-            _filters.Add(new MarvelFilter());
-            _filters.Add(new SurroundedFilter());
+            _filters = new List<AbstractFilter>
+            {
+                new OriginalImageFilter(),
+                new SixthGearFilter(),
+                new SadHipsterFilter(),
+                new EightiesPopSongFilter(),
+                new MarvelFilter(),
+                new SurroundedFilter()
+            };
         }
 
         /// <summary>
@@ -309,13 +301,16 @@ namespace FilterEffects
             int selectedIndex = FilterPreviewPivot.SelectedIndex;
 
             DataContext dataContext = FilterEffects.DataContext.Instance;
-
+            
+            GC.Collect();
+            
             try
             {
                 if (selectedIndex == 0)
                 {
                     using (MediaLibrary library = new MediaLibrary())
                     {
+                        dataContext.FullResolutionStream.Position = 0;
                         library.SavePictureToCameraRoll(FileNamePrefix
                             + DateTime.Now.ToString() + ".jpg",
                             dataContext.FullResolutionStream);
@@ -432,8 +427,7 @@ namespace FilterEffects
                                 Debug.WriteLine(ex.ToString());
                             }
 
-                            _timer = new DispatcherTimer();
-                            _timer.Interval = new TimeSpan(0, 0, 0, HideControlsDelay);
+                            _timer = new DispatcherTimer {Interval = new TimeSpan(0, 0, 0, HideControlsDelay)};
                             _timer.Tick += HidePropertiesControls;
                             _timer.Start();
                         }

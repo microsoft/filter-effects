@@ -31,8 +31,7 @@ namespace FilterEffects.Filters
             Name = "Marvel";
             ShortDescription = "Cartoon";
 
-            _cartoonFilter = new Nokia.Graphics.Imaging.CartoonFilter();
-            _cartoonFilter.DistinctEdges = DefaultDistinctEdges;
+            _cartoonFilter = new Nokia.Graphics.Imaging.CartoonFilter {DistinctEdges = DefaultDistinctEdges};
         }
 
         protected override void SetFilters(FilterEffect effect)
@@ -48,8 +47,7 @@ namespace FilterEffects.Filters
             int rowIndex = 0;
 
             CheckBox distinctEdgesCheckBox = new CheckBox();
-            TextBlock textBlock = new TextBlock();
-            textBlock.Text = AppResources.DistinctEdges;
+            TextBlock textBlock = new TextBlock {Text = AppResources.DistinctEdges};
             distinctEdgesCheckBox.Content = textBlock;
             distinctEdgesCheckBox.IsChecked = _cartoonFilter.DistinctEdges;
             distinctEdgesCheckBox.Checked += distinctEdgesCheckBox_Checked;

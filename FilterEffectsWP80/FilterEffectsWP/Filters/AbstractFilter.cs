@@ -7,7 +7,6 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Threading.Tasks;
-using System.Runtime.InteropServices.WindowsRuntime;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using Windows.Foundation;
