@@ -12,7 +12,7 @@
     mc:Ignorable="d">
     
     <Grid Background="{StaticResource ApplicationPageBackgroundThemeBrush}">
-        <CaptureElement Name="MyCaptureElement" Height="800" Tapped="CaptureButton_Click" />
+        <CaptureElement Name="MyCaptureElement"  Tapped="CaptureButton_Click" />
         <ProgressRing x:Name="ProgressIndicator" IsActive="False" Height="200" Width="200"/>
     </Grid>
     <Page.BottomAppBar>

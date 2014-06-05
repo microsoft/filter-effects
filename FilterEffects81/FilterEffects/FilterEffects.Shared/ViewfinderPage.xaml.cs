@@ -11,8 +11,10 @@ using System.Threading.Tasks;
 using Windows.ApplicationModel.Activation;
 using Windows.Devices.Enumeration;
 using Windows.Foundation;
+using Windows.Graphics.Display;
 using Windows.Graphics.Imaging;
 using Windows.Media.Capture;
+using Windows.Media.Devices;
 using Windows.Media.MediaProperties;
 using Windows.Storage.Pickers;
 using Windows.Storage.Streams;
@@ -36,7 +38,7 @@ namespace FilterEffects
 
         // Members
         private readonly NavigationHelper _navigationHelper;
-
+        
         // MediaCapture class requires both Webcam and Microphone capabilities
         private MediaCapture _mediaCapture;
 
@@ -77,8 +79,6 @@ namespace FilterEffects
         /// and <see cref="GridCS.Common.NavigationHelper.SaveState"/>.
         /// The navigation parameter is available in the LoadState method 
         /// in addition to page state preserved during an earlier session.
-
-
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             NavigationHelper.OnNavigatedTo(e);
@@ -92,8 +92,41 @@ namespace FilterEffects
             {
                 InitializeCameraAsync();
             }
+            
+        }
+        
+        private void DisplayInfo_OrientationChanged(DisplayInformation sender, object args)
+        {
+            if (_mediaCapture == null)
+            {
+                return;
+            }
+            var rotation = VideoRotationLookup(sender.CurrentOrientation, false);
+            _mediaCapture.SetPreviewRotation(rotation);
+            _mediaCapture.SetRecordRotation(rotation);
         }
 
+        private VideoRotation VideoRotationLookup(DisplayOrientations displayOrientation, bool counterclockwise)
+        {
+            switch (displayOrientation)
+            {
+                case DisplayOrientations.Landscape:
+                    return VideoRotation.None;
+
+                case DisplayOrientations.Portrait:
+                    return (counterclockwise) ? VideoRotation.Clockwise270Degrees : VideoRotation.Clockwise90Degrees;
+
+                case DisplayOrientations.LandscapeFlipped:
+                    return VideoRotation.Clockwise180Degrees;
+
+                case DisplayOrientations.PortraitFlipped:
+                    return (counterclockwise) ? VideoRotation.Clockwise90Degrees :
+                        VideoRotation.Clockwise270Degrees;
+
+                default:
+                    return VideoRotation.None;
+            }
+        }
         protected override async void OnNavigatedFrom(NavigationEventArgs e)
         {
             if (!_resumingFromFile)
@@ -142,7 +175,10 @@ namespace FilterEffects
                 await _mediaCapture.InitializeAsync(
                     new MediaCaptureInitializationSettings
                     {
-                        VideoDeviceId = devices[devices.Count - 1].Id
+                        StreamingCaptureMode = StreamingCaptureMode.Video,
+                        PhotoCaptureSource = PhotoCaptureSource.VideoPreview,
+                        AudioDeviceId = string.Empty,
+                        VideoDeviceId = devices[0].Id
                     });
 #else
                 await _mediaCapture.InitializeAsync();
@@ -208,7 +244,7 @@ namespace FilterEffects
                     _dataContext.FullResolution = fallbackResolution;
                 }
 
-                _mediaCapture.SetPreviewRotation(VideoRotation.None);
+                _mediaCapture.SetPreviewMirroring(false);
                 
                 // Start the camera
                 await _mediaCapture.StartPreviewAsync();
@@ -216,6 +252,13 @@ namespace FilterEffects
                 ProgressIndicator.IsActive = false;
                 Debug.WriteLine(DebugTag + "InitializeCameraAsync() <-");
             }
+
+            DisplayInformation displayInfo = DisplayInformation.GetForCurrentView();
+            displayInfo.OrientationChanged += DisplayInfo_OrientationChanged;
+            
+            DisplayInfo_OrientationChanged(displayInfo, null);
+            Debug.WriteLine(MyCaptureElement.ActualHeight.ToString());
+            
         }
 
         private void CommandInvokedHandler(IUICommand command)
