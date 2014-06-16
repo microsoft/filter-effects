@@ -361,6 +361,7 @@ namespace FilterEffects
             else
             {
                 _pickingFile = false;
+                _mediaCapture = new MediaCapture();
                 InitializeCameraAsync();
             }
         }
@@ -385,6 +386,7 @@ namespace FilterEffects
             }
             else
             {
+                _mediaCapture = new MediaCapture();
                 InitializeCameraAsync();
             }
         }
