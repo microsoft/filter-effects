@@ -46,6 +46,7 @@ namespace FilterEffects
         private bool _capturing;
         private bool _pickingFile;
         private bool _resumingFromFile = false;
+        bool cam = false;
 
         /// <summary>
         /// NavigationHelper is used on each page to aid in navigation and 
@@ -101,8 +102,11 @@ namespace FilterEffects
             {
                 return;
             }
+            _mediaCapture.SetPreviewRotation(cam
+                    ? VideoRotationLookup(sender.CurrentOrientation, true)
+                    : VideoRotationLookup(sender.CurrentOrientation, false));
             var rotation = VideoRotationLookup(sender.CurrentOrientation, false);
-            _mediaCapture.SetPreviewRotation(rotation);
+            
             _mediaCapture.SetRecordRotation(rotation);
         }
 
@@ -172,13 +176,27 @@ namespace FilterEffects
             try
             {
 #if WINDOWS_PHONE_APP
+                // Use the main camera 
+                DeviceInformation info = devices[0];
+
+                foreach (var devInfo in devices)
+                {
+                    if (devInfo.Name.ToLowerInvariant().Contains("back"))
+                    {
+                        info = devInfo;
+                        cam = false; // set this to true if you use front camera 
+                        continue;
+                    }
+                }
+                MyCaptureElement.FlowDirection = cam ? FlowDirection.RightToLeft : FlowDirection.LeftToRight;
+
                 await _mediaCapture.InitializeAsync(
                     new MediaCaptureInitializationSettings
                     {
                         StreamingCaptureMode = StreamingCaptureMode.Video,
                         PhotoCaptureSource = PhotoCaptureSource.VideoPreview,
                         AudioDeviceId = string.Empty,
-                        VideoDeviceId = devices[0].Id
+                        VideoDeviceId = info.Id
                     });
 #else
                 await _mediaCapture.InitializeAsync();
@@ -252,13 +270,15 @@ namespace FilterEffects
                 ProgressIndicator.IsActive = false;
                 Debug.WriteLine(DebugTag + "InitializeCameraAsync() <-");
             }
-
+            
+#if WINDOWS_PHONE_APP
+            // In case front camera is used, we need to handle the rotations
             DisplayInformation displayInfo = DisplayInformation.GetForCurrentView();
             displayInfo.OrientationChanged += DisplayInfo_OrientationChanged;
             
             DisplayInfo_OrientationChanged(displayInfo, null);
             Debug.WriteLine(MyCaptureElement.ActualHeight.ToString());
-            
+#endif            
         }
 
         private void CommandInvokedHandler(IUICommand command)
