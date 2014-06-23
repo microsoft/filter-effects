@@ -48,22 +48,9 @@ namespace FilterEffects
         private bool _resumingFromFile = false;
         bool cam = false;
 
-        /// <summary>
-        /// NavigationHelper is used on each page to aid in navigation and 
-        /// process lifetime management
-        /// </summary>
-        public NavigationHelper NavigationHelper
-        {
-            get
-            {
-                return _navigationHelper;
-            }
-        }
-
         public ViewfinderPage()
         {
             InitializeComponent();
-            _navigationHelper = new NavigationHelper(this);
             _mediaCapture = new MediaCapture();
             _dataContext = FilterEffects.DataContext.Instance;
             _capturing = false;
@@ -82,7 +69,6 @@ namespace FilterEffects
         /// in addition to page state preserved during an earlier session.
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            NavigationHelper.OnNavigatedTo(e);
 
             if (ProgressIndicator.IsActive)
             {
@@ -93,7 +79,6 @@ namespace FilterEffects
             {
                 InitializeCameraAsync();
             }
-            
         }
         
         private void DisplayInfo_OrientationChanged(DisplayInformation sender, object args)
@@ -131,6 +116,7 @@ namespace FilterEffects
                     return VideoRotation.None;
             }
         }
+
         protected override async void OnNavigatedFrom(NavigationEventArgs e)
         {
             if (!_resumingFromFile)
@@ -153,7 +139,7 @@ namespace FilterEffects
             {
                 _resumingFromFile = false; 
             }
-            NavigationHelper.OnNavigatedFrom(e);
+
         }
 
         #endregion
