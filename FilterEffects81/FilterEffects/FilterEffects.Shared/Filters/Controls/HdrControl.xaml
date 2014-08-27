@@ -20,9 +20,9 @@
             <RowDefinition></RowDefinition>
         </Grid.RowDefinitions>
 
-        <TextBlock Style="{ThemeResource BodyTextBlockStyle}">Strength</TextBlock>
-        <TextBlock Grid.Row="2" Style="{ThemeResource BodyTextBlockStyle}">Saturation</TextBlock>
-        <TextBlock Grid.Row="4" Style="{ThemeResource BodyTextBlockStyle}">NoiseSuppression</TextBlock>
+        <TextBlock x:Uid="Strength" Style="{ThemeResource BodyTextBlockStyle}" Text="" />
+        <TextBlock x:Uid="Saturation" Grid.Row="2" Style="{ThemeResource BodyTextBlockStyle}" Text="" />
+        <TextBlock x:Uid="NoiseSuppression" Grid.Row="4" Style="{ThemeResource BodyTextBlockStyle}" Text="" />
 
         <Slider Grid.Row="1" Minimum="0" Maximum="1.0" Value="{Binding Strength, ElementName=MyControl, Mode=TwoWay}"  LargeChange="0.1" SmallChange="0.01" StepFrequency="0.001"></Slider>
         <Slider Grid.Row="3" Minimum="0" Maximum="2.5" Value="{Binding Saturation, ElementName=MyControl, Mode=TwoWay}" LargeChange="0.25" SmallChange="0.025" StepFrequency="0.025"></Slider>

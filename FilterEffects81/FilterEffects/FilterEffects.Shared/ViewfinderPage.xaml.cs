@@ -25,6 +25,7 @@ using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Navigation;
 
 using FilterEffects.Common;
+using Windows.ApplicationModel.Resources;
 
 namespace FilterEffects
 {
@@ -36,28 +37,44 @@ namespace FilterEffects
         // Constants
         private const string DebugTag = "ViewfinderPage: ";
 
-        // Members
-        private readonly NavigationHelper _navigationHelper;
-        
-        // MediaCapture class requires both Webcam and Microphone capabilities
-        private MediaCapture _mediaCapture;
+        // Data types
+        public enum CameraStates
+        {
+            NotInitialized,
+            Initializing,
+            Initialized,
+            Capturing,
+            Stopping
+        }
 
+        // Members and properties
+        private MediaCapture _mediaCapture; // MediaCapture class requires both Webcam and Microphone capabilities
         private readonly DataContext _dataContext;
-        private bool _capturing;
+        private ResourceLoader _resourceLoader;
+        private CameraStates _cameraState = CameraStates.NotInitialized;
         private bool _pickingFile;
-        private bool _resumingFromFile = false;
-        bool cam = false;
+        private bool _resumingFromFile;
+        private bool _cam;
+
+        public CameraStates CameraState
+        {
+            get
+            {
+                return _cameraState;
+            }
+            private set
+            {
+                Debug.WriteLine("CameraState changed from " + _cameraState + " to " + value);
+                _cameraState = value;
+            }
+        }
 
         public ViewfinderPage()
         {
             InitializeComponent();
-            _mediaCapture = new MediaCapture();
             _dataContext = FilterEffects.DataContext.Instance;
-            _capturing = false;
-            _pickingFile = false;
+            _resourceLoader = new ResourceLoader();
         }
-
-        #region NavigationHelper registration
 
         /// The methods provided in this section are simply used to allow
         /// NavigationHelper to respond to the page's navigation methods.
@@ -69,6 +86,8 @@ namespace FilterEffects
         /// in addition to page state preserved during an earlier session.
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
+            Debug.WriteLine(DebugTag + "OnNavigatedTo(): Picking file == " + _pickingFile);
+            Window.Current.VisibilityChanged += OnVisibilityChanged;
 
             if (ProgressIndicator.IsActive)
             {
@@ -80,14 +99,43 @@ namespace FilterEffects
                 InitializeCameraAsync();
             }
         }
-        
+
+        protected override void OnNavigatedFrom(NavigationEventArgs e)
+        {
+            Window.Current.VisibilityChanged -= OnVisibilityChanged;
+
+            if (!_resumingFromFile)
+            {
+                StopCameraAsync();
+            }
+            else
+            {
+                _resumingFromFile = false;
+            }
+        }
+
+        void OnVisibilityChanged(object sender, Windows.UI.Core.VisibilityChangedEventArgs e)
+        {
+            Debug.WriteLine(DebugTag + "OnVisibilityChanged(): " + e.Visible);
+
+            if (e.Visible && !_pickingFile)
+            {
+                InitializeCameraAsync();
+            }
+            else
+            {
+                StopCameraAsync();
+            }
+        }
+
         private void DisplayInfo_OrientationChanged(DisplayInformation sender, object args)
         {
             if (_mediaCapture == null)
             {
                 return;
             }
-            _mediaCapture.SetPreviewRotation(cam
+
+            _mediaCapture.SetPreviewRotation(_cam
                     ? VideoRotationLookup(sender.CurrentOrientation, true)
                     : VideoRotationLookup(sender.CurrentOrientation, false));
             var rotation = VideoRotationLookup(sender.CurrentOrientation, false);
@@ -117,65 +165,59 @@ namespace FilterEffects
             }
         }
 
-        protected override async void OnNavigatedFrom(NavigationEventArgs e)
-        {
-            if (!_resumingFromFile)
-            {
-                try
-                {
-                    if (_mediaCapture != null)
-                    {
-                        await _mediaCapture.StopPreviewAsync();
-                        _mediaCapture.Dispose();
-                        _mediaCapture = null;
-                    }
-                }
-                catch (Exception ex)
-                {
-                    Debug.WriteLine(DebugTag + "OnNavigatedFrom(): " + ex.ToString());
-                }
-            }
-            else
-            {
-                _resumingFromFile = false; 
-            }
-
-        }
-
-        #endregion
-
         /// <summary>
         /// Initialises the camera and resolves the resolution for both the
         /// full resolution and preview images.
         /// </summary>
         private async void InitializeCameraAsync()
         {
+            if (CameraState != CameraStates.NotInitialized)
+            {
+                Debug.WriteLine(DebugTag + "InitializeCameraAsync(): Invalid state");
+                return;
+            }
+
             Debug.WriteLine(DebugTag + "InitializeCameraAsync() ->");
+            CameraState = CameraStates.Initializing;
             ProgressIndicator.IsActive = true;
             MessageDialog messageDialog = null;
 
 #if WINDOWS_PHONE_APP
             DeviceInformationCollection devices;
             devices = await DeviceInformation.FindAllAsync(DeviceClass.VideoCapture);
+
+            if (devices.Count == 0)
+            {
+                ProgressIndicator.IsActive = false;
+                CameraState = CameraStates.NotInitialized;
+                messageDialog = new MessageDialog(
+                    _resourceLoader.GetString("FailedToFindCameraDevice/Text"),
+                    _resourceLoader.GetString("CameraInitializationFailed/Text"));
+                await messageDialog.ShowAsync();
+                return;
+            }
+
+            // Use the back camera 
+            DeviceInformation info = devices[0];
+            _cam = true;
+
+            foreach (var devInfo in devices)
+            {
+                if (devInfo.Name.ToLowerInvariant().Contains("back"))
+                {
+                    info = devInfo;
+                    _cam = false; // Set this to true if you use front camera 
+                    break;
+                }
+            }
+
+            MyCaptureElement.FlowDirection = _cam ? FlowDirection.RightToLeft : FlowDirection.LeftToRight;
 #endif
+            _mediaCapture = new MediaCapture();
 
             try
             {
 #if WINDOWS_PHONE_APP
-                // Use the main camera 
-                DeviceInformation info = devices[0];
-
-                foreach (var devInfo in devices)
-                {
-                    if (devInfo.Name.ToLowerInvariant().Contains("back"))
-                    {
-                        info = devInfo;
-                        cam = false; // set this to true if you use front camera 
-                        continue;
-                    }
-                }
-                MyCaptureElement.FlowDirection = cam ? FlowDirection.RightToLeft : FlowDirection.LeftToRight;
-
                 await _mediaCapture.InitializeAsync(
                     new MediaCaptureInitializationSettings
                     {
@@ -187,12 +229,13 @@ namespace FilterEffects
 #else
                 await _mediaCapture.InitializeAsync();
 #endif
-                MyCaptureElement.Source = _mediaCapture;
             }
             catch (Exception ex)
             {
-                messageDialog = new MessageDialog(ex.ToString(), LocalizedStrings.GetText("CameraInitializationFailed"));  
+                messageDialog = new MessageDialog(ex.ToString(), _resourceLoader.GetString("CameraInitializationFailed/Text"));  
             }
+
+            MyCaptureElement.Source = _mediaCapture;
 
             if (messageDialog != null)
             {
@@ -201,8 +244,8 @@ namespace FilterEffects
                  */
                 if (messageDialog.Commands != null)
                 {
-                    messageDialog.Commands.Add(new UICommand(LocalizedStrings.GetText("Retry"), CommandInvokedHandler));
-                    messageDialog.Commands.Add(new UICommand(LocalizedStrings.GetText("Cancel"), CommandInvokedHandler));
+                    messageDialog.Commands.Add(new UICommand(_resourceLoader.GetString("Retry/Text"), CommandInvokedHandler));
+                    messageDialog.Commands.Add(new UICommand(_resourceLoader.GetString("Cancel/Text"), CommandInvokedHandler));
                 }
 
                 // Set the command that will be invoked by default
@@ -215,7 +258,6 @@ namespace FilterEffects
             }
             else
             {
-                
                 // Get the resolution
                 uint width = 0;
                 uint height = 0;
@@ -235,8 +277,7 @@ namespace FilterEffects
                 {
                     await _mediaCapture.VideoDeviceController.SetMediaStreamPropertiesAsync(
                         MediaStreamType.Photo, propertiesToSet);
-                    Debug.WriteLine(DebugTag + "Capture resolution set to "
-                                    + width + "x" + height + "!");
+                    Debug.WriteLine(DebugTag + "Capture resolution set to " + width + "x" + height + "!");
                 }
                 else
                 {
@@ -249,27 +290,53 @@ namespace FilterEffects
                 }
 
                 _mediaCapture.SetPreviewMirroring(false);
-                
-                // Start the camera
                 await _mediaCapture.StartPreviewAsync();
-                
-                ProgressIndicator.IsActive = false;
-                Debug.WriteLine(DebugTag + "InitializeCameraAsync() <-");
             }
             
 #if WINDOWS_PHONE_APP
             // In case front camera is used, we need to handle the rotations
             DisplayInformation displayInfo = DisplayInformation.GetForCurrentView();
-            displayInfo.OrientationChanged += DisplayInfo_OrientationChanged;
-            
+            displayInfo.OrientationChanged += DisplayInfo_OrientationChanged;      
             DisplayInfo_OrientationChanged(displayInfo, null);
-            Debug.WriteLine(MyCaptureElement.ActualHeight.ToString());
-#endif            
+#endif
+            CameraState = CameraStates.Initialized;
+            ProgressIndicator.IsActive = false;
+            CaptureButton.IsEnabled = true;
+            Debug.WriteLine(DebugTag + "InitializeCameraAsync() <-");
+        }
+
+        /// <summary>
+        /// Stops camera.
+        /// </summary>
+        public async void StopCameraAsync()
+        {
+            if (CameraState != CameraStates.Initialized || _mediaCapture == null)
+            {
+                Debug.WriteLine(DebugTag + "StopCameraAsync(): Camera is not initialised");
+                return;
+            }
+
+            CameraState = CameraStates.Stopping;
+            CaptureButton.IsEnabled = false;
+
+            try
+            {
+                Debug.WriteLine(DebugTag + "StopCameraAsync(): Stopping camera...");
+                await _mediaCapture.StopPreviewAsync();
+                _mediaCapture.Dispose();
+                _mediaCapture = null;
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(DebugTag + "StopCameraAsync(): Failed to stop camera: " + ex.ToString());
+            }
+
+            CameraState = CameraStates.NotInitialized;
         }
 
         private void CommandInvokedHandler(IUICommand command)
         {
-            if (command.Label.Equals(LocalizedStrings.GetText("Retry")))
+            if (command.Label.Equals(_resourceLoader.GetString("Retry/Text")))
             {
                 InitializeCameraAsync();
             }
@@ -279,15 +346,16 @@ namespace FilterEffects
         /// Captures a photo. Photo data is stored to ImageStream, and
         /// application is navigated to the preview page after capturing.
         /// </summary>
-        private async Task Capture()
+        private async Task CaptureAsync()
         {
             bool goToPreview = false;
 
-            if (!_capturing)
+            if (CameraState == CameraStates.Initialized)
             {
+                CameraState = CameraStates.Capturing;
+                CaptureButton.IsEnabled = false;
                 MyCaptureElement.Source = null;
                 ProgressIndicator.IsActive = true;
-                _capturing = true;
 
                 _dataContext.ResetStreams();
 
@@ -304,7 +372,7 @@ namespace FilterEffects
                     _dataContext.PreviewResolutionStream,
                     _dataContext.PreviewResolution);
 
-                _capturing = false;
+                CameraState = CameraStates.Initialized;
                 goToPreview = true;
             }
 
@@ -317,15 +385,12 @@ namespace FilterEffects
 
         private async void CaptureButton_Click(object sender, RoutedEventArgs e)
         {
-            await Capture();
+            await CaptureAsync();
         }
 
         private async void SelectImageButton_Click(object sender, RoutedEventArgs e)
         {
-            await _mediaCapture.StopPreviewAsync();
-            
-            _mediaCapture.Dispose();
-            _mediaCapture = null;
+            StopCameraAsync();
 
             _pickingFile = true;
             FileManager fileManager = FileManager.Instance;
@@ -347,7 +412,6 @@ namespace FilterEffects
             else
             {
                 _pickingFile = false;
-                _mediaCapture = new MediaCapture();
                 InitializeCameraAsync();
             }
         }

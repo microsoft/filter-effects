@@ -17,8 +17,11 @@ namespace FilterEffects
             
             this.Loaded += (sender, args) =>
             {
+                Windows.ApplicationModel.Resources.ResourceLoader resourceLoader = new Windows.ApplicationModel.Resources.ResourceLoader();
                 var ver = Windows.ApplicationModel.Package.Current.Id.Version;
-                VersionNumber.Text = string.Format("{0}.{1}.{2}", ver.Major, ver.Minor, ver.Revision);
+                VersionNumberTextBlock.Text =
+                    string.Format(System.Globalization.CultureInfo.CurrentCulture, resourceLoader.GetString("VersionNumber/Text"),
+                        string.Format("{0}.{1}.{2}", ver.Major, ver.Minor, ver.Revision));
             };
         }
     }

@@ -31,7 +31,6 @@
     <Compile Include="$(MSBuildThisFileDirectory)Filters\SadHipsterFilter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Filters\SixthGearFilter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Filters\SurroundedFilter.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)LocalizedStrings.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)FileManager.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)PreviewPage.xaml.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewfinderPage.xaml.cs" />

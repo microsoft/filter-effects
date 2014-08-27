@@ -26,34 +26,42 @@
         </Grid.RowDefinitions>
 
         <!-- TitlePanel -->
-        <StackPanel Grid.Row="0" Margin="24,17,0,28">
-            <TextBlock x:Uid="Application" Text="" Style="{ThemeResource TitleTextBlockStyle}" Typography.Capitals="SmallCaps" Foreground="White"/>
-            <TextBlock x:Uid="AboutPage" Text="" Margin="0,12,0,0" Style="{ThemeResource HeaderTextBlockStyle}" Foreground="White"/>
+        <StackPanel Grid.Row="0" Margin="24,17,0,12">
+            <TextBlock x:Uid="About" Style="{ThemeResource TitleTextBlockStyle}" Foreground="White" Typography.Capitals="SmallCaps" Text="" />
+            <TextBlock x:Uid="ApplicationTitle" Margin="0,12,0,0" Style="{ThemeResource HeaderTextBlockStyle}" Foreground="White" Text="" />
+            <TextBlock x:Name="VersionNumberTextBlock" x:Uid="VersionNumber" Margin="0,6,0,0" Style="{ThemeResource SubheaderTextBlockStyle}" Foreground="WhiteSmoke" Text="" />
         </StackPanel>
-        <ScrollViewer Grid.Row="1" Margin="12,0,12,24">
-            <StackPanel x:Name="ContentPanel" Margin="0,0,0,0">
-                <RichTextBlock FontSize="16">
-                    <Paragraph>
-                        <Run x:Uid="Version" Text="" Foreground="White"/>
-                        <Run x:Name="VersionNumber" Text="" Foreground="White"/>
-                    </Paragraph>
-                    <Paragraph/>
-                    <Paragraph>
-                        <Run x:Uid="AboutDescription" Text="" Foreground="White"/>
-                    </Paragraph>
-                    <Paragraph/>
-                    <Paragraph>
-                        <Run x:Uid="AboutDisclaimer" Text="" Foreground="White"/>
-                    </Paragraph>
-                    <Paragraph/>
-                    <Paragraph>
-                        <Run x:Uid="AboutMore" Text="" Foreground="White"/>
-                    </Paragraph>
-                    <Paragraph/>
-                </RichTextBlock>
-                <HyperlinkButton NavigateUri="http://developer.nokia.com"
-                    Content="Nokia Developer website" FontSize="24"/>
-            </StackPanel>
-        </ScrollViewer>
+
+        <Grid Grid.Row="1" x:Name="ContentRoot">
+            <ScrollViewer>
+                <StackPanel  Margin="24,6,24,24">
+                    <RichTextBlock FontSize="16">
+                        <Paragraph/>
+                        <Paragraph>
+                            <Run x:Uid="AboutDescription" Text="" Foreground="White"/>
+                        </Paragraph>
+                        <Paragraph/>
+                        <Paragraph>
+                            <Run x:Uid="AboutDisclaimer" Text="" Foreground="White"/>
+                        </Paragraph>
+                        <Paragraph/>
+                        <Paragraph>
+                            <Run x:Uid="AboutMore" Text="" Foreground="White"/>
+                        </Paragraph>
+                        <Paragraph/>
+                    </RichTextBlock>
+                    <HyperlinkButton NavigateUri="https://github.com/nokia-developer/filter-effects">
+                        <HyperlinkButton.Content>
+                            <TextBlock
+                                Style="{ThemeResource BodyTextBlockStyle}"
+                                Foreground="White"
+                                TextWrapping="Wrap"                           
+                                Text="github.com/nokia-developer/filter-effects"
+                                />
+                        </HyperlinkButton.Content>
+                    </HyperlinkButton>
+                </StackPanel>
+            </ScrollViewer>
+        </Grid>
     </Grid>
 </Page>

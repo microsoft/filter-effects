@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Threading.Tasks;
 using System.Runtime.InteropServices.WindowsRuntime;
+using Windows.ApplicationModel.Resources;
 using Windows.Foundation;
 using Windows.Storage.Streams;
 using Windows.UI.Xaml;
@@ -41,6 +42,7 @@ namespace FilterEffects.Filters
         public event EventHandler PropertiesManipulated;
 
         // Members
+        protected ResourceLoader _resourceLoader;
         protected BufferImageSource _source;
         protected FilterEffect _effect;
         protected WriteableBitmap _previewBitmap;
@@ -175,6 +177,7 @@ namespace FilterEffects.Filters
         /// </summary>
         protected AbstractFilter()
         {
+            _resourceLoader = new ResourceLoader();
             Name = "n/a";
             Changes = new List<Action>();
         }

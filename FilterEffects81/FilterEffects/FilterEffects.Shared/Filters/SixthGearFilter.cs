@@ -56,7 +56,7 @@ namespace FilterEffects.Filters
             {
                 VerticalAlignment = VerticalAlignment.Center,
                 FontSize = FilterControlTitleFontSize,
-                Text = LocalizedStrings.GetText("Brightness")
+                Text = _resourceLoader.GetString("Brightness/Text")
             };
 
             Grid.SetRow(brightnessText, rowIndex++);
@@ -76,7 +76,7 @@ namespace FilterEffects.Filters
             {
                 VerticalAlignment = VerticalAlignment.Center,
                 FontSize = FilterControlTitleFontSize,
-                Text = LocalizedStrings.GetText("Saturation")
+                Text = _resourceLoader.GetString("Saturation/Text")
             };
 
             Grid.SetRow(saturationText, rowIndex++);
@@ -101,7 +101,7 @@ namespace FilterEffects.Filters
                 Margin = margin,
                 VerticalAlignment = VerticalAlignment.Center,
                 FontSize = FilterControlTitleFontSize,
-                Text = LocalizedStrings.GetText("LomoVignetting")
+                Text = _resourceLoader.GetString("LomoVignetting/Text")
             };
 
             Grid.SetRow(lomoVignettingText, rowIndex++);
@@ -111,7 +111,7 @@ namespace FilterEffects.Filters
             {
                 Margin = margin,
                 GroupName = LomoVignettingGroup,
-                Content = new TextBlock { Text = LocalizedStrings.GetText("High") }
+                Content = new TextBlock { Text = _resourceLoader.GetString("High/Text") }
             };
             highRadioButton.Checked += highRadioButton_Checked;
 
@@ -122,7 +122,7 @@ namespace FilterEffects.Filters
             {
                 Margin = margin,
                 GroupName = LomoVignettingGroup,
-                Content = new TextBlock { Text = LocalizedStrings.GetText("Medium") }
+                Content = new TextBlock { Text = _resourceLoader.GetString("Medium/Text") }
             };
             medRadioButton.Checked += medRadioButton_Checked;
 
@@ -133,7 +133,7 @@ namespace FilterEffects.Filters
             {
                 Margin = margin,
                 GroupName = LomoVignettingGroup,
-                Content = new TextBlock { Text = LocalizedStrings.GetText("Low") }
+                Content = new TextBlock { Text = _resourceLoader.GetString("Low/Text") }
             };
             lowRadioButton.Checked += lowRadioButton_Checked;
 

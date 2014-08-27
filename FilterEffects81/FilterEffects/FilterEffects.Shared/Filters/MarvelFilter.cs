@@ -48,7 +48,7 @@ namespace FilterEffects.Filters
             {
                 VerticalAlignment = VerticalAlignment.Center,
                 FontSize = FilterControlTitleFontSize,
-                Text = LocalizedStrings.GetText("DistinctEdges")
+                Text = _resourceLoader.GetString("DistinctEdges/Text")
             };
 
             distinctEdgesCheckBox.Content = textBlock;

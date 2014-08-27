@@ -17,7 +17,7 @@
     </Grid>
     <Page.BottomAppBar>
         <CommandBar>
-            <AppBarButton x:Uid="CaptureButton" Icon="Camera" Label="" Click="CaptureButton_Click" />
+            <AppBarButton x:Uid="CaptureButton" x:Name="CaptureButton" Icon="Camera" Label="" IsEnabled="False" Click="CaptureButton_Click" />
             <AppBarButton x:Uid="SelectImageButton" Icon="Folder" Label="" Click="SelectImageButton_Click" />
             <AppBarButton x:Uid="AboutButton" Icon="Help" Label="" Click="AboutButton_Click" />
         </CommandBar>

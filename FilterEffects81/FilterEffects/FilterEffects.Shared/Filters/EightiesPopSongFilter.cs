@@ -45,7 +45,7 @@ namespace FilterEffects.Filters
             {
                 VerticalAlignment = VerticalAlignment.Center,
                 FontSize = FilterControlTitleFontSize,
-                Text = LocalizedStrings.GetText("SketchMode")
+                Text = _resourceLoader.GetString("SketchMode/Text")
             };
 
             Grid.SetRow(sketchModeText, rowIndex++);
@@ -53,16 +53,16 @@ namespace FilterEffects.Filters
             var padding = new Thickness { Left = 12, Right = 12 };
 
             var grayRadioButton = new RadioButton { Padding = padding, GroupName = SketchModeGroup };
-            
-            var textBlock = new TextBlock { Text = LocalizedStrings.GetText("Gray") };
+
+            var textBlock = new TextBlock { Text = _resourceLoader.GetString("Gray/Text") };
 
             grayRadioButton.Content = textBlock;
             grayRadioButton.Checked += grayRadioButton_Checked;
             Grid.SetRow(grayRadioButton, rowIndex++);
 
             var colorRadioButton = new RadioButton { Padding = padding, GroupName = SketchModeGroup };
-            
-            textBlock = new TextBlock { Text = LocalizedStrings.GetText("Color") };
+
+            textBlock = new TextBlock { Text = _resourceLoader.GetString("Color/Text") };
 
             colorRadioButton.Content = textBlock;
             colorRadioButton.Checked += colorRadioButton_Checked;

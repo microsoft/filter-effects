@@ -31,10 +31,11 @@ namespace FilterEffects
     public sealed partial class App : Application
     {
 #if WINDOWS_PHONE_APP
-        private TransitionCollection transitions;
+        private TransitionCollection _transitions;
         public static ContinuationManager ContinuationManager { get; private set; }
 #endif
         public static Frame RootFrame { get; private set; }
+
         /// <summary>
         /// Initializes the singleton application object. This is the first line of authored code
         /// executed, and as such is the logical equivalent of main() or WinMain().
@@ -43,26 +44,28 @@ namespace FilterEffects
         {
             this.InitializeComponent();
             this.Suspending += this.OnSuspending;
+
 #if WINDOWS_PHONE_APP
             ContinuationManager = new ContinuationManager();
-            HardwareButtons.BackPressed += OnBackPressed;
 #endif
         }
 
 #if WINDOWS_PHONE_APP
+        /// <summary>
+        /// Handles the back button press and navigates through the history of the root frame.
+        /// </summary>
+        /// <param name="sender">The source of the event. <see cref="HardwareButtons"/></param>
+        /// <param name="e">Details about the back button press.</param>
         private void OnBackPressed(object sender, BackPressedEventArgs e)
         {
             Frame frame = Window.Current.Content as Frame;
 
             if (frame == null)
             {
-                System.Diagnostics.Debug.WriteLine("App.OnBackPressed(): Frame is null!");
                 return;
             }
 
-            System.Diagnostics.Debug.WriteLine("App.OnBackPressed(): CanGoBack is " + frame.CanGoBack);
-
-            if (frame.CanGoBack)
+            if (frame.CanGoBack && !e.Handled)
             {
                 frame.GoBack();
                 e.Handled = true;
@@ -100,10 +103,10 @@ namespace FilterEffects
                 // Removes the turnstile navigation for startup.
                 if (RootFrame.ContentTransitions != null)
                 {
-                    this.transitions = new TransitionCollection();
+                    this._transitions = new TransitionCollection();
                     foreach (var c in RootFrame.ContentTransitions)
                     {
-                        this.transitions.Add(c);
+                        this._transitions.Add(c);
                     }
                 }
 
@@ -154,7 +157,7 @@ namespace FilterEffects
 #if WINDOWS_PHONE_APP
         protected override void OnActivated(IActivatedEventArgs e)
         {
-            System.Diagnostics.Debug.WriteLine("OnActivated: " + e.PreviousExecutionState.ToString());
+            System.Diagnostics.Debug.WriteLine("App.OnActivated(): " + e.PreviousExecutionState.ToString());
 
             // Check if this is a continuation
             var continuationEventArgs = e as IContinuationActivatedEventArgs;
@@ -177,7 +180,7 @@ namespace FilterEffects
             var rootFrame = sender as Frame;
             if (rootFrame != null)
             {
-                rootFrame.ContentTransitions = this.transitions ?? new TransitionCollection() { new NavigationThemeTransition() };
+                rootFrame.ContentTransitions = this._transitions ?? new TransitionCollection() { new NavigationThemeTransition() };
                 rootFrame.Navigated -= this.RootFrame_FirstNavigated;
             }
         }
@@ -197,6 +200,7 @@ namespace FilterEffects
 #if WINDOWS_PHONE_APP
             ContinuationManager.MarkAsStale();
 #endif
+
             // TODO: Save application state and stop any background activity
             deferral.Complete();
         }

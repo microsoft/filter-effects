@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Package xmlns="http://schemas.microsoft.com/appx/2010/manifest" xmlns:m2="http://schemas.microsoft.com/appx/2013/manifest" xmlns:m3="http://schemas.microsoft.com/appx/2014/manifest" xmlns:mp="http://schemas.microsoft.com/appx/2014/phone/manifest">
-  <Identity Name="034d223e-356f-4bff-a0d2-f2b82d31b9e7" Publisher="CN=tompaana" Version="2.0.0.0" />
+  <Identity Name="034d223e-356f-4bff-a0d2-f2b82d31b9e7" Publisher="CN=tompaana" Version="2.1.0.0" />
   <mp:PhoneIdentity PhoneProductId="034d223e-356f-4bff-a0d2-f2b82d31b9e7" PhonePublisherId="00000000-0000-0000-0000-000000000000" />
   <Properties>
     <DisplayName>Filter Effects</DisplayName>

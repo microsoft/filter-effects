@@ -121,13 +121,13 @@
     <value>About</value>
   </data>
   <data name="AboutButton.Label" xml:space="preserve">
-    <value>About</value>
+    <value>about</value>
   </data>
   <data name="AboutDescription.Text" xml:space="preserve">
-    <value>A Nokia example demonstrating the use of the different filters of Nokia Imaging SDK with camera photos. This example app uses the camera and displays the viewfinder for taking a picture. The taken photo is then processed with the predefined filters. The filter properties can be manipulated and the changes can be seen in the preview image immediately. The processed image can be saved in JPEG format to the device. You can also select an existing photo and apply an effect to it.</value>
+    <value>An example application demonstrating the use of the different filters of Nokia Imaging SDK with camera photos. This example app uses the camera and displays the viewfinder for taking a picture. The taken photo is then processed with the predefined filters. The filter properties can be manipulated and the changes can be seen in the preview image immediately. The processed image can be saved in JPEG format to the device. You can also select an existing photo and apply an effect to it.</value>
   </data>
   <data name="AboutDisclaimer.Text" xml:space="preserve">
-    <value>This Nokia developer example application has been created to provide tips and best practice guidance for software developers and app designers, and may not have all the features you would expect in a commercial product. This application is published in Store as a free software as it may also have value to regular Nokia phone users. The source code and documentation of this example can be downloaded from Nokia Developer website.</value>
+    <value>This Nokia Developer example application has been created to provide tips and best practice guidance for software developers and app designers, and may not have all the features you would expect in a commercial product. This application is published in Store as a free software as it may also have value to regular Nokia phone users. The source code and documentation of this example can be downloaded from Nokia Developer website.</value>
   </data>
   <data name="AboutMore.Text" xml:space="preserve">
     <value>Learn more and get the latest version of this software from:</value>
@@ -159,6 +159,9 @@
   <data name="DistinctEdges.Text" xml:space="preserve">
     <value>Distinct edges</value>
   </data>
+  <data name="FailedToFindCameraDevice.Text" xml:space="preserve">
+    <value>Failed to find a camera device</value>
+  </data>
   <data name="FailedToSaveImage.Text" xml:space="preserve">
     <value>Failed to save the image</value>
   </data>
@@ -186,6 +189,9 @@
   <data name="Medium.Text" xml:space="preserve">
     <value>Medium</value>
   </data>
+  <data name="NoiseSuppression.Text" xml:space="preserve">
+    <value>Noise suppression</value>
+  </data>
   <data name="Preview.Text" xml:space="preserve">
     <value>Preview</value>
   </data>
@@ -210,7 +216,10 @@
   <data name="SketchMode.Text" xml:space="preserve">
     <value>Sketch mode</value>
   </data>
-  <data name="Version.Text" xml:space="preserve">
-    <value>Version:</value>
+  <data name="Strength.Text" xml:space="preserve">
+    <value>Strength</value>
+  </data>
+  <data name="VersionNumber.Text" xml:space="preserve">
+    <value>Version {0}</value>
   </data>
 </root>

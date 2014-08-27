@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.ApplicationModel.Activation;
+using Windows.ApplicationModel.Resources;
 using Windows.Storage.Streams;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -39,6 +40,7 @@ namespace FilterEffects
 
         // Members
         private readonly NavigationHelper _navigationHelper;
+        private ResourceLoader _resourceLoader;
         private List<AbstractFilter> _filters;
 #if WINDOWS_PHONE_APP
         private List<Image> _previewImages = null;
@@ -69,6 +71,7 @@ namespace FilterEffects
             _navigationHelper = new NavigationHelper(this);
             _navigationHelper.LoadState += navigationHelper_LoadState;
             _navigationHelper.SaveState += navigationHelper_SaveState;
+            _resourceLoader = new ResourceLoader();
         }
 
         /// <summary>
@@ -283,7 +286,7 @@ namespace FilterEffects
 
             if (wasSuccessful)
             {
-                AppUtils.ShowToast(LocalizedStrings.GetText("ImageSavedAs")
+                AppUtils.ShowToast(_resourceLoader.GetString("ImageSavedAs/Text")
                     + " " + fileManager.NameOfSavedFile);
             }
         }
