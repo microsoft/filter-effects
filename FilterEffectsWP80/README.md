@@ -10,7 +10,7 @@ JPEG format into the camera roll album. You can also select an existing photo
 and apply an effect to it. 
 
 This example application is hosted in GitHub:
-https://github.com/nokia-developer/filter-effects
+https://github.com/Microsoft/filter-effects
 
 For more information on implementation, visit Nokia Lumia
 Developer's Library:
@@ -85,7 +85,7 @@ http://msdn.microsoft.com/en-us/library/windowsphone/develop/ff402565%28v=vs.105
 
 See the license text file delivered with this project. The license file is also
 available online at
-https://github.com/nokia-developer/filter-effects/blob/master/Licence.txt
+https://github.com/Microsoft/filter-effects/blob/master/Licence.txt
 
 
 5. Related documentation

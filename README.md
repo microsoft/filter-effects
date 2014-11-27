@@ -18,10 +18,10 @@ Two versions of this example are currently available:
   and Windows RT 8.1 is located in `FilterEffectsWP80` folder.
 
 This example project is hosted in GitHub:
-https://github.com/nokia-developer/filter-effects
+https://github.com/Microsoft/filter-effects
 
 For more information on implementation, visit Nokia Lumia Developer's Library:
 http://developer.nokia.com/Resources/Library/Lumia/nokia-imaging-sdk/sample-projects/filter-effects.html
 
 For legal notice see the license file provided with this project or online at
-https://github.com/nokia-developer/filter-effects/blob/master/Licence.txt
+https://github.com/Microsoft/filter-effects/blob/master/Licence.txt

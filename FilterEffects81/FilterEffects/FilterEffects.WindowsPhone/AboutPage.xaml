@@ -50,13 +50,13 @@
                         </Paragraph>
                         <Paragraph/>
                     </RichTextBlock>
-                    <HyperlinkButton NavigateUri="https://github.com/nokia-developer/filter-effects">
+                    <HyperlinkButton NavigateUri="https://github.com/Microsoft/filter-effects">
                         <HyperlinkButton.Content>
                             <TextBlock
                                 Style="{ThemeResource BodyTextBlockStyle}"
                                 Foreground="White"
                                 TextWrapping="Wrap"                           
-                                Text="github.com/nokia-developer/filter-effects"
+                                Text="github.com/Microsoft/filter-effects"
                                 />
                         </HyperlinkButton.Content>
                     </HyperlinkButton>

@@ -9,7 +9,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("Filter Effects")]
-[assembly: AssemblyCopyright("Copyright © 2014 Nokia Corporation.")]
+[assembly: AssemblyCopyright("Copyright © 2014 Microsoft Mobile.")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

@@ -10,7 +10,7 @@ JPEG format to the device. You can also select an existing photo and apply an
 effect to it. 
 
 This example application is hosted in GitHub:
-https://github.com/nokia-developer/filter-effects
+https://github.com/Microsoft/filter-effects
 
 For more information on implementation, visit Nokia Lumia Developer's Library:
 http://developer.nokia.com/Resources/Library/Lumia/nokia-imaging-sdk/sample-projects/filter-effects.html
@@ -73,7 +73,7 @@ is dependent on Nokia Imaging SDK.
 
 See the license text file delivered with this project. The license file is also
 available online at
-https://github.com/nokia-developer/filter-effects/blob/master/Licence.txt
+https://github.com/Microsoft/filter-effects/blob/master/Licence.txt
 
 
 4. Version history

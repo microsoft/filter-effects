@@ -127,7 +127,7 @@
     <value>An example application demonstrating the use of the different filters of Nokia Imaging SDK with camera photos. This example app uses the camera and displays the viewfinder for taking a picture. The taken photo is then processed with the predefined filters. The filter properties can be manipulated and the changes can be seen in the preview image immediately. The processed image can be saved in JPEG format to the device. You can also select an existing photo and apply an effect to it.</value>
   </data>
   <data name="AboutDisclaimer.Text" xml:space="preserve">
-    <value>This Nokia Developer example application has been created to provide tips and best practice guidance for software developers and app designers, and may not have all the features you would expect in a commercial product. This application is published in Store as a free software as it may also have value to regular Nokia phone users. The source code and documentation of this example can be downloaded from Nokia Developer website.</value>
+    <value>This Nokia Developer example application has been created to provide tips and best practice guidance for software developers and app designers, and may not have all the features you would expect in a commercial product. This application is published in Store as a free software as it may also have value to regular phone users. The source code and documentation of this example can be downloaded from Nokia Developer website.</value>
   </data>
   <data name="AboutMore.Text" xml:space="preserve">
     <value>Learn more and get the latest version of this software from:</value>
