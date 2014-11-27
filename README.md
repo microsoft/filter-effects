@@ -1,7 +1,7 @@
 Filter Effects
 ==============
 
-A Nokia example demonstrating the use of the different filters of Nokia Imaging
+An example application demonstrating the use of the different filters of Imaging
 SDK with camera photos. This example app uses the camera and displays the
 viewfinder for taking a picture. The taken photo is then processed with the
 predefined filters. The filter properties can be manipulated and the changes can
