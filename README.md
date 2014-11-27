@@ -20,7 +20,7 @@ Two versions of this example are currently available:
 This example project is hosted in GitHub:
 https://github.com/Microsoft/filter-effects
 
-For more information on implementation, visit Nokia Lumia Developer's Library:
+For more information on implementation, visit Lumia Developer's Library:
 http://developer.nokia.com/Resources/Library/Lumia/nokia-imaging-sdk/sample-projects/filter-effects.html
 
 For legal notice see the license file provided with this project or online at
