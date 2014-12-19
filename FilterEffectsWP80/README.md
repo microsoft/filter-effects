@@ -1,7 +1,7 @@
 Filter Effects
 ==============
 
-A Nokia example demonstrating the use of the different filters of Nokia Imaging
+A Lumia example demonstrating the use of the different filters of Lumia Imaging
 SDK with camera photos. This example app uses the camera and displays the
 viewfinder for taking a picture. The taken photo is then processed with the
 predefined filters. The filter properties can be manipulated and the changes can
@@ -12,9 +12,9 @@ and apply an effect to it.
 This example application is hosted in GitHub:
 https://github.com/Microsoft/filter-effects
 
-For more information on implementation, visit Nokia Lumia
-Developer's Library:
-http://developer.nokia.com/Resources/Library/Lumia/nokia-imaging-sdk/sample-projects/filter-effects.html
+For more information on implementation, visit Lumia Developer's Library:
+http://dev.windows.com/en-us/featured/lumia
+
 
 
 1. Important classes
@@ -40,7 +40,7 @@ the file system.
 -------------------------------------------------------------------------------
 
 Compatible with Windows Phone 8 phones, and Windows 8.1 (desktop and RT). The
-project is dependent on Nokia Imaging SDK.
+project is dependent on Lumia Imaging SDK.
 
 2.1 Required capabilities
 -------------------------
@@ -91,11 +91,11 @@ https://github.com/Microsoft/filter-effects/blob/master/Licence.txt
 5. Related documentation
 -------------------------------------------------------------------------------
 
-* Nokia Lumia Developer's Library:
-  http://www.developer.nokia.com/Resources/Library/Lumia
+* Lumia Developer's Library:
+  http://dev.windows.com/en-us/featured/lumia
+
 * Wiki article: Optimizing Imaging SDK use for rapidly changing filter
-  parameters:
-  http://developer.nokia.com/Community/Wiki/Optimizing_Imaging_SDK_use_for_rapidly_changing_filter_parameters
+  parameters: http://dev.windows.com/en-us/featured/lumia
 
 
 6. Version history

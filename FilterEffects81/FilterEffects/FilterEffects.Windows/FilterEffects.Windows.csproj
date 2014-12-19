@@ -18,6 +18,7 @@
     <PackageCertificateKeyFile>FilterEffects.Windows_TemporaryKey.pfx</PackageCertificateKeyFile>
     <AppxAutoIncrementPackageRevision>True</AppxAutoIncrementPackageRevision>
     <AppxBundlePlatforms>arm</AppxBundlePlatforms>
+    <NuGetPackageImportStamp>129d6ac5</NuGetPackageImportStamp>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|ARM'">
     <DebugSymbols>true</DebugSymbols>
@@ -83,7 +84,7 @@
       <SubType>Designer</SubType>
     </AppxManifest>
     <None Include="FilterEffects.Windows_TemporaryKey.pfx" />
-    <None Include="Help\Nokia Imaging SDK.chm" />
+    <None Include="Help\Lumia Imaging SDK.chm" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
@@ -97,13 +98,13 @@
   </PropertyGroup>
   <Import Project="..\FilterEffects.Shared\FilterEffects.Shared.projitems" Label="Shared" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\WindowsXaml\v$(VisualStudioVersion)\Microsoft.Windows.UI.Xaml.CSharp.targets" />
+  <Import Project="..\..\packages\LumiaImagingSDK.2.0.74-beta\build\win81\LumiaImagingSDK.targets" Condition="Exists('..\..\packages\LumiaImagingSDK.2.0.74-beta\build\win81\LumiaImagingSDK.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Enable NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
-    <Error Condition="!Exists('..\..\packages\NokiaImagingSDK.1.2.99\build\win81\NokiaImagingSDK.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\NokiaImagingSDK.1.2.99\build\win81\NokiaImagingSDK.targets'))" />
+    <Error Condition="!Exists('..\..\packages\LumiaImagingSDK.2.0.74-beta\build\win81\LumiaImagingSDK.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\LumiaImagingSDK.2.0.74-beta\build\win81\LumiaImagingSDK.targets'))" />
   </Target>
-  <Import Project="..\..\packages\NokiaImagingSDK.1.2.99\build\win81\NokiaImagingSDK.targets" Condition="Exists('..\..\packages\NokiaImagingSDK.1.2.99\build\win81\NokiaImagingSDK.targets')" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

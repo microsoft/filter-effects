@@ -3,8 +3,9 @@ using System.Diagnostics;
 using System.Threading.Tasks;
 using Windows.Storage.Streams;
 
-using Nokia.Graphics.Imaging;
-using Nokia.InteropServices.WindowsRuntime;
+using Lumia.Imaging;
+using Lumia.Imaging.Adjustments;
+using Lumia.InteropServices.WindowsRuntime;
 using FilterEffects.Filters.FilterControls;
 
 namespace FilterEffects.Filters

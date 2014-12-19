@@ -11,7 +11,7 @@ using System.Resources;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("FilterEffects")]
-[assembly: AssemblyCopyright("Copyright ©  2013-2014 Microsoft Mobile")]
+[assembly: AssemblyCopyright("Copyright ©  2014 Microsoft Mobile")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

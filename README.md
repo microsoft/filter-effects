@@ -1,7 +1,7 @@
 Filter Effects
 ==============
 
-An example application demonstrating the use of the different filters of Imaging
+A Lumia example demonstrating the use of the different filters of Lumia Imaging
 SDK with camera photos. This example app uses the camera and displays the
 viewfinder for taking a picture. The taken photo is then processed with the
 predefined filters. The filter properties can be manipulated and the changes can
@@ -17,11 +17,9 @@ Two versions of this example are currently available:
 * The older version, with separate code projects, supporting Windows Phone 8.0
   and Windows RT 8.1 is located in `FilterEffectsWP80` folder.
 
-This example project is hosted in GitHub:
-https://github.com/Microsoft/filter-effects
+This example project is hosted in [GitHub:](https://github.com/Microsoft/filter-effects)
 
-For more information on implementation, visit Lumia Developer's Library:
-http://developer.nokia.com/Resources/Library/Lumia/nokia-imaging-sdk/sample-projects/filter-effects.html
+For more information on implementation, visit [Lumia Developer's Library:](http://dev.windows.com/en-us/featured/lumia)
 
-For legal notice see the license file provided with this project or online at
-https://github.com/Microsoft/filter-effects/blob/master/Licence.txt
+For legal notice see the [license file](https://github.com/Microsoft/filter-effects/blob/master/Licence.txt) provided with this project or online at
+
