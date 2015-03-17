@@ -13,7 +13,7 @@ This example application is hosted in GitHub:
 https://github.com/Microsoft/filter-effects
 
 For more information on implementation, visit Lumia Developer's Library:
- http://dev.windows.com/en-us/featured/lumia
+http://go.microsoft.com/fwlink/?LinkId=528372
 
 
 1. Important classes

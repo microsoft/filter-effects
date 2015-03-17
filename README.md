@@ -19,7 +19,7 @@ Two versions of this example are currently available:
 
 This example project is hosted in [GitHub:](https://github.com/Microsoft/filter-effects)
 
-For more information on implementation, visit [Lumia Developer's Library:](http://dev.windows.com/en-us/featured/lumia)
+For more information on implementation, visit [Lumia Developer's Library:](http://go.microsoft.com/fwlink/?LinkId=528372)
 
 For legal notice see the [license file](https://github.com/Microsoft/filter-effects/blob/master/Licence.txt) provided with this project or online at
 

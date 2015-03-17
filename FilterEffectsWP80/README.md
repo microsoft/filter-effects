@@ -13,7 +13,7 @@ This example application is hosted in GitHub:
 https://github.com/Microsoft/filter-effects
 
 For more information on implementation, visit Lumia Developer's Library:
-http://dev.windows.com/en-us/featured/lumia
+http://go.microsoft.com/fwlink/?LinkId=528372
 
 
 
@@ -92,10 +92,7 @@ https://github.com/Microsoft/filter-effects/blob/master/Licence.txt
 -------------------------------------------------------------------------------
 
 * Lumia Developer's Library:
-  http://dev.windows.com/en-us/featured/lumia
-
-* Wiki article: Optimizing Imaging SDK use for rapidly changing filter
-  parameters: http://dev.windows.com/en-us/featured/lumia
+  http://go.microsoft.com/fwlink/?LinkID=521939
 
 
 6. Version history
