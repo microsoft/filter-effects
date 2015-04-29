@@ -108,7 +108,7 @@
                 x:Name="PreviewImage"
                 Height="530"
                 Stretch="Uniform"
-                Source="/Assets/nokia-imaging-sdk.jpg"
+                Source="/Assets/lumia-imaging-sdk.jpg"
                 />
             <Grid
                 Margin="24,12,0,0"

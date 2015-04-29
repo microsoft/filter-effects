@@ -130,7 +130,7 @@
                 Grid.Row="0"
                 x:Name="PreviewImage"
                 Stretch="Uniform"
-                Source="/Assets/nokia-imaging-sdk.jpg"
+                Source="/Assets/lumia-imaging-sdk.jpg"
                 />
             <Grid
                 Grid.Row="1"

@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Deployment xmlns="http://schemas.microsoft.com/windowsphone/2012/deployment" AppPlatformVersion="8.0">
   <DefaultLanguage xmlns="" code="en-US" />
-  <App xmlns="" ProductID="{4d0915a0-7a9f-4660-802e-436743c304de}" Title="Filter Effects" RuntimeType="Silverlight" Version="1.3.0.0" Genre="apps.normal" Author="Nokia" Description="A Nokia example demonstrating the use of the different filters of Nokia Imaging SDK with camera photos. This example app uses the camera and displays the viewfinder for taking a picture. The taken photo is then processed with the predefined filters." Publisher="Nokia Developer" PublisherID="{5af528ee-2f91-4848-a0dc-f649a79dad51}">
+  <App xmlns="" ProductID="{4d0915a0-7a9f-4660-802e-436743c304de}" Title="Filter Effects" RuntimeType="Silverlight" Version="1.3.0.0" Genre="apps.normal" Author="Microsoft" Description="An example demonstrating the use of the different filters of Lumia Imaging SDK with camera photos. This example app uses the camera and displays the viewfinder for taking a picture. The taken photo is then processed with the predefined filters." Publisher="Microsoft" PublisherID="{5af528ee-2f91-4848-a0dc-f649a79dad51}">
     <IconPath IsRelative="true" IsResource="false">Assets\filter-effects-icon.png</IconPath>
     <Capabilities>
       <Capability Name="ID_CAP_ISV_CAMERA" />
